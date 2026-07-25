@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 // Apne actual logo paths yahan set karo
 import logo1 from "../../assets/images/home/partners/logo1.svg";
 import logo2 from "../../assets/images/home/partners/logo2.svg";
-import logo3 from "../../assets/images/home/partners/logo3.png";
-import logo4 from "../../assets/images/home/partners/logo4.jpg";
+import logo3 from "../../assets/images/home/partners/logo3.svg";
+import logo4 from "../../assets/images/home/partners/logo4.svg";
 import logo5 from "../../assets/images/home/partners/logo5.svg";
 import logo6 from "../../assets/images/home/partners/logo6.svg";
-import logo7 from "../../assets/images/home/partners/logo7.png";
+import logo7 from "../../assets/images/home/partners/logo7.svg";
 
 const logos = [
   { id: 1, image: logo1, name: "Partner 1" },
@@ -97,13 +97,13 @@ transition={{
             className="
   flex
   h-[84px]
-  w-[180px]
+  w-[125px]
   shrink-0
   cursor-pointer
   items-center
   justify-center
   px-3
-  min-[380px]:w-[200px]
+  min-[380px]:w-[140px]
   sm:h-[96px]
   sm:w-[220px]
   sm:px-4
@@ -123,7 +123,13 @@ transition={{
                 ${
                   logo.id === 6
                     ? "h-[62px] w-[125px] sm:h-[68px] sm:w-[150px] md:h-[76px] md:w-[170px] lg:h-[140px] lg:w-[185px]"
-                    : "h-[36px] w-[82px] sm:h-[50px] sm:w-[110px] md:h-[58px] md:w-[125px] lg:h-[100px] lg:w-[145px]"
+                    : logo.id === 5
+                      ? "h-[18px] w-[66px] sm:h-[28px] sm:w-[88px] md:h-[34px] md:w-[100px] lg:h-[50px] lg:w-[116px]"
+                    : logo.id === 1
+                      ? "h-[28px] w-[66px] sm:h-[40px] sm:w-[88px] md:h-[46px] md:w-[100px] lg:h-[80px] lg:w-[116px]"
+                    : logo.id === 3
+                      ? "h-[24px] w-[82px] sm:h-[34px] sm:w-[110px] md:h-[40px] md:w-[125px] lg:h-[68px] lg:w-[145px]"
+                      : "h-[36px] w-[82px] sm:h-[50px] sm:w-[110px] md:h-[58px] md:w-[125px] lg:h-[100px] lg:w-[145px]"
                 }
               `}
             />

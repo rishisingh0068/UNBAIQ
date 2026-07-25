@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 // Apne actual logo paths yahan set karo
 import logo1 from "../../assets/images/home/partners/logo1.svg";
 import logo2 from "../../assets/images/home/partners/logo2.svg";
-import logo3 from "../../assets/images/home/partners/logo3.svg";
-import logo4 from "../../assets/images/home/partners/logo4.svg";
+import logo3 from "../../assets/images/home/partners/logo3.png";
+import logo4 from "../../assets/images/home/partners/logo4.jpg";
 import logo5 from "../../assets/images/home/partners/logo5.svg";
+import logo6 from "../../assets/images/home/partners/logo6.svg";
+import logo7 from "../../assets/images/home/partners/logo7.png";
 
 const logos = [
   { id: 1, image: logo1, name: "Partner 1" },
@@ -13,6 +15,8 @@ const logos = [
   { id: 3, image: logo3, name: "Partner 3" },
   { id: 4, image: logo4, name: "Partner 4" },
   { id: 5, image: logo5, name: "Partner 5" },
+  { id: 6, image: logo6, name: "Partner 6" },
+  { id: 7, image: logo7, name: "Partner 7" },
 ];
 
 const LogoMarquee = () => {
@@ -92,7 +96,7 @@ transition={{
             }}
             className="
   flex
-  h-[70px]
+  h-[84px]
   w-[180px]
   shrink-0
   cursor-pointer
@@ -100,31 +104,28 @@ transition={{
   justify-center
   px-3
   min-[380px]:w-[200px]
-  sm:h-[80px]
+  sm:h-[96px]
   sm:w-[220px]
   sm:px-4
-  md:h-[90px]
+  md:h-[108px]
   md:w-[240px]
   lg:h-[100px]
-  lg:w-[260px]
-  xl:w-[280px]
+  lg:w-[220px]
+  xl:w-[220px]
 "
           >
             <img
               src={logo.image}
               alt={logo.name}
               draggable="false"
-              className="
-  h-auto
-  max-h-[50px]
-  w-auto
-  max-w-full
-  select-none
-  object-contain
-  sm:max-h-[58px]
-  md:max-h-[64px]
-  lg:max-h-[72px]
-"
+              className={`
+                select-none object-contain
+                ${
+                  logo.id === 6
+                    ? "h-[62px] w-[125px] sm:h-[68px] sm:w-[150px] md:h-[76px] md:w-[170px] lg:h-[140px] lg:w-[185px]"
+                    : "h-[36px] w-[82px] sm:h-[50px] sm:w-[110px] md:h-[58px] md:w-[125px] lg:h-[100px] lg:w-[145px]"
+                }
+              `}
             />
           </motion.div>
         ))}

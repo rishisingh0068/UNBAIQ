@@ -116,8 +116,8 @@ const cardsContainerVariants = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: 0.8,
-      staggerChildren: 0.55,
+      delayChildren: 0.3,
+      staggerChildren: 0.28,
     },
   },
 };
@@ -136,7 +136,7 @@ const cardVariants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 1,
+      duration: 0.7,
       ease: [0.22, 1, 0.36, 1],
     },
   },

@@ -28,7 +28,7 @@ const caseStudySections = [
 
 const SchoolSecurityCaseStudy = () => {
   return (
-    <section className="w-full overflow-hidden bg-white pt-[62px] sm:pt-[64px] lg:pt-[76px]">
+    <section className="w-full overflow-hidden bg-white">
       {/* Hero Section */}
       <div
         className="
@@ -36,13 +36,14 @@ const SchoolSecurityCaseStudy = () => {
           bg-[#fbfbfd]
           px-5
           pb-12
-          pt-8
+          pt-2
           sm:px-7
           sm:pb-14
+          sm:pt-4
           lg:px-10
           xl:px-14
           lg:pb-16
-          lg:pt-10
+          lg:pt-5
         "
       >
         <div className="mx-auto max-w-[1320px]">

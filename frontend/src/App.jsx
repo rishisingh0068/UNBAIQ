@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import About from "./pages/About";
 import LetsTalk from "./pages/LetsTalk";
 import CaseStudy from "./pages/CaseStudy";
+import UnbaiqDubai from "./pages/UnbaiqDubai";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/what-we-do" element={<WhatWeDo />} />
         <Route path="/our-approach" element={<OurApproach />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/unbaiq-dubai" element={<UnbaiqDubai />} />
         <Route path="/about" element={<About />} />
         <Route path="/lets-talk" element={<LetsTalk />} />
         <Route path="/case-study" element={<CaseStudy />} />

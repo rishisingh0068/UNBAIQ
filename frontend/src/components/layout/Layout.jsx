@@ -25,7 +25,7 @@ const Layout = () => {
         className={
           isHomeLikePage
             ? ""
-            : "pt-[72px] sm:pt-[72px] lg:pt-[80px]"
+            : "pt-[72px] sm:pt-[72px] lg:pt-[88px]"
         }
       >
         <Outlet />

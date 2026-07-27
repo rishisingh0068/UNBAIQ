@@ -16,6 +16,10 @@ export const navigationLinks = [
     path: "/services",
   },
   {
+    label: "Unbaiq Dubai",
+    path: "/unbaiq-dubai",
+  },
+  {
     label: "About Us",
     path: "/about",
   },

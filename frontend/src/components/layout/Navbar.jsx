@@ -6,7 +6,9 @@ import { NavLink, useLocation } from "react-router-dom";
 import { navigationLinks } from "../../data/navigation";
 import colorLogo from "../../assets/logo/logo.svg";
 import whiteLogo from "../../assets/logo/logoWhite.svg";
-import { NAVBAR_CONTAINER } from "../../styles/theme";
+
+const NAVBAR_HEADER_CONTAINER =
+  "mx-auto w-full max-w-[1720px] px-4 sm:px-6 lg:px-14 xl:px-20 2xl:px-24";
 
 const backdropVariants = {
   hidden: {
@@ -101,7 +103,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 1280) {
         setIsMenuOpen(false);
       }
     };
@@ -148,16 +150,15 @@ const Navbar = () => {
       >
         <div
           className={`
-            ${NAVBAR_CONTAINER}
+            ${NAVBAR_HEADER_CONTAINER}
             grid
             h-[68px]
             grid-cols-[1fr_auto]
             items-center
             sm:h-[72px]
-            lg:h-[80px]
-            lg:grid-cols-[360px_1fr_160px]
-            xl:grid-cols-[390px_1fr_170px]
-            2xl:grid-cols-[410px_1fr_180px]
+            lg:h-[88px]
+            xl:grid-cols-[400px_minmax(0,1fr)]
+            2xl:grid-cols-[484px_minmax(0,1fr)]
           `}
         >
           {/* Logo */}
@@ -182,17 +183,18 @@ const Navbar = () => {
                 w-auto
                 object-contain
                 sm:h-[42px]
-                lg:h-auto
-                lg:w-[180px]
+                lg:h-[71.64px]
+                lg:w-[166px]
               "
             />
           </NavLink>
 
-          {/* Desktop Navigation */}
-          <nav
-            aria-label="Main navigation"
-            className="hidden items-center justify-center gap-8 lg:flex xl:gap-10"
-          >
+          {/* Desktop navigation group */}
+          <div className="hidden h-[40px] w-full min-w-0 items-center gap-6 xl:flex">
+            <nav
+              aria-label="Main navigation"
+              className="flex min-w-0 items-center gap-5 2xl:gap-8"
+            >
             {navigationLinks.map((item) => (
               <NavLink
                 key={item.path}
@@ -204,12 +206,14 @@ const Navbar = () => {
                     relative
                     whitespace-nowrap
                     py-2
-                    text-[15px]
+                    font-lexend
+                    text-[14px]
                     font-normal
                     tracking-[-0.02em]
                     transition-colors
                     duration-300
-                    xl:text-[16px]
+                    xl:text-[15px]
+                    2xl:text-[16px]
                     ${
                       isActive
                         ? isHomeLikePage
@@ -246,28 +250,27 @@ const Navbar = () => {
                 )}
               </NavLink>
             ))}
-          </nav>
+            </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden items-center justify-end lg:flex">
+            {/* Desktop CTA */}
+            <div className="ml-auto flex shrink-0 items-center justify-end">
             <NavLink
               to="/lets-talk"
               className={`
                 lets-talk-btn
                 relative
                 inline-flex
-                h-[44px]
-                min-w-[138px]
+                h-[40px]
                 items-center
                 justify-center
                 overflow-hidden
-                rounded-full
+                rounded-[58px]
                 border
                 px-6
+                py-2
                 text-[15px]
                 font-medium
-                xl:h-[46px]
-                xl:min-w-[142px]
+                xl:h-[40px]
                 xl:text-[16px]
                 ${
                   isHomeLikePage
@@ -278,6 +281,7 @@ const Navbar = () => {
             >
               <span className="relative z-10">Let&apos;s Talk</span>
             </NavLink>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -302,7 +306,7 @@ const Navbar = () => {
               justify-self-end
               transition-all
               duration-300
-              lg:hidden
+              xl:hidden
               ${
                 isHomeLikePage
                   ? "text-white hover:opacity-75"
@@ -374,7 +378,7 @@ const Navbar = () => {
               fixed
               inset-0
               z-[10000]
-              lg:hidden
+              xl:hidden
             "
           >
             {/* Background overlay */}

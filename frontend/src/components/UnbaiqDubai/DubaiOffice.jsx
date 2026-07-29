@@ -1,7 +1,7 @@
 const DubaiOffice = () => {
   return (
     <section className="w-full bg-[#f5f7f9] px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-20 xl:px-14">
-      <div className="mx-auto w-full max-w-[1720px]">
+      <div className="mx-auto w-full max-w-[1320px]">
         <div className="text-center">
           <h2 className="text-[30px] font-semibold leading-tight text-[#06365f] sm:text-[36px] lg:text-[40px]">
             Visit Our Dubai Office

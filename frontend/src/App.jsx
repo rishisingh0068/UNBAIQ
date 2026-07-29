@@ -9,6 +9,8 @@ import About from "./pages/About";
 import LetsTalk from "./pages/LetsTalk";
 import CaseStudy from "./pages/CaseStudy";
 import UnbaiqDubai from "./pages/UnbaiqDubai";
+import BlogDetail from "./pages/BlogDetail";
+import SuccessStories from "./pages/SuccessStories";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/lets-talk" element={<LetsTalk />} />
         <Route path="/case-study" element={<CaseStudy />} />
+        <Route path="/blog/:slug" element={<BlogDetail />} />
+        <Route path="/success-stories" element={<SuccessStories />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

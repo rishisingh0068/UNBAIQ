@@ -1,7 +1,10 @@
+import { NavLink } from "react-router-dom";
+
 import caseStudyHero from "../../assets/images/caseStudy/case-study-hero.svg";
 import dashboardOne from "../../assets/images/caseStudy/dashboard-1.svg";
 import dashboardTwo from "../../assets/images/caseStudy/dashboard-2.svg";
 import dashboardThree from "../../assets/images/caseStudy/dashboard-3.svg";
+import colorLogo from "../../assets/logo/logo.svg";
 
 const caseStudySections = [
   {
@@ -32,8 +35,11 @@ const SchoolSecurityCaseStudy = () => {
       {/* Hero Section */}
       <div
         className="
+          relative
           w-full
-          bg-[#fbfbfd]
+          overflow-hidden
+          bg-white
+          lg:min-h-[820px]
           px-5
           pb-12
           pt-2
@@ -46,30 +52,63 @@ const SchoolSecurityCaseStudy = () => {
           lg:pt-5
         "
       >
-        <div className="mx-auto max-w-[1320px]">
-          <p
-            className="
-            
-              text-[11px]
-              leading-[1.5]
-              text-[#708197]
-              sm:text-[12px]
-              lg:text-[13px]
-              font-bold
-            "
-          >
-            Home &gt; A smart solution to track and manage security guards in
-            real time.
-          </p>
+        <NavLink
+          to="/"
+          aria-label="Go to home page"
+          className="absolute right-5 top-4 z-20 sm:right-7 lg:right-10 lg:top-5 xl:right-14"
+        >
+          <img
+            src={colorLogo}
+            alt="Unbaiq"
+            className="h-auto w-[120px] object-contain sm:w-[145px] lg:w-[166px]"
+          />
+        </NavLink>
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[700px] -top-[200px] hidden h-[1100px] w-[1100px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-[700px] -top-[200px] hidden h-[1100px] w-[1100px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-[1320px]">
+          <div className="flex min-w-0 items-center gap-3 text-[12px] font-light leading-[1.5] text-[#173f61] sm:text-[13px] lg:text-[14px]">
+            <NavLink
+              to="/"
+              className="shrink-0 transition-opacity hover:opacity-65"
+            >
+              Home
+            </NavLink>
+            <span
+              aria-hidden="true"
+              className="shrink-0 text-[22px] font-light leading-none"
+            >
+              {"\u203a"}
+            </span>
+            <span className="truncate">
+              A smart solution to track and manage security guards in real
+              time.
+            </span>
+          </div>
 
           <div
             className="
-              mt-7
+              mt-2
               grid
               grid-cols-1
-              items-center
+              items-start
               gap-10
-              lg:grid-cols-[0.85fr_1.15fr]
+              lg:grid-cols-[588px_minmax(0,1fr)]
               lg:gap-14
             "
           >
@@ -79,13 +118,17 @@ const SchoolSecurityCaseStudy = () => {
                   mx-auto
                   max-w-[520px]
                   text-[34px]
-                  font-extrabold
-                  leading-[1.15]
+                  font-semibold
+                  leading-none
                   tracking-[-0.025em]
                   text-[#063d6b]
                   sm:text-[42px]
                   lg:mx-0
-                  lg:text-[50px]
+                  lg:h-[264px]
+                  lg:w-[588px]
+                  lg:max-w-none
+                  lg:text-[53px]
+                  lg:leading-[66px]
                 "
               >
                 A smart solution to
@@ -98,7 +141,14 @@ const SchoolSecurityCaseStudy = () => {
               </h1>
             </div>
 
-            <div className="flex justify-center lg:justify-end">
+            <div className="relative flex justify-center lg:mt-7 lg:justify-end">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-0 right-0 hidden h-[165px] w-[986px] bg-[#f3f3f3] lg:block"
+                style={{
+                  clipPath: "polygon(16% 0, 100% 82%, 100% 100%, 0 100%)",
+                }}
+              />
               <img
                 src={caseStudyHero}
                 alt="Security guard management dashboard"
@@ -106,11 +156,15 @@ const SchoolSecurityCaseStudy = () => {
                 className="
                   h-auto
                   w-full
+                  relative
+                  z-10
                   max-w-[430px]
                   select-none
                   object-contain
                   sm:max-w-[520px]
-                  lg:max-w-[620px]
+                  lg:h-[446px]
+                  lg:w-[751px]
+                  lg:max-w-none
                 "
               />
             </div>
@@ -123,12 +177,15 @@ const SchoolSecurityCaseStudy = () => {
         className="
           w-full
           px-5
-          py-12
+          pb-12
+          pt-2
           sm:px-7
-          sm:py-14
+          sm:pb-14
+          sm:pt-2
           lg:px-10
           xl:px-14
-          lg:py-16
+          lg:pb-16
+          lg:pt-2
         "
       >
         <div className="mx-auto max-w-[1320px]">
@@ -148,8 +205,8 @@ const SchoolSecurityCaseStudy = () => {
                   <h2
                     className={
                       isChallenge
-                        ? "text-[24px] font-black leading-tight text-[#063d6b] sm:text-[28px] lg:pt-1"
-                        : "text-[24px] font-black leading-tight text-[#063d6b] sm:text-[28px]"
+                        ? "text-[24px] font-medium leading-tight text-[#063d6b] sm:text-[28px] lg:pt-1"
+                        : "text-[24px] font-medium leading-tight text-[#063d6b] sm:text-[28px]"
                     }
                   >
                     {section.title}
@@ -161,8 +218,8 @@ const SchoolSecurityCaseStudy = () => {
                         key={`${section.id}-${index}`}
                         className={
                           isChallenge
-                            ? "text-[13px] font-semibold leading-[1.95] text-[#5a6b7a] sm:text-[14px] lg:text-[15px]"
-                            : "text-[13px] font-semibold leading-[1.75] text-[#3e7f79] sm:text-[14px] lg:text-[15px]"
+                            ? "text-[17px] font-light leading-[1.5] text-[#3e9b93] sm:text-[20px] lg:text-[24px] lg:leading-[36px]"
+                            : "text-[17px] font-light leading-[1.5] text-[#3e9b93] sm:text-[20px] lg:text-[24px] lg:leading-[36px]"
                         }
                       >
                         {paragraph}
@@ -255,7 +312,7 @@ const SchoolSecurityCaseStudy = () => {
           <h2
             className="
               text-[24px]
-              font-black
+              font-medium
               leading-tight
               text-[#063d6b]
               sm:text-[28px]
@@ -268,11 +325,13 @@ const SchoolSecurityCaseStudy = () => {
           <div className="max-w-[760px] space-y-4">
             <p
               className="
-                text-[13px]
-                leading-[1.95]
-                text-[#5a6b7a]
-                sm:text-[14px]
-                lg:text-[15px]
+                text-[17px]
+                font-light
+                leading-[1.5]
+                text-[#3e9b93]
+                sm:text-[20px]
+                lg:text-[24px]
+                lg:leading-[36px]
               "
             >
               A scalable browser-based platform was developed to help schools
@@ -282,11 +341,13 @@ const SchoolSecurityCaseStudy = () => {
 
             <p
               className="
-                text-[13px]
-                leading-[1.95]
-                text-[#5a6b7a]
-                sm:text-[14px]
-                lg:text-[15px]
+                text-[17px]
+                font-light
+                leading-[1.5]
+                text-[#3e9b93]
+                sm:text-[20px]
+                lg:text-[24px]
+                lg:leading-[36px]
               "
             >
               The new solution introduced reusable components, improved data
@@ -297,11 +358,13 @@ const SchoolSecurityCaseStudy = () => {
 
             <p
               className="
-                text-[13px]
-                leading-[1.95]
-                text-[#5a6b7a]
-                sm:text-[14px]
-                lg:text-[15px]
+                text-[17px]
+                font-light
+                leading-[1.5]
+                text-[#3e9b93]
+                sm:text-[20px]
+                lg:text-[24px]
+                lg:leading-[36px]
               "
             >
               Administrators can now view schedules, manage staff, track
@@ -311,11 +374,13 @@ const SchoolSecurityCaseStudy = () => {
 
             <p
               className="
-                text-[13px]
-                leading-[1.95]
-                text-[#5a6b7a]
-                sm:text-[14px]
-                lg:text-[15px]
+                text-[17px]
+                font-light
+                leading-[1.5]
+                text-[#3e9b93]
+                sm:text-[20px]
+                lg:text-[24px]
+                lg:leading-[36px]
               "
             >
               The final product delivers better usability, stronger

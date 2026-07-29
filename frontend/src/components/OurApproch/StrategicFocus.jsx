@@ -41,19 +41,40 @@ const StrategicFocus = () => {
       {/* Top Section */}
       <div
         className="
+          relative
           w-full
-          bg-[#fbfbfd]
+          overflow-hidden
+          bg-white
           px-5
           pt-12
           sm:px-7
           sm:pt-14
           lg:px-10
           xl:px-14
-          lg:pt-16
+          lg:pt-10
         "
       >
         <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[580px] top-[10px] hidden h-[900px] w-[900px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-[580px] top-[10px] hidden h-[900px] w-[900px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+
+        <div
           className="
+            relative
+            z-10
             mx-auto
             grid
             max-w-[1320px]
@@ -62,6 +83,7 @@ const StrategicFocus = () => {
             gap-8
             lg:grid-cols-[0.95fr_1.05fr]
             lg:gap-12
+            lg:min-h-[547px]
           "
         >
           <div
@@ -69,7 +91,7 @@ const StrategicFocus = () => {
               pb-8
               text-center
               sm:pb-10
-              lg:pb-14
+              lg:pb-0
               lg:text-left
             "
           >
@@ -78,13 +100,15 @@ const StrategicFocus = () => {
                 mx-auto
                 max-w-[570px]
                 text-[34px]
-                font-extrabold
+                font-semibold
                 leading-[1.22]
                 tracking-[-0.025em]
                 text-[#06365f]
                 sm:text-[42px]
                 lg:mx-0
-                lg:text-[48px]
+                lg:text-[53px]
+                xl:w-[760px]
+                xl:max-w-none
               "
             >
               We craft solutions with a
@@ -98,7 +122,7 @@ const StrategicFocus = () => {
               className="
                 mx-auto
                 mt-4
-                max-w-[440px]
+                max-w-[600px]
                 text-[15px]
                 leading-[1.7]
                 text-[#65758d]
@@ -106,8 +130,11 @@ const StrategicFocus = () => {
                 lg:mx-0
               "
             >
-              We create solutions based on your business goals, ensuring every
-              product drives meaningful results.
+              We create solutions based on your business
+              <br className="hidden sm:block" />
+              goals, ensuring every product drives
+              <br className="hidden sm:block" />
+              meaningful results.
             </p>
           </div>
 
@@ -124,6 +151,9 @@ const StrategicFocus = () => {
                 object-contain
                 sm:max-w-[490px]
                 lg:max-w-[530px]
+                xl:h-[547px]
+                xl:w-[547px]
+                xl:max-w-none
               "
             />
           </div>
@@ -148,7 +178,7 @@ const StrategicFocus = () => {
           <h2
             className="
               text-[32px]
-              font-extrabold
+              font-medium
               leading-tight
               tracking-[-0.025em]
               text-[#06365f]
@@ -233,7 +263,7 @@ const StrategicFocus = () => {
                   className="
                     mt-5
                     text-[20px]
-                    font-bold
+                    font-medium
                     leading-tight
                     text-[#063d6b]
                     sm:text-[21px]

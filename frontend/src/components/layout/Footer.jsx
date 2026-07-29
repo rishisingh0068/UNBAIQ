@@ -291,14 +291,26 @@ const Footer = () => {
               Locations
             </h4>
 
-            <div className="mt-4 flex flex-col gap-[12px]">
-              <p className="text-[13px] font-light text-white sm:text-[14px]">
-                India
-              </p>
+            <div className="mt-4 flex flex-col gap-5">
+              <div>
+                <p className="text-[15px] font-normal text-white sm:text-[16px]">
+                  India Office
+                </p>
+                <p className="mt-1 text-[14px] font-light leading-[1.5] text-white/70 sm:text-[15px]">
+                  Noida, Uttar
+                  <br />
+                  Pradesh
+                </p>
+              </div>
 
-              <p className="text-[13px] font-light text-white/70 sm:text-[14px]">
-                Address
-              </p>
+              <div>
+                <p className="text-[15px] font-normal text-white sm:text-[16px]">
+                  Dubai Office
+                </p>
+                <p className="mt-1 text-[14px] font-light leading-[1.5] text-white/70 sm:text-[15px]">
+                  Dubai, UAE
+                </p>
+              </div>
             </div>
           </div>
 

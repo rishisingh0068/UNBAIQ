@@ -166,7 +166,7 @@ const ProjectCard = ({ project }) => {
   return (
     <motion.article
       variants={cardVariants}
-      className="group min-w-0"
+      className="group min-w-0 xl:h-[539px] xl:w-[611.56px]"
     >
       <motion.div
         className={`
@@ -174,6 +174,8 @@ const ProjectCard = ({ project }) => {
           w-full
           overflow-hidden
           rounded-[11px]
+          xl:h-[460px]
+          xl:aspect-auto
           ${
             isSecondCard
               ? "aspect-[1.35/1] bg-[#A8D3FA]"
@@ -458,6 +460,7 @@ const OurWorkSection = () => {
             to="/case-study"
             className="
               group
+              view-more-work-btn
               relative
               inline-flex
               h-[42px]
@@ -475,10 +478,6 @@ const OurWorkSection = () => {
               text-[#07375A]
               transition-all
               duration-300
-              hover:-translate-y-1
-              hover:bg-[#07375A]
-              hover:text-white
-              hover:shadow-[0_10px_25px_rgba(7,55,90,0.18)]
               sm:h-[44px]
               sm:min-w-[145px]
               sm:text-[13px]

@@ -105,7 +105,7 @@ const WhatMakesUsDifferent = () => {
           <h2
             className="
               text-[29px]
-              font-extrabold
+              font-medium
               leading-[1.25]
               tracking-[-0.025em]
               text-[#063d6b]
@@ -182,16 +182,16 @@ const WhatMakesUsDifferent = () => {
                   <div
                     className="
                       flex
-                      min-h-[260px]
+                      aspect-[610/471]
                       w-full
-                      max-w-[520px]
+                      max-w-[610px]
                       items-center
                       justify-center
                       overflow-hidden
-                      rounded-[10px]
+                      rounded-[20px]
                       bg-white
-                      sm:min-h-[320px]
-                      lg:min-h-[360px]
+                      xl:h-[471px]
+                      xl:w-[610px]
                     "
                   >
                     <img
@@ -199,11 +199,10 @@ const WhatMakesUsDifferent = () => {
                       alt={team.title}
                       draggable="false"
                       className="
-                        h-auto
-                        max-h-[420px]
+                        h-full
                         w-full
                         select-none
-                        object-contain
+                        object-cover
                       "
                     />
                   </div>
@@ -222,7 +221,7 @@ const WhatMakesUsDifferent = () => {
                   <h3
                     className="
                       text-[24px]
-                      font-extrabold
+                      font-medium
                       leading-tight
                       tracking-[-0.02em]
                       text-[#063d6b]

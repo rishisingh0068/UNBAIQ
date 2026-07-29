@@ -58,12 +58,33 @@ const services = [
 
 const OurServices = () => {
   return (
-    <section className="w-full overflow-hidden bg-[#fbfbfd]">
+    <section className="w-full overflow-hidden bg-white">
       {/* Hero Section */}
       {/* Shared gutters keep this page aligned with the navbar. */}
-      <div className={`w-full py-14 sm:py-18 lg:py-24 ${NAVBAR_GUTTERS}`}>
+      <div
+        className={`relative w-full overflow-hidden pb-6 pt-14 sm:pb-8 sm:pt-18 lg:pb-8 lg:pt-24 ${NAVBAR_GUTTERS}`}
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-[580px] top-[10px] hidden h-[900px] w-[900px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[580px] top-[10px] hidden h-[900px] w-[900px] rounded-full xl:block"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 99, 255, 0.21) 0%, rgba(99, 99, 255, 0.1) 48%, transparent 74%)",
+          }}
+        />
+
         <div
           className={`
+            relative
+            z-10
             grid
             grid-cols-1
             items-center
@@ -80,20 +101,20 @@ const OurServices = () => {
                 mx-auto
                 max-w-[560px]
                 text-[34px]
-                font-extrabold
+                font-semibold
                 leading-[1.12]
                 tracking-[-0.025em]
                 text-[#063d6b]
                 sm:text-[44px]
                 lg:mx-0
-                lg:text-[54px]
+                lg:text-[53px]
               "
             >
               Empowering Your
               <br className="hidden sm:block" />
               Vision with
               <br className="hidden sm:block" />
-              Advanced Solutions.
+              Advanced Solutions
             </h1>
 
             <p
@@ -102,15 +123,21 @@ const OurServices = () => {
                 mt-5
                 max-w-[500px]
                 text-[14px]
+                font-light
                 leading-[1.75]
                 text-[#66788d]
                 sm:text-[15px]
                 lg:mx-0
-                lg:text-[16px]
+                lg:max-w-[680px]
+                lg:text-[24px]
+                lg:leading-[36px]
               "
             >
-              Explore a suite of custom software designed to spark innovation,
-              optimize operations, and accelerate your business growth.
+              Explore a suite of custom software designed
+              <br className="hidden lg:block" />
+              to spark innovation, optimize operations,
+              <br className="hidden lg:block" />
+              and accelerate your business growth.
             </p>
           </div>
 
@@ -137,6 +164,10 @@ const OurServices = () => {
                 object-contain
                 sm:max-w-[460px]
                 lg:max-w-[560px]
+                xl:h-[466.18px]
+                xl:w-[472.04px]
+                xl:max-w-none
+                xl:shrink-0
               "
             />
           </div>
@@ -145,7 +176,7 @@ const OurServices = () => {
 
       {/* Services Section */}
       <div
-        className={`w-full bg-white py-14 sm:py-16 lg:py-20 ${NAVBAR_GUTTERS}`}
+        className={`w-full bg-white pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-10 ${NAVBAR_GUTTERS}`}
       >
         <div className={CONTENT_CONTAINER}>
           <div className="mx-auto max-w-[760px] text-center">

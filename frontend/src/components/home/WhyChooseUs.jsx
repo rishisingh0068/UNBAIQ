@@ -121,7 +121,7 @@ const WhyChooseUs = () => {
             Choose Us
           </p>
 
-          <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-[#292d50] sm:text-4xl lg:text-[42px]">
+          <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-[#292d50] sm:text-4xl lg:text-[39px]">
             Why Choose Us?
           </h2>
         </motion.div>
@@ -137,9 +137,9 @@ const WhyChooseUs = () => {
               once: true,
               amount: 0.25,
             }}
-            className="mx-auto w-full max-w-[520px] lg:max-w-none"
+            className="mx-auto w-full max-w-[549px] xl:w-[549px]"
           >
-            <div className="overflow-hidden rounded-[22px] bg-gray-100">
+            <div className="aspect-[549/507] w-full overflow-hidden rounded-[24px] bg-gray-100 xl:h-[507px]">
               <motion.img
                 src={whyChooseImage}
                 alt="UNBAIQ team collaboration"
@@ -150,7 +150,7 @@ const WhyChooseUs = () => {
                   duration: 0.55,
                   ease: "easeOut",
                 }}
-                className="aspect-[1.08/1] h-full w-full object-cover"
+                className="h-full w-full object-cover"
               />
             </div>
           </motion.div>
@@ -164,7 +164,7 @@ const WhyChooseUs = () => {
               once: true,
               amount: 0.2,
             }}
-            className="flex flex-col gap-8 sm:gap-9 lg:gap-10"
+            className="flex flex-col gap-8 sm:gap-9 lg:gap-10 xl:h-[507px] xl:justify-between xl:gap-0"
           >
             {features.map((feature) => {
               const Icon = feature.icon;

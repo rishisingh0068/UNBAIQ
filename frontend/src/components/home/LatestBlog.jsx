@@ -11,6 +11,7 @@ const blogPosts = [
     image: blog1,
     author: "Jessica Alford",
     title: "How To Own Web Design Agency For Free",
+    slug: "how-to-own-web-design-agency-for-free",
     month: "AUG",
     day: "02",
   },
@@ -19,6 +20,7 @@ const blogPosts = [
     image: blog2,
     author: "Jessica Alford",
     title: "5 Difficult Things About Web Design Agency",
+    slug: "five-difficult-things-about-web-design-agency",
     month: "AUG",
     day: "02",
   },
@@ -27,6 +29,7 @@ const blogPosts = [
     image: blog3,
     author: "Jessica Alford",
     title: "Web Design Agency Is So Famous, But Why?",
+    slug: "why-web-design-agency-is-so-famous",
     month: "AUG",
     day: "02",
   },
@@ -50,6 +53,7 @@ const cardVariants = {
 const LatestBlog = () => {
   return (
     <section
+      id="latest-blog"
       className="
         relative
         overflow-hidden
@@ -107,8 +111,9 @@ const LatestBlog = () => {
           <h2
             className="
               text-[30px]
-              font-extrabold
-              leading-tight
+              font-lexend
+              font-semibold
+              leading-none
               tracking-[-0.02em]
               text-[#07345d]
               sm:text-[38px]
@@ -261,7 +266,7 @@ const LatestBlog = () => {
 
                 {/* Arrow link */}
                 <NavLink
-                  to="/not-found"
+                  to={`/blog/${post.slug}`}
                   aria-label={`Read ${post.title}`}
                   className="
                     absolute

@@ -11,7 +11,7 @@ import FaqSection from "../components/home/FaqSection";
 
 const Home = () => {
   return (
-    <>
+    <main className="w-full overflow-hidden">
       <PageTitle title="UNBAIQ-Home | Ai-driven software solutions
 Quality" />
       <HeroSlider />
@@ -23,7 +23,7 @@ Quality" />
       <LogoMarquee />
       <LatestBlog />
       <FaqSection />
-    </>
+    </main>
   );
 };
 

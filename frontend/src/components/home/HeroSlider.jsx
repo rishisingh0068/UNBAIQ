@@ -41,10 +41,42 @@ const HeroSlider = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
 
               {/* Responsive text */}
-              <div className="absolute inset-x-0 bottom-0 z-10">
-                <div className="mx-auto w-full max-w-[1600px] px-4 pb-16 sm:px-6 sm:pb-20 md:px-10 md:pb-24 lg:px-12 lg:pb-28 xl:px-14">
-                  <h1 className="hero-slide-title max-w-[90%] text-white sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%]">
-                    {slide.title}
+              <div className="absolute inset-x-0 bottom-0 z-10 lg:bottom-auto lg:left-[42px] lg:right-auto lg:top-[482px]">
+                <div className="mx-auto w-full max-w-[1600px] px-4 pb-16 sm:px-6 sm:pb-20 md:px-10 md:pb-24 lg:mx-0 lg:max-w-none lg:px-0 lg:pb-0">
+                  <h1 className="hero-slide-title max-w-[90%] text-white sm:max-w-[80%] md:max-w-[70%] lg:h-[133px] lg:w-[957px] lg:max-w-none">
+                    {slide.id === 1 ? (
+                      <>
+                        We Build Product That Builds
+                        <br />
+                        Futures
+                      </>
+                    ) : slide.id === 2 ? (
+                      <>
+                        Smarter Software, Powered by AI.
+                        <br />
+                        Designed for Market Success
+                      </>
+                    ) : slide.id === 3 ? (
+                      <>
+                        E-Commerce That Learns, Adapts,
+                        <br />
+                        and Grows with AI
+                      </>
+                    ) : slide.id === 4 ? (
+                      <>
+                        Intelligent Apps That Learn, Adapt,
+                        <br />
+                        and Engage
+                      </>
+                    ) : slide.id === 5 ? (
+                      <>
+                        AI-Powered CRM That Understands
+                        <br />
+                        Your Customers
+                      </>
+                    ) : (
+                      slide.title
+                    )}
                   </h1>
                 </div>
               </div>

@@ -159,9 +159,12 @@ const SolutionsSection = () => {
             }}
             className="max-w-[720px]"
           >
-            <h2 className="text-[30px] font-semibold leading-[1.25] tracking-[-0.03em] text-[#063456] sm:text-[36px] lg:text-[43px]">
-              We Deliver the Right Solutions
-              <span className="block">with Unmatched Quality</span>
+            <h2 className="font-lexend text-[30px] font-bold leading-[1.25] tracking-[-0.03em] text-[#063456] sm:text-[36px] lg:text-[48px] lg:leading-[80px]">
+              We Deliver the Right
+              <br className="hidden sm:block" />
+              Solutions with Unmatched
+              <br className="hidden sm:block" />
+              Quality
             </h2>
           </motion.div>
 

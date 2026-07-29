@@ -78,6 +78,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const isHomeLikePage = ["/", "/about"].includes(location.pathname);
+  const isCaseStudyPage = location.pathname === "/case-study";
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -134,7 +135,7 @@ const Navbar = () => {
       {/* Main Navbar */}
       <header
         className={`
-          absolute
+          ${isCaseStudyPage ? "fixed" : "absolute"}
           inset-x-0
           top-0
           z-[9990]
@@ -257,7 +258,7 @@ const Navbar = () => {
             <NavLink
               to="/lets-talk"
               className={`
-                lets-talk-btn
+                ${isHomeLikePage ? "lets-talk-btn" : "lets-talk-text-hover"}
                 relative
                 inline-flex
                 h-[40px]

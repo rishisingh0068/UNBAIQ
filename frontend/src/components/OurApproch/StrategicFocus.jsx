@@ -46,7 +46,7 @@ const StrategicFocus = () => {
           overflow-hidden
           bg-white
           px-5
-          pt-12
+          pt-4
           sm:px-7
           sm:pt-14
           lg:px-10

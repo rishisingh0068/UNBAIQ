@@ -115,16 +115,119 @@ npm run dev
 
 Open the local URL displayed by Vite in the terminal.
 
+## File Tree
 
-## Content and Asset Management
-
-- Hero-slide text and images are managed in
-  `frontend/src/data/heroSlides.js`.
-- Main navigation items are managed in
-  `frontend/src/data/navigation.js`.
-- Page images and illustrations are organized by section inside
-  `frontend/src/assets/images`.
-- Shared visual values are available in `frontend/src/styles/theme.js`.
-
+UNBAIQ/
+├── README.md
+└── frontend/
+    ├── index.html
+    ├── package.json
+    ├── package-lock.json
+    ├── vite.config.js
+    ├── eslint.config.js
+    │
+    ├── public/
+    │   └── MainLogo.svg
+    │
+    └── src/
+        ├── App.jsx
+        ├── App.css
+        ├── index.css
+        ├── main.jsx
+        │
+        ├── assets/
+        │   ├── logo/
+        │   │   ├── logo.svg
+        │   │   └── logoWhite.svg
+        │   │
+        │   └── images/
+        │       ├── about/
+        │       ├── caseStudy/
+        │       │   ├── case-study-hero.svg
+        │       │   ├── dashboard-1.svg
+        │       │   ├── dashboard-2.svg
+        │       │   └── dashboard-3.svg
+        │       │
+        │       ├── home/
+        │       │   ├── blog/
+        │       │   ├── businessGrowth/
+        │       │   ├── hero/
+        │       │   ├── ourwork/
+        │       │   ├── partners/
+        │       │   ├── testimonials/
+        │       │   └── whychoose/
+        │       │
+        │       ├── letsTalk/
+        │       ├── ourApproch/
+        │       │   ├── strategicFocus/
+        │       │   └── whatMakesDifferent/
+        │       │
+        │       ├── ourServices/
+        │       ├── UnbaiqDubai/
+        │       │   ├── dubai.png
+        │       │   └── dubai.svg
+        │       │
+        │       └── whatWeDo/
+        │           ├── bringIdeas/
+        │           ├── ourWork/
+        │           └── rightSolutions/
+        │
+        ├── components/
+        │   ├── about/
+        │   │   └── AboutHero.jsx
+        │   ├── caseStudy/
+        │   │   └── SchoolSecurityCaseStudy.jsx
+        │   ├── common/
+        │   │   └── PageTitle.jsx
+        │   ├── home/
+        │   │   ├── BusinessGrowthSection.jsx
+        │   │   ├── FaqSection.jsx
+        │   │   ├── HeroSlider.jsx
+        │   │   ├── LatestBlog.jsx
+        │   │   ├── LogoMarquee.jsx
+        │   │   ├── OurWorkSection.jsx
+        │   │   ├── SolutionsSection.jsx
+        │   │   ├── Testimonials.jsx
+        │   │   └── WhyChooseUs.jsx
+        │   ├── layout/
+        │   │   ├── Footer.jsx
+        │   │   ├── Layout.jsx
+        │   │   └── Navbar.jsx
+        │   ├── letsTalk/
+        │   │   ├── ContactSection.jsx
+        │   │   └── LetsTalkHero.jsx
+        │   ├── OurApproch/
+        │   │   ├── StrategicFocus.jsx
+        │   │   └── WhatMakesUsDifferent.jsx
+        │   ├── ourServices/
+        │   │   └── OurServices.jsx
+        │   ├── UnbaiqDubai/
+        │   │   ├── DubaiHero.jsx
+        │   │   └── DubaiOffice.jsx
+        │   └── whatwedo/
+        │       ├── BringIdeas.jsx
+        │       ├── OurWorkShowcase.jsx
+        │       ├── RightSolutions.jsx
+        │       └── SolutionsShaped.jsx
+        │
+        ├── data/
+        │   ├── heroSlides.js
+        │   └── navigation.js
+        │
+        ├── pages/
+        │   ├── About.jsx
+        │   ├── BlogDetail.jsx
+        │   ├── CaseStudy.jsx
+        │   ├── Home.jsx
+        │   ├── LetsTalk.jsx
+        │   ├── NotFound.jsx
+        │   ├── OurApproach.jsx
+        │   ├── Services.jsx
+        │   ├── SuccessStories.jsx
+        │   ├── UnbaiqDubai.jsx
+        │   └── WhatWeDo.jsx
+        │
+        └── styles/
+            └── theme.js
 
 

@@ -31,7 +31,8 @@ const LetsTalkHero = () => {
           grid-cols-1
           items-center
           gap-10
-          py-12
+          py-4
+          sm:py-12
           lg:grid-cols-[0.9fr_1.1fr]
           lg:py-10
         "

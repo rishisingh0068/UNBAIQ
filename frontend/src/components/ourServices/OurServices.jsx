@@ -62,7 +62,7 @@ const OurServices = () => {
       {/* Hero Section */}
       {/* Shared gutters keep this page aligned with the navbar. */}
       <div
-        className={`relative w-full overflow-hidden pb-6 pt-14 sm:pb-8 sm:pt-18 lg:pb-8 lg:pt-24 ${NAVBAR_GUTTERS}`}
+        className={`relative w-full overflow-hidden pb-6 pt-4 sm:pb-8 sm:pt-18 lg:min-h-[calc(100svh-88px)] lg:pb-8 lg:pt-24 ${NAVBAR_GUTTERS}`}
       >
         <div
           aria-hidden="true"

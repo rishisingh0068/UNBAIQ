@@ -20,7 +20,7 @@ const DubaiHero = () => {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-72px)] w-full max-w-[1720px] grid-cols-1 items-center gap-8 px-5 py-10 sm:px-8 sm:py-12 lg:min-h-[680px] lg:grid-cols-[0.98fr_1.02fr] lg:gap-12 lg:px-14 lg:py-8 xl:px-20 2xl:px-24">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-72px)] w-full max-w-[1720px] grid-cols-1 items-center gap-8 px-5 py-4 sm:px-8 sm:py-12 lg:min-h-[680px] lg:grid-cols-[0.98fr_1.02fr] lg:gap-12 lg:px-14 lg:py-8 xl:px-20 2xl:px-24">
         <div className="order-2 text-center lg:order-1 lg:min-h-[280px] lg:w-[663px] lg:text-left">
           <h1 className="text-[38px] font-semibold leading-[1.18] tracking-[-0.02em] text-[#06365f] sm:text-[48px] lg:text-[53px]">
             CRM &amp; Mobile Apps

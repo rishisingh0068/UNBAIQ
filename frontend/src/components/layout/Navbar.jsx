@@ -138,7 +138,7 @@ const Navbar = () => {
           ${isCaseStudyPage ? "fixed" : "absolute"}
           inset-x-0
           top-0
-          z-[9990]
+          ${isMenuOpen ? "z-[10002]" : "z-[9990]"}
           w-full
           transition-all
           duration-300
@@ -391,15 +391,15 @@ const Navbar = () => {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="
+              className={`
                 absolute
                 inset-0
                 h-full
                 w-full
                 cursor-default
-                bg-black/80
+                ${isHomeLikePage ? "bg-black/45" : "bg-black/80"}
                 backdrop-blur-[4px]
-              "
+              `}
             />
 
             {/* Mobile drawer */}
@@ -411,93 +411,33 @@ const Navbar = () => {
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation"
-              className="
+              className={`
                 absolute
                 right-0
-                top-0
+                top-[70px]
                 z-[10001]
                 flex
-                h-[100dvh]
-                w-[88%]
-                max-w-[390px]
                 flex-col
                 overflow-y-auto
-                bg-[#07151d]
-                shadow-[-20px_0_55px_rgba(0,0,0,0.45)]
-              "
+                h-[375px]
+                max-h-[100dvh]
+                w-full
+                max-w-none
+                ${isHomeLikePage ? "bg-[#064675]" : "bg-white"}
+                shadow-[0_12px_35px_rgba(0,0,0,0.16)]
+              `}
             >
-              {/* Mobile drawer header */}
-              <div
-                className="
-                  sticky
-                  top-0
-                  z-20
-                  flex
-                  h-[80px]
-                  shrink-0
-                  items-center
-                  justify-between
-                  border-b
-                  border-white/10
-                  bg-[#050505]
-                  px-5
-                  sm:px-7
-                "
-              >
-                <NavLink
-                  to="/"
-                  onClick={closeMenu}
-                  aria-label="Go to home page"
-                  className="flex items-center"
-                >
-                  <img
-                    src={whiteLogo}
-                    alt="Unbaiq"
-                    className="
-                      h-[40px]
-                      w-auto
-                      object-contain
-                    "
-                  />
-                </NavLink>
-
-                <button
-                  type="button"
-                  onClick={closeMenu}
-                  aria-label="Close navigation menu"
-                  className="
-                    flex
-                    h-[52px]
-                    w-[52px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-white/55
-                    text-white
-                    transition-all
-                    duration-300
-                    hover:rotate-90
-                    hover:border-white
-                    hover:bg-white
-                    hover:text-black
-                  "
-                >
-                  <X size={27} strokeWidth={1.7} />
-                </button>
-              </div>
-
               {/* Mobile links */}
               <div
-                className="
+                className={`
                   flex
                   flex-1
                   flex-col
-                  px-7
-                  pb-10
-                  pt-8
-                  sm:px-8
-                "
+                  ${isHomeLikePage ? "bg-[#064675]" : "bg-white"}
+                  px-[20px]
+                  pb-4
+                  pt-2
+                `}
               >
                 <motion.nav
                   variants={linksContainerVariants}
@@ -510,7 +450,7 @@ const Navbar = () => {
                       <motion.li
                         key={item.path}
                         variants={linkVariants}
-                        className="border-b border-white/10"
+                        className="border-0"
                       >
                         <NavLink
                           to={item.path}
@@ -518,16 +458,21 @@ const Navbar = () => {
                           className={({ isActive }) =>
                             `
                               flex
-                              min-h-[69px]
+                              relative
+                              min-h-[50px]
+                              text-[15px]
                               items-center
-                              text-[19px]
                               font-semibold
                               transition-all
                               duration-300
                               ${
                                 isActive
-                                  ? "translate-x-0 text-white"
-                                  : "text-white/65 hover:translate-x-2 hover:text-white"
+                                  ? isHomeLikePage
+                                    ? "border-l-[3px] border-white pl-2 text-white"
+                                    : "border-l-[3px] border-[#064675] pl-2 text-[#064675]"
+                                  : isHomeLikePage
+                                    ? "text-white/80 hover:translate-x-2 hover:text-white"
+                                    : "text-[#064675] hover:translate-x-2"
                               }
                             `
                           }
@@ -553,32 +498,30 @@ const Navbar = () => {
                     duration: 0.5,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="mt-9"
+                  className="mt-3"
                 >
                   <NavLink
                     to="/lets-talk"
                     onClick={closeMenu}
-                    className="
+                    className={`
+                      ${isHomeLikePage ? "lets-talk-btn" : "lets-talk-text-hover"}
+                      relative
                       flex
-                      h-[60px]
+                      h-[36px]
                       w-full
                       items-center
                       justify-center
+                      overflow-hidden
                       rounded-full
-                      bg-white
-                      text-[16px]
+                      ${isHomeLikePage ? "border border-white bg-white text-[#064675]" : "border border-[#064675] bg-[#064675] text-white"}
+                      text-[12px]
                       font-semibold
-                      text-[#152028]
-                      shadow-[0_12px_30px_rgba(0,0,0,0.18)]
+                      shadow-none
                       transition-all
                       duration-300
-                      hover:-translate-y-1
-                      hover:bg-[#064e3b]
-                      hover:text-[#8ff0ce]
-                      hover:shadow-[0_18px_38px_rgba(0,0,0,0.3)]
-                    "
+                    `}
                   >
-                    Let&apos;s Talk
+                    <span className="relative z-10">Let&apos;s Talk</span>
                   </NavLink>
                 </motion.div>
               </div>

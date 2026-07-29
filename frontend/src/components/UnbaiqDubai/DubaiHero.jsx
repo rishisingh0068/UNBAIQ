@@ -1,4 +1,4 @@
-import dubaiHero from "../../assets/images/UnbaiqDubai/dubai.svg";
+import dubaiHero from "../../assets/images/UnbaiqDubai/dubai.png";
 
 const DubaiHero = () => {
   return (

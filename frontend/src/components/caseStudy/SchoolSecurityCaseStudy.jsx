@@ -40,9 +40,9 @@ const SchoolSecurityCaseStudy = () => {
           overflow-hidden
           bg-white
           lg:min-h-[820px]
-          px-5
+          px-4
           pb-12
-          pt-2
+          pt-5
           sm:px-7
           sm:pb-14
           sm:pt-4
@@ -55,12 +55,12 @@ const SchoolSecurityCaseStudy = () => {
         <NavLink
           to="/"
           aria-label="Go to home page"
-          className="absolute right-5 top-4 z-20 sm:right-7 lg:right-10 lg:top-5 xl:right-14"
+          className="absolute right-4 top-4 z-20 sm:right-7 lg:right-10 lg:top-5 xl:right-14"
         >
           <img
             src={colorLogo}
             alt="Unbaiq"
-            className="h-auto w-[120px] object-contain sm:w-[145px] lg:w-[166px]"
+            className="h-auto w-[100px] object-contain sm:w-[145px] lg:w-[166px]"
           />
         </NavLink>
 
@@ -82,7 +82,7 @@ const SchoolSecurityCaseStudy = () => {
         />
 
         <div className="relative z-10 mx-auto max-w-[1320px]">
-          <div className="flex min-w-0 items-center gap-3 text-[12px] font-light leading-[1.5] text-[#173f61] sm:text-[13px] lg:text-[14px]">
+          <div className="flex min-w-0 items-start gap-1 pr-[120px] text-[11px] font-light leading-[1.45] text-[#173f61] sm:items-center sm:gap-2 sm:pr-[170px] sm:text-[13px] lg:pr-0 lg:text-[14px]">
             <NavLink
               to="/"
               className="shrink-0 transition-opacity hover:opacity-65"
@@ -91,11 +91,11 @@ const SchoolSecurityCaseStudy = () => {
             </NavLink>
             <span
               aria-hidden="true"
-              className="shrink-0 text-[22px] font-light leading-none"
+              className="shrink-0 font-light leading-[1.45]"
             >
-              {"\u203a"}
+              &gt;
             </span>
-            <span className="truncate">
+            <span className="min-w-0 flex-1 text-left">
               A smart solution to track and manage security guards in real
               time.
             </span>
@@ -112,12 +112,12 @@ const SchoolSecurityCaseStudy = () => {
               lg:gap-14
             "
           >
-            <div className="text-center lg:text-left">
+            <div className="order-2 text-left lg:order-1">
               <h1
                 className="
-                  mx-auto
+                  mx-0
                   max-w-[520px]
-                  text-[34px]
+                  text-[26px]
                   font-semibold
                   leading-none
                   tracking-[-0.025em]
@@ -132,16 +132,16 @@ const SchoolSecurityCaseStudy = () => {
                 "
               >
                 A smart solution to
-                <br className="hidden sm:block" />
+                <br />
                 track and manage
-                <br className="hidden sm:block" />
+                <br />
                 security guards in
-                <br className="hidden sm:block" />
+                <br />
                 real time.
               </h1>
             </div>
 
-            <div className="relative flex justify-center lg:mt-7 lg:justify-end">
+            <div className="relative order-1 flex justify-center lg:order-2 lg:mt-7 lg:justify-end">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute bottom-0 right-0 hidden h-[165px] w-[986px] bg-[#f3f3f3] lg:block"
@@ -158,7 +158,7 @@ const SchoolSecurityCaseStudy = () => {
                   w-full
                   relative
                   z-10
-                  max-w-[430px]
+                  max-w-[240px]
                   select-none
                   object-contain
                   sm:max-w-[520px]

@@ -282,11 +282,11 @@ img {
   transition: clip-path 1500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.lets-talk-btn:hover::before {
+.lets-talk-btn:is(:hover, :focus-visible, :active)::before {
   clip-path: circle(220% at 50% 100%);
 }
 
-.lets-talk-btn:hover {
+.lets-talk-btn:is(:hover, :focus-visible, :active) {
   color: #8ff0ce;
   border-color: #064e3b;
   transform: none;
@@ -294,14 +294,14 @@ img {
 }
 
 .lets-talk-btn:active {
-  transform: scale(0.97);
+  transform: none;
 }
 
 .lets-talk-text-hover {
   transition: color 350ms ease;
 }
 
-.lets-talk-text-hover:hover {
+.lets-talk-text-hover:is(:hover, :focus-visible, :active) {
   color: #8ff0ce;
   transform: none;
   box-shadow: none;

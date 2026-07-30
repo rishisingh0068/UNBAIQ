@@ -12,6 +12,8 @@ const initialFormData = {
 const ContactSection = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+  // 🔴 Changed: tracks successful form submission.
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -48,6 +50,11 @@ const ContactSection = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
+    // hides the previous success message when editing starts.
+    if (isSubmitted) {
+      setIsSubmitted(false);
+    }
+
     setFormData((previousData) => ({
       ...previousData,
       [name]: value,
@@ -68,12 +75,15 @@ const ContactSection = () => {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setIsSubmitted(false);
       return;
     }
 
     // Validation is local until a form API is connected.
     setFormData(initialFormData);
     setErrors({});
+    // shows success feedback after valid submission.
+    setIsSubmitted(true);
   };
 
   const inputClass = (fieldName) => `
@@ -490,6 +500,17 @@ const ContactSection = () => {
               Submit
             </button>
           </div>
+
+          {/* 🔴 Changed: green form-submission success message. */}
+          {isSubmitted && (
+            <p
+              className="mt-4 text-center text-[14px] font-medium text-green-600 sm:text-right"
+              role="status"
+              aria-live="polite"
+            >
+              Submitted successfully.
+            </p>
+          )}
         </form>
       </div>
     </section>

@@ -2,12 +2,13 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Layout from "./components/layout/Layout";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
-const Home = lazy(() => import("./pages/Home"));
+// Other pages are loaded as separate route chunks.
 const WhatWeDo = lazy(() => import("./pages/WhatWeDo"));
 const OurApproach = lazy(() => import("./pages/OurApproach"));
 const Services = lazy(() => import("./pages/Services"));
-const About = lazy(() => import("./pages/About"));
 const LetsTalk = lazy(() => import("./pages/LetsTalk"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
 const UnbaiqDubai = lazy(() => import("./pages/UnbaiqDubai"));

@@ -142,11 +142,7 @@ const Navbar = () => {
           w-full
           transition-all
           duration-300
-          ${
-            isHomeLikePage
-              ? "bg-transparent"
-              : "bg-white"
-          }
+          bg-transparent
         `}
       >
         <div

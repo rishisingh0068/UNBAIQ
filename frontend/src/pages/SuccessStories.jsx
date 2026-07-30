@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import successStoryImage from "../assets/images/ourApproch/whatMakesDifferent/dedicated-team.svg";
+import successStoryImage from "../assets/images/ourApproch/whatMakesDifferent/dedicated-team.webp";
 
 const results = [
   "+45% increase in lead generation in 60 days",

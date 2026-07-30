@@ -23,7 +23,7 @@ const backdropVariants = {
   exit: {
     opacity: 0,
     transition: {
-      duration: 0.25,
+      duration: 0.1,
     },
   },
 };
@@ -42,7 +42,7 @@ const drawerVariants = {
   exit: {
     x: "100%",
     transition: {
-      duration: 0.32,
+      duration: 0.12,
       ease: [0.4, 0, 1, 1],
     },
   },

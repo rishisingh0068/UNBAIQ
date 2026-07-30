@@ -1,8 +1,8 @@
-import hero1 from "../assets/images/home/hero/hero-1.png";
-import hero2 from "../assets/images/home/hero/hero-2.png";
-import hero3 from "../assets/images/home/hero/hero-3.png";
-import hero4 from "../assets/images/home/hero/hero-4.png";
-import hero5 from "../assets/images/home/hero/hero-5.png";
+import hero1 from "../assets/images/home/hero/hero-1.webp";
+import hero2 from "../assets/images/home/hero/hero-2.webp";
+import hero3 from "../assets/images/home/hero/hero-3.webp";
+import hero4 from "../assets/images/home/hero/hero-4.webp";
+import hero5 from "../assets/images/home/hero/hero-5.webp";
 
 export const heroSlides = [
   {

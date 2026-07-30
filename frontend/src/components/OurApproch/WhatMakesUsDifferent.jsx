@@ -1,11 +1,11 @@
-import dedicatedTeamsImage from "../../assets/images/ourApproch/whatMakesDifferent/dedicated-team.svg";
-import hybridTeamsImage from "../../assets/images/ourApproch/whatMakesDifferent/hybrid-team.svg";
-import uiUxDesignersImage from "../../assets/images/ourApproch/whatMakesDifferent/ui-ux-designers.svg";
-import frontEndDevelopersImage from "../../assets/images/ourApproch/whatMakesDifferent/frontend-developers.svg";
-import backEndDevelopersImage from "../../assets/images/ourApproch/whatMakesDifferent/backend-developers.svg";
-import qualityAssuranceImage from "../../assets/images/ourApproch/whatMakesDifferent/quality-assurance.svg";
-import devOpsEngineersImage from "../../assets/images/ourApproch/whatMakesDifferent/devops-engineers.svg";
-import businessAnalystsImage from "../../assets/images/ourApproch/whatMakesDifferent/business-analysts.svg";
+import dedicatedTeamsImage from "../../assets/images/ourApproch/whatMakesDifferent/dedicated-team.webp";
+import hybridTeamsImage from "../../assets/images/ourApproch/whatMakesDifferent/hybrid-team.webp";
+import uiUxDesignersImage from "../../assets/images/ourApproch/whatMakesDifferent/ui-ux-designers.webp";
+import frontEndDevelopersImage from "../../assets/images/ourApproch/whatMakesDifferent/frontend-developers.webp";
+import backEndDevelopersImage from "../../assets/images/ourApproch/whatMakesDifferent/backend-developers.webp";
+import qualityAssuranceImage from "../../assets/images/ourApproch/whatMakesDifferent/quality-assurance.webp";
+import devOpsEngineersImage from "../../assets/images/ourApproch/whatMakesDifferent/devops-engineers.webp";
+import businessAnalystsImage from "../../assets/images/ourApproch/whatMakesDifferent/business-analysts.webp";
 
 const teamData = [
   {
@@ -197,6 +197,8 @@ const WhatMakesUsDifferent = () => {
                     <img
                       src={team.image}
                       alt={team.title}
+                      loading="lazy"
+                      decoding="async"
                       draggable="false"
                       className="
                         h-full

@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 
-import caseStudyHero from "../../assets/images/caseStudy/case-study-hero.svg";
-import dashboardOne from "../../assets/images/caseStudy/dashboard-1.svg";
-import dashboardTwo from "../../assets/images/caseStudy/dashboard-2.svg";
-import dashboardThree from "../../assets/images/caseStudy/dashboard-3.svg";
+import caseStudyHero from "../../assets/images/caseStudy/case-study-hero.webp";
+import dashboardOne from "../../assets/images/caseStudy/dashboard-1.webp";
+import dashboardTwo from "../../assets/images/caseStudy/dashboard-2.webp";
+import dashboardThree from "../../assets/images/caseStudy/dashboard-3.webp";
 import colorLogo from "../../assets/logo/logo.svg";
 
 const caseStudySections = [
@@ -152,6 +152,8 @@ const SchoolSecurityCaseStudy = () => {
               <img
                 src={caseStudyHero}
                 alt="Security guard management dashboard"
+                fetchPriority="high"
+                decoding="async"
                 draggable="false"
                 className="
                   h-auto
@@ -271,6 +273,8 @@ const SchoolSecurityCaseStudy = () => {
                 <img
                   src={dashboard}
                   alt={`Dashboard screen ${index + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   draggable="false"
                   className="
                     h-auto

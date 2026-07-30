@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
-import projectImageOne from "../../assets/images/home/ourwork/our-work-img1.svg";
-import projectImageTwo from "../../assets/images/home/ourwork/our-work-img2.svg";
-import projectImageThreeOne from "../../assets/images/home/ourwork/our-work-img3-1.svg";
-import projectImageThreeTwo from "../../assets/images/home/ourwork/our-work-img3-2.svg";
-import projectImageFour from "../../assets/images/home/ourwork/our-work-img1.svg";
+import projectImageOne from "../../assets/images/home/ourwork/our-work-img1.webp";
+import projectImageTwo from "../../assets/images/home/ourwork/our-work-img2.webp";
+import projectImageThreeOne from "../../assets/images/home/ourwork/our-work-img3-1.webp";
+import projectImageThreeTwo from "../../assets/images/home/ourwork/our-work-img3-2.webp";
+import projectImageFour from "../../assets/images/home/ourwork/our-work-img1.webp";
 
 const projects = [
   {

@@ -1,4 +1,4 @@
-import aboutHeroImage from "../../assets/images/about/about-hero.svg";
+import aboutHeroImage from "../../assets/images/about/about-hero.webp";
 
 const AboutHero = () => {
   return (
@@ -19,6 +19,8 @@ const AboutHero = () => {
       <img
         src={aboutHeroImage}
         alt="Unbaiq team working together"
+        fetchPriority="high"
+        decoding="async"
         draggable="false"
         className="
           absolute

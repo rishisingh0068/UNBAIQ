@@ -34,6 +34,9 @@ const HeroSlider = () => {
               <img
                 src={slide.image}
                 alt={slide.alt}
+                loading={slide.id === 1 ? "eager" : "lazy"}
+                fetchPriority={slide.id === 1 ? "high" : "low"}
+                decoding={slide.id === 1 ? "sync" : "async"}
                 className="hero-slide-image"
               />
 

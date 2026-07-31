@@ -114,8 +114,9 @@ const Footer = () => {
         <div
           className="
             grid
-            grid-cols-1
-            gap-9
+            grid-cols-3
+            gap-x-6
+            gap-y-9
             md:grid-cols-2
             lg:grid-cols-[1.9fr_0.7fr_0.55fr_0.75fr]
             lg:gap-10
@@ -123,7 +124,7 @@ const Footer = () => {
           "
         >
           {/* Left section */}
-          <div>
+          <div className="col-span-3 md:col-span-1">
             <NavLink
               to="/"
               aria-label="Go to home page"

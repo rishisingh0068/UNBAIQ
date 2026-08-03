@@ -11,21 +11,21 @@ const projects = [
   {
     id: 1,
     title:
-      "One for the best solution we design and developed which help to track security guards",
+      "One for the best solutions we designed and developed which helps to track security guards",
     image: projectImageOne,
     background: "#EEF0F2",
   },
   {
     id: 2,
     title:
-      "Helped all categories people where they can go and learn play, and win",
+      "Helped all categories of people where they can go, learn, play and win",
     image: projectImageTwo,
     background: "#A8D3FA",
   },
   {
     id: 3,
     title:
-      "We also help 10,000k+ patient and students where they can register for exam or certificates",
+      "We also helped 10,000k+ patients and students where they can register for exams or certificates",
     image: null,
     images: [projectImageThreeOne, projectImageThreeTwo],
     background: "#96A6C0",
@@ -33,7 +33,7 @@ const projects = [
   {
     id: 4,
     title:
-      "One for the best solution we design and developed which help to track security guards",
+      "One for the best solutions we designed and developed which helps to track security guards",
     image: projectImageFour,
     background: "#FF2ED2",
   },

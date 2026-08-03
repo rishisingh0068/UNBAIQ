@@ -77,7 +77,8 @@ const LetsTalkHero = () => {
               lg:text-[24px]
             "
           >
-            Get in touch to start discussing your software product needs.
+            Ready to bring your ideas to life? Reach out and let’s explore how
+            we can help you achieve your goals.
           </p>
 
           <p
@@ -92,7 +93,8 @@ const LetsTalkHero = () => {
               lg:text-[24px]
             "
           >
-            Not sure where to start? We can help with that too.
+            Whether you have a clear vision or just a spark of inspiration, our
+            team is here to guide you every step of the way.
           </p>
         </div>
 

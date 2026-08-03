@@ -8,9 +8,9 @@ import FaqSection from "../components/home/FaqSection";
 const UnbaiqDubai = () => {
   return (
     <main className="w-full">
-      <PageTitle title="Unbaiq Dubai | AI-driven software solutions" />
+      <PageTitle title="Unbaiq Dubai | AI Software Development Company in UAE" />
       <DubaiHero />
-      <SolutionsShaped />
+      <SolutionsShaped variant="dubai" />
       <DubaiOffice />
       <ContactSection />
       <RightSolutions/>

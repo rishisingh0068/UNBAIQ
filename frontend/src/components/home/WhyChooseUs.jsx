@@ -22,7 +22,7 @@ const features = [
     id: 2,
     title: "Customized Solutions",
     description:
-      "We tailor every project to meet the unique requirements of each client, delivering solutions that perfectly align with your business goals.",
+      "We tailor every project to meet the unique requirements of each client, delivering solutions perfectly aligned with your business goals.",
     icon: Lightbulb,
     iconBackground: "bg-[#3da9f5]",
   },

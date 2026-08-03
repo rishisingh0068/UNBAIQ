@@ -13,8 +13,9 @@ const teamData = [
     title: "Dedicated Teams",
     image: dedicatedTeamsImage,
     description: [
-      "Partnering with a dedicated team of software product developers gives you access to deep industry expertise, the latest frameworks, comprehensive solutions to fuel your launch, and secure quality and consistency.",
-      "Whether you're launching a startup, modernizing your business, or developing an MVP or prototype, we serve as your trusted technology partner.",
+      "Partnering with a dedicated team of software product developers gives you access to deep industry expertise.",
+      "We deliver high-quality, cost-effective solutions to help you launch your venture quickly and confidently.",
+      "Whether you're building a startup, incubating a new business, or developing an MVP or prototype, we serve as your trusted technology partner.",
     ],
   },
   {
@@ -22,9 +23,9 @@ const teamData = [
     title: "Hybrid Teams",
     image: hybridTeamsImage,
     description: [
-      "Get the expertise and mastery you need to take on complex, large-scale projects.",
-      "With teams based in the United States and India, our hybrid model blends the edge of global and local talent with an understanding of your challenges and culture with precision.",
-      "For fast, high-quality solutions to elevate projects, count on our hybrid teams to deliver.",
+      "Get the expertise and flexibility you need to take on complex, large-scale projects.",
+      "With teams based in the United States and India, our hybrid model brings together specialists and generalists who understand your challenges and deliver with precision.",
+      "For fast, high-quality solutions to demanding projects, count on our hybrid teams to deliver.",
     ],
   },
   {
@@ -32,7 +33,7 @@ const teamData = [
     title: "UX and UI Designers",
     image: uiUxDesignersImage,
     description: [
-      "UX design enhances customer satisfaction by making your application seamless, intuitive, and enjoyable—from the start of the buying journey through post-sale engagement.",
+      "UX design enhances customer satisfaction by making every interaction seamless, effective, and enjoyable—from the start of the buying journey through post-sale engagement.",
       "UI design demands close collaboration to ensure every interface is visually appealing, intuitive, and aligned with your brand identity.",
     ],
   },
@@ -41,8 +42,8 @@ const teamData = [
     title: "Front-End Developers",
     image: frontEndDevelopersImage,
     description: [
-      "Front-end developers build the visual and interactive elements of your software, everything users see and engage with directly.",
-      "Using HTML, CSS, and modern JavaScript frameworks, they create intuitive interfaces while ensuring responsiveness, usability, and consistent performance across websites and web applications.",
+      "Front-end developers build the visual and interactive elements of your software—everything users see and engage with directly.",
+      "Using HTML, CSS, and modern JavaScript frameworks, they create intuitive interfaces that ensure a smooth, engaging user experience across websites and web applications.",
     ],
   },
   {
@@ -51,7 +52,7 @@ const teamData = [
     image: backEndDevelopersImage,
     description: [
       "Back-end developers work behind the scenes to build the foundation of your application. They write the algorithms and logic that ensure everything functions smoothly and reliably.",
-      "Their responsibilities include designing the application architecture, managing communication between services and databases, integrating APIs and third-party systems, and developing secure, scalable, bug-free products.",
+      "Their responsibilities include designing the application architecture, managing communication between services and databases, integrating APIs and third-party systems, and developing test cases to ensure a secure, bug-free product.",
     ],
   },
   {
@@ -59,8 +60,8 @@ const teamData = [
     title: "Quality Assurance Engineers",
     image: qualityAssuranceImage,
     description: [
-      "Our QA engineers apply rigorous testing processes to validate software functionality, performance, security, and usability.",
-      "They identify bugs and performance gaps early, helping deliver a polished, reliable product that works consistently across devices, browsers, and platforms.",
+      "Quality Assurance (QA) engineers ensure your software meets the highest standards by overseeing design reviews, code analysis, configuration management, testing, integration, and release processes.",
+      "They identify bugs and performance gaps early, helping deliver a polished, reliable product that builds trust and credibility with your customers.",
     ],
   },
   {
@@ -68,7 +69,7 @@ const teamData = [
     title: "DevOps Engineers",
     image: devOpsEngineersImage,
     description: [
-      "DevOps engineers focus on the processes, tools, and practices that connect software development, infrastructure, and release operations.",
+      "DevOps engineers focus on the processes, tools, and practices that streamline coding, deployment, maintenance, and updates across the software development lifecycle.",
       "They ensure your application is secure, scalable, and always available—ready to handle everything from routine updates to unexpected traffic surges.",
     ],
   },
@@ -77,8 +78,9 @@ const teamData = [
     title: "Business Analysts",
     image: businessAnalystsImage,
     description: [
-      "Business analysts collaborate with stakeholders to identify how data-driven changes can enhance business performance.",
-      "They monitor market trends, evaluate competitor activity, research user needs, and translate business goals into clear product requirements for design and development teams.",
+      "Partnering with a dedicated team of software product developers gives you access to deep industry expertise.",
+      "We deliver high-quality, cost-effective solutions to help you launch your venture quickly and confidently.",
+      "Whether you're building a startup, incubating a new business, or developing an MVP or prototype, we serve as your trusted technology partner.",
     ],
   },
 ];
@@ -115,7 +117,7 @@ const WhatMakesUsDifferent = () => {
           >
             What we do which makes us different
             <br className="hidden sm:block" />
-            from other
+            from others
           </h2>
 
           <p
@@ -132,7 +134,7 @@ const WhatMakesUsDifferent = () => {
           >
             As a software development company, we go beyond just writing code—we
             become your strategic technology partner. We combine deep industry
-            insight with dedicated expertise, user-centric design, and scalable
+            insight with agile development, user-centric design, and scalable
             architecture to deliver solutions tailored to your exact business
             needs. Our collaborative approach, focus on long-term value, and
             commitment to quality ensure that every product we build drives

@@ -14,7 +14,7 @@ export const heroSlides = [
   {
     id: 2,
     image: hero2,
-    title: "Smarter Software, Powered by AI. Designed for Market Success",
+    title: "Smart Software, Powered by AI. Designed for Market Success",
     alt: "AI-powered software",
   },
   {

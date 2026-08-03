@@ -39,7 +39,7 @@ const solutions = [
     id: 5,
     icon: enterpriseSoftware,
     title: "Enterprise Software",
-    description: "Cut costs and improve operations.",
+    description: "Cut cost and improve operations.",
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ const solutions = [
     id: 8,
     icon: qualityAssurance,
     title: "Quality Assurance",
-    description: "Be sure of your product’s quality.",
+    description: "Be sure of your product's quality.",
   },
   {
     id: 9,

@@ -14,7 +14,7 @@ const projects = [
   },
   {
     id: 2,
-    title: "Helped 10k+ people where they can go and learn play, and win",
+    title: "Helped 10k+ people find places where they can learn, play, and win",
     description:
       "We manage the entire product development lifecycle—from market analysis and design to development, quality assurance, and post-launch support.",
     background: "bg-[#fff1dc]",

@@ -11,20 +11,19 @@ const caseStudySections = [
     id: 1,
     title: "The Challenge",
     paragraphs: [
-      "An innovative browser-based EdTech platform was developed to help middle school students better understand math through interactive digital tools called manipulatives. These visual models align with the National Council of Teachers of Mathematics standards and support learning across Grades 6–8.",
-      "The platform allows students to explore points and state standards while helping them understand key concepts such as fractions, measurements, ratios, and coordinate geometry.",
-      "Initially developed using intuitive shapes and visuals, the first version had limited scalability and usability. Each new feature had to be manually implemented across multiple screens, making the system difficult to maintain and expand.",
-      "To solve these challenges, the platform required a more structured and scalable architecture that would support improved performance, easier updates, and a consistent learning experience.",
+      "Security companies face significant challenges in managing large teams of guards across multiple locations. Manual tracking methods often lead to inefficiencies, lack of real-time visibility, and difficulty ensuring guards are present at their assigned posts. This can result in missing patrols, delayed incident responses and limited accountability.",
+      "Supervisors struggle to monitor attendance, shift changes and incident reports without a centralized system. Communication gaps between field staff and management further complicate operations, making it hard to respond quickly to emergencies or verify guard activities.",
+      "Additionally, generating accurate reports for clients and maintaining compliance with industry standards is time-consuming and error-prone. These challenges highlight the need for a smart, automated solution to streamline guard management and improve overall security operations.",
     ],
   },
   {
     id: 2,
     title: "The Design",
     paragraphs: [
-      "The platform was redesigned with a clear focus on usability, accessibility, and student engagement. The visual interface was simplified to make mathematical concepts easier to understand and interact with.",
-      "Interactive shapes, graphs, fractions, and measurement tools were organized into logical groups so students could access them quickly. Each tool was designed with clear visual hierarchy and consistent controls.",
-      "The layout was made responsive so the platform could work across different screen sizes and devices. The design system also introduced reusable components, consistent spacing, and predictable behavior.",
-      "By improving the overall user journey and interface structure, the platform became easier for students to use and more efficient for teachers to manage.",
+      "An innovative browser-based EdTech platform was developed to help middle school students better understand maths through interactive digital tools called manipulatives. These visual models align with the National Council of Teachers of Mathematics (NCTM) focal points and state standards for grades 6–8, helping students grasp concepts like adding fractions, measuring time, and understanding X and Y coordinates using intuitive shapes and visuals.",
+      "Initially developed by a single developer using CanvasJS, the first version of the product lacked reusability and scalability. Each new feature had to be manually implemented across all 16 manipulatives—sometimes requiring the same code to be written up to 48 times. This created unnecessary rework and slowed down development.",
+      "To resolve these challenges, the platform was re-architected using an object-oriented design with reusable components, significantly reducing duplication and improving efficiency. A runtime environment was also added to support live use during webinars and remote teaching sessions.",
+      "The solution is now widely adopted by teachers and students, both in classrooms and through regular educator webinars. It has become a powerful, scalable teaching tool that enhances student engagement and enables more effective remote and in-person math instruction.",
     ],
   },
 ];
@@ -338,9 +337,12 @@ const SchoolSecurityCaseStudy = () => {
                 lg:leading-[36px]
               "
             >
-              A scalable browser-based platform was developed to help schools
-              manage security staff, monitor activities, and access real-time
-              information from a centralized dashboard.
+              We developed a comprehensive, cloud-based guard management
+              platform that enables real-time tracking and management of
+              security personnel across multiple locations. The solution
+              leverages GPS technology and mobile devices to monitor guard
+              positions, attendance and shift changes, providing supervisors
+              with instant visibility and actionable insights.
             </p>
 
             <p
@@ -354,10 +356,11 @@ const SchoolSecurityCaseStudy = () => {
                 lg:leading-[36px]
               "
             >
-              The new solution introduced reusable components, improved data
-              organization, and a more reliable system architecture. This made
-              the platform easier to maintain and allowed new functionality to
-              be added without rebuilding existing modules.
+              The platform features automated scheduling, digital check-ins and
+              check-outs, and incident reporting tools, all accessible through
+              an intuitive dashboard. Guards can submit reports, receive
+              assignments and communicate with supervisors directly from their
+              mobile devices, reducing paperwork and improving response times.
             </p>
 
             <p
@@ -371,9 +374,11 @@ const SchoolSecurityCaseStudy = () => {
                 lg:leading-[36px]
               "
             >
-              Administrators can now view schedules, manage staff, track
-              movement, monitor updates, and analyze operational data through a
-              clear and responsive interface.
+              Advanced analytics and reporting modules generate detailed logs
+              for clients and management, ensuring compliance and transparency.
+              Automated alerts notify supervisors of missed patrols, late
+              check-ins or emergencies, enabling proactive intervention and
+              enhanced accountability.
             </p>
 
             <p
@@ -387,9 +392,10 @@ const SchoolSecurityCaseStudy = () => {
                 lg:leading-[36px]
               "
             >
-              The final product delivers better usability, stronger
-              performance, and a consistent experience across desktop, tablet,
-              and mobile devices.
+              By centralizing operations and streamlining communication, the
+              solution empowers security companies to optimize resource
+              allocation, improve service quality and deliver greater value to
+              their clients.
             </p>
           </div>
         </div>

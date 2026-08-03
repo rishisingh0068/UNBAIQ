@@ -2,7 +2,7 @@ import productDevelopment from "../../assets/images/whatWeDo/bringIdeas/product-
 import customSoftware from "../../assets/images/whatWeDo/bringIdeas/custom-software.svg";
 import digitalTransformation from "../../assets/images/whatWeDo/bringIdeas/digital-transformation.svg";
 
-const solutions = [
+const whatWeDoSolutions = [
   {
     id: 1,
     icon: productDevelopment,
@@ -26,7 +26,33 @@ const solutions = [
   },
 ];
 
-const SolutionsShaped = () => {
+const dubaiSolutions = [
+  {
+    id: 1,
+    icon: productDevelopment,
+    title: "Product Development",
+    description:
+      "Build and launch market-ready products for Dubai and the Gulf—from discovery and Arabic/English UX to scalable engineering and local compliance.",
+  },
+  {
+    id: 2,
+    icon: customSoftware,
+    title: "Mobile App Development",
+    description:
+      "Tailored CRMs with Arabic/English support, automation, and advanced analytics for Gulf enterprises.",
+  },
+  {
+    id: 3,
+    icon: digitalTransformation,
+    title: "Web Design & Development",
+    description:
+      "Modern websites optimized for performance, conversion, and seamless Gulf user experience.",
+  },
+];
+
+const SolutionsShaped = ({ variant = "what-we-do" }) => {
+  const solutions = variant === "dubai" ? dubaiSolutions : whatWeDoSolutions;
+
   return (
     <section className="w-full bg-[#fafafa] px-5 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-14 xl:px-14">
       <div className="mx-auto max-w-[1320px]">

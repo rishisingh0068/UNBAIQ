@@ -7,8 +7,7 @@ import FaqSection from "../components/home/FaqSection";
 const OurApproach = () => {
   return (
     <>
-      <PageTitle title="Our-Approach | Ai-driven software solutions
-Quality" />
+      <PageTitle title="Our Approach | AI-Driven Software Development Process - Unbaiq" />
       <StrategicFocus />
       <WhatMakesUsDifferent />
       <Testimonials />

@@ -4,7 +4,7 @@ import successStoryImage from "../assets/images/ourApproch/whatMakesDifferent/de
 
 const results = [
   "+45% increase in lead generation in 60 days",
-  "Bounce rate reduced by 27%",
+  "Bounce rate reduced from 62% to 27%",
   "+62% engagement through intuitive dashboard UX",
   "PWA rollout and full responsive design",
   "97% client satisfaction score",
@@ -49,7 +49,7 @@ const SuccessStories = () => {
                 <p>
                   LuminaTech had an outdated digital experience that failed to
                   attract leads or retain users. Their internal CMS and app
-                  were slow, hard to manage, and lacked mobile responsiveness.
+                  were slow, hard to manage and lacked mobile responsiveness.
                   They needed a revamp without interrupting active user data.
                 </p>
               </div>
@@ -59,10 +59,10 @@ const SuccessStories = () => {
                   Our Approach
                 </h3>
                 <p>
-                  We held stakeholder workshops, audited the codebase, and
-                  redesigned the UI/UX using Figma and Framer. Development was
-                  completed with a modern, scalable stack and delivered in
-                  two-week sprints with full documentation.
+                  We held stakeholder workshops, audited the codebase and began
+                  redesigning UI/UX using Figma and Framer. Development was done
+                  using Laravel, Tailwind and Vue.js for the frontend. We
+                  delivered it in two sprints and included full documentation.
                 </p>
               </div>
             </div>

@@ -16,64 +16,55 @@ const solutions = [
   {
     id: 1,
     title: "Machine Learning & AI",
-    description:
-      "Build intelligent solutions using artificial intelligence and machine learning technologies.",
+    description: "Take advantage of advanced AI.",
     icon: machineLearning,
   },
   {
     id: 2,
     title: "Data Engineering & Analytics",
-    description:
-      "Transform complex business data into meaningful insights and smarter decisions.",
+    description: "Gain richer customer insights.",
     icon: dataEngineering,
   },
   {
     id: 3,
     title: "UX/UI Design",
-    description:
-      "Create modern, intuitive and user-friendly digital experiences for your customers.",
+    description: "Deliver great user experiences.",
     icon: uxUiDesign,
   },
   {
     id: 4,
     title: "Product Development",
-    description:
-      "Turn your business idea into a scalable, secure and high-performing digital product.",
+    description: "Make your product idea its best.",
     icon: productDevelopment,
   },
   {
     id: 5,
     title: "Enterprise Software",
-    description:
-      "Improve business operations with powerful and customized enterprise software.",
+    description: "Cut cost and improve operations.",
     icon: enterpriseSoftware,
   },
   {
     id: 6,
     title: "Mobile App Development",
-    description:
-      "Develop responsive and engaging mobile applications for Android and iOS platforms.",
+    description: "Get a mobile app that wows.",
     icon: mobileAppDevelopment,
   },
   {
     id: 7,
     title: "DevOps CI/CD",
-    description:
-      "Automate development workflows and deliver applications faster with reliable DevOps.",
+    description: "Improve efficiency and ROI.",
     icon: devops,
   },
   {
     id: 8,
     title: "Quality Assurance",
-    description:
-      "Ensure performance, security and reliability through complete software testing.",
+    description: "Be sure of your product's quality.",
     icon: qualityAssurance,
   },
   {
     id: 9,
     title: "Web Development",
-    description:
-      "Build responsive, fast and scalable websites designed for business growth.",
+    description: "Get a fresh, engaging web app.",
     icon: webDevelopment,
   },
 ];
@@ -264,10 +255,9 @@ const SolutionsSection = () => {
             }}
             className="mt-6 max-w-[920px] text-[13px] leading-7 text-[#68758a] sm:text-[14px] lg:text-[15px]"
           >
-            Whether you are looking for advanced cloud solutions, artificial
-            intelligence, scalable product development or improved digital user
-            experiences, we provide complete technology solutions designed
-            around your business requirements.
+            Whether you&apos;re seeking advanced cloud solutions, aiming to
+            harness the power of AI, or looking to redefine the user
+            experience, we are your comprehensive innovation partner.
           </motion.p>
         </div>
 

@@ -38,21 +38,21 @@ const services = [
     title: "Mobile Application",
     icon: mobileApplicationIcon,
     description:
-      "We create intuitive and reliable mobile applications that deliver seamless experiences across different devices.",
+      "Creative mobile applications that provide seamless user experiences and drive engagement, tailored to your business goals.",
   },
   {
     id: 5,
     title: "UI/UX Design",
     icon: uiUxDesignIcon,
     description:
-      "We design clean, engaging, and user-friendly digital experiences focused on usability and customer satisfaction.",
+      "Creative branding, marketing materials, and visual storytelling that make your business stand out and connect with your audience.",
   },
   {
     id: 6,
     title: "Digital Marketing",
     icon: digitalMarketingIcon,
     description:
-      "Build awareness, attract customers, and accelerate business growth through result-driven digital marketing.",
+      "Creative digital marketing strategies that drive traffic, engage audiences, and deliver measurable results for your business.",
   },
 ];
 

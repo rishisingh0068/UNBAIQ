@@ -8,7 +8,8 @@ import FaqSection from "../components/home/FaqSection";
 const OurServices = () => {
   return (
     <main>
-      <PageTitle title="Software Development Services | AI, CRM, Web & Mobile Apps - Unbaiq" />
+      <PageTitle title="Services-Page | Ai-driven software solutions
+Quality" />
       <OurServicesSection />
       <RightSolutions />
       <Testimonials />

@@ -94,7 +94,7 @@ const AdminLogin = () => {
               to="/admin/reset-password"
               className="text-[13px] font-semibold text-[#2776a2] hover:text-[#063d6b]"
             >
-              Forgot or reset password?
+              Reset Password
             </NavLink>
           </div>
 

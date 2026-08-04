@@ -6,6 +6,8 @@ import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
 import adminAuthRouter from "./routes/adminAuth.routes.js";
+import adminEnquiryRouter from "./routes/adminEnquiry.routes.js";
+import enquiryRouter from "./routes/enquiry.routes.js";
 import healthRouter from "./routes/health.routes.js";
 
 const app = express();
@@ -26,6 +28,10 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 app.use("/api/health", healthRouter);
+
+// Accept public Let's Talk submissions and expose protected admin management.
+app.use("/api/enquiries", enquiryRouter);
+app.use("/api/admin/enquiries", adminEnquiryRouter);
 
 // Mount all admin authentication endpoints under one API prefix.
 app.use("/api/admin/auth", adminAuthRouter);

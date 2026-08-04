@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { MapPin, Clock3, Phone } from "lucide-react";
 
+import { submitEnquiry } from "../../services/enquiry";
+
 const initialFormData = {
   name: "",
   email: "",
@@ -14,6 +16,8 @@ const ContactSection = () => {
   const [errors, setErrors] = useState({});
   // 🔴 Changed: tracks successful form submission.
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validateForm = () => {
     const newErrors = {};
@@ -55,6 +59,10 @@ const ContactSection = () => {
       setIsSubmitted(false);
     }
 
+    if (submitError) {
+      setSubmitError("");
+    }
+
     setFormData((previousData) => ({
       ...previousData,
       [name]: value,
@@ -68,7 +76,8 @@ const ContactSection = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  // Validate locally, then save the enquiry through the public backend API.
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const validationErrors = validateForm();
@@ -79,11 +88,20 @@ const ContactSection = () => {
       return;
     }
 
-    // Validation is local until a form API is connected.
-    setFormData(initialFormData);
-    setErrors({});
-    // shows success feedback after valid submission.
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      await submitEnquiry(formData);
+      setFormData(initialFormData);
+      setErrors({});
+      setIsSubmitted(true);
+    } catch (requestError) {
+      setIsSubmitted(false);
+      setSubmitError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass = (fieldName) => `
@@ -480,6 +498,7 @@ const ContactSection = () => {
           <div className="mt-8 flex justify-center sm:justify-end">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="
                 min-w-[190px]
                 rounded-full
@@ -495,11 +514,22 @@ const ContactSection = () => {
                 focus:outline-none
                 focus:ring-4
                 focus:ring-[#064675]/20
+                disabled:cursor-not-allowed
+                disabled:opacity-60
               "
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </div>
+
+          {submitError && (
+            <p
+              className="mt-4 text-center text-[14px] font-medium text-red-600 sm:text-right"
+              role="alert"
+            >
+              {submitError}
+            </p>
+          )}
 
           {/* 🔴 Changed: green form-submission success message. */}
           {isSubmitted && (

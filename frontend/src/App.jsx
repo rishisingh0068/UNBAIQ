@@ -17,6 +17,7 @@ const SuccessStories = lazy(() => import("./pages/SuccessStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminEnquiries = lazy(() => import("./pages/admin/AdminEnquiries"));
 const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
 const AdminProtectedRoute = lazy(
   () => import("./components/admin/AdminProtectedRoute"),
@@ -44,6 +45,15 @@ const App = () => {
           element={
             <AdminProtectedRoute>
               <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
+        {/* Enquiry records use the same backend-verified admin protection. */}
+        <Route
+          path="/admin/enquiries"
+          element={
+            <AdminProtectedRoute>
+              <AdminEnquiries />
             </AdminProtectedRoute>
           }
         />

@@ -16,8 +16,12 @@ const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const SuccessStories = lazy(() => import("./pages/SuccessStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminResetPassword = lazy(
+  () => import("./pages/admin/AdminResetPassword"),
+);
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminEnquiries = lazy(() => import("./pages/admin/AdminEnquiries"));
+const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
 const AdminProtectedRoute = lazy(
   () => import("./components/admin/AdminProtectedRoute"),
@@ -39,24 +43,18 @@ const App = () => {
       <Routes>
         <Route path="/admin" element={<AdminRoute />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        {/* Dashboard access is verified against the backend before rendering. */}
+        <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+        {/* All admin workspace pages share one verified, responsive layout. */}
         <Route
-          path="/admin/dashboard"
           element={
             <AdminProtectedRoute>
-              <AdminDashboard />
+              <AdminLayout />
             </AdminProtectedRoute>
           }
-        />
-        {/* Enquiry records use the same backend-verified admin protection. */}
-        <Route
-          path="/admin/enquiries"
-          element={
-            <AdminProtectedRoute>
-              <AdminEnquiries />
-            </AdminProtectedRoute>
-          }
-        />
+        >
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/enquiries" element={<AdminEnquiries />} />
+        </Route>
 
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

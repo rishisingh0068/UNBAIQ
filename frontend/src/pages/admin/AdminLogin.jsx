@@ -89,6 +89,15 @@ const AdminLogin = () => {
             </span>
           </label>
 
+          <div className="text-right">
+            <NavLink
+              to="/admin/reset-password"
+              className="text-[13px] font-semibold text-[#2776a2] hover:text-[#063d6b]"
+            >
+              Forgot or reset password?
+            </NavLink>
+          </div>
+
           {error && (
             <p
               className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700"

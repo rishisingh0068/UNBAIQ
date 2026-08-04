@@ -20,6 +20,14 @@ export const loginAdmin = (credentials) =>
     body: JSON.stringify(credentials),
   });
 
+// Reset a forgotten password with the private server recovery key.
+export const resetAdminPassword = (resetData) =>
+  request("/admin/auth/reset-password", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(resetData),
+  });
+
 // Verify a saved token and retrieve the currently logged-in admin.
 export const getCurrentAdmin = (token) =>
   request("/admin/auth/me", {

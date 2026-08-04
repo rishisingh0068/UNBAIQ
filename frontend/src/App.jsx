@@ -15,6 +15,8 @@ const UnbaiqDubai = lazy(() => import("./pages/UnbaiqDubai"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const SuccessStories = lazy(() => import("./pages/SuccessStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
 
 const PageLoader = () => (
   <div
@@ -30,6 +32,9 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        <Route path="/admin" element={<AdminRoute />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/what-we-do" element={<WhatWeDo />} />

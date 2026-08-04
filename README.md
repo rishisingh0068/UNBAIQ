@@ -231,3 +231,27 @@ UNBAIQ/
             └── theme.js
 
 
+
+backend/
+├── src/
+│   ├── config/
+│   │   └── database.js
+│   ├── controllers/
+│   ├── middlewares/
+│   │   ├── errorHandler.js
+│   │   └── notFound.js
+│   ├── models/
+│   ├── routes/
+│   │   └── health.routes.js
+│   ├── app.js
+│   └── server.js
+├── .env.example
+├── .gitignore
+└── package.json
+
+/admin
+   ↓ redirect
+/admin/login
+
+frontend/src/pages/admin/AdminLogin.jsx
+frontend/src/components/admin/AdminRoute.jsx

@@ -5,6 +5,7 @@ import morgan from "morgan";
 
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
+import adminAuthRouter from "./routes/adminAuth.routes.js";
 import healthRouter from "./routes/health.routes.js";
 
 const app = express();
@@ -25,6 +26,9 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 app.use("/api/health", healthRouter);
+
+// Mount all admin authentication endpoints under one API prefix.
+app.use("/api/admin/auth", adminAuthRouter);
 
 app.use(notFound);
 app.use(errorHandler);

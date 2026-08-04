@@ -1,10 +1,38 @@
+import { useState } from "react";
 import { LockKeyhole, Mail } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
+
+import { loginAdmin } from "../../services/adminAuth";
+import { getAdminToken, saveAdminSession } from "../../utils/adminSession";
 
 const AdminLogin = () => {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Submit credentials to the backend and save the returned admin session.
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const session = await loginAdmin({ email, password });
+      saveAdminSession(session);
+      navigate("/admin/dashboard", { replace: true });
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (getAdminToken()) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f3f7fa] px-5 py-12 font-lexend">
@@ -13,7 +41,7 @@ const AdminLogin = () => {
           to="/"
           className="text-[13px] font-medium text-[#557086] transition-colors hover:text-[#063d6b]"
         >
-          ← Back to website
+          &larr; Back to website
         </NavLink>
 
         <div className="mt-8">
@@ -37,6 +65,9 @@ const AdminLogin = () => {
                 type="email"
                 autoComplete="email"
                 placeholder="admin@unbaiq.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
                 className="min-w-0 flex-1 bg-transparent py-3.5 text-[14px] text-[#173f61] outline-none placeholder:text-[#9aaab7]"
               />
             </span>
@@ -50,21 +81,34 @@ const AdminLogin = () => {
                 type="password"
                 autoComplete="current-password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
                 className="min-w-0 flex-1 bg-transparent py-3.5 text-[14px] text-[#173f61] outline-none placeholder:text-[#9aaab7]"
               />
             </span>
           </label>
 
+          {error && (
+            <p
+              className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
+
           <button
             type="submit"
-            className="w-full rounded-[8px] bg-[#063d6b] px-5 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0a527f]"
+            disabled={isSubmitting}
+            className="w-full rounded-[8px] bg-[#063d6b] px-5 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0a527f] disabled:cursor-not-allowed disabled:opacity-65"
           >
-            Sign in
+            {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-[12px] leading-5 text-[#8496a5]">
-          Authentication will be connected in the next backend module.
+          Secure access for authorized UNBAIQ administrators only.
         </p>
       </section>
     </main>

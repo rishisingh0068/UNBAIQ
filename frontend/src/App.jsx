@@ -16,7 +16,11 @@ const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const SuccessStories = lazy(() => import("./pages/SuccessStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
+const AdminProtectedRoute = lazy(
+  () => import("./components/admin/AdminProtectedRoute"),
+);
 
 const PageLoader = () => (
   <div
@@ -34,6 +38,15 @@ const App = () => {
       <Routes>
         <Route path="/admin" element={<AdminRoute />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        {/* Dashboard access is verified against the backend before rendering. */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
 
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

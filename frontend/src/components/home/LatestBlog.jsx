@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import blog1 from "../../assets/images/home/blog/blog1.svg";
 import blog2 from "../../assets/images/home/blog/blog2.svg";
 import blog3 from "../../assets/images/home/blog/blog3.svg";
+import { getPublishedBlogs } from "../../services/blog";
 
 const blogPosts = [
   {
@@ -35,6 +37,12 @@ const blogPosts = [
   },
 ];
 
+const fallbackImages = {
+  "how-to-own-web-design-agency-for-free": blog1,
+  "five-difficult-things-about-web-design-agency": blog2,
+  "why-web-design-agency-is-so-famous": blog3,
+};
+
 const cardVariants = {
   hidden: {
     opacity: 0,
@@ -51,11 +59,47 @@ const cardVariants = {
 };
 
 const LatestBlog = () => {
+  const [posts, setPosts] = useState(blogPosts);
+
+  // Replace static cards with published database posts when the API is ready.
+  useEffect(() => {
+    let active = true;
+
+    getPublishedBlogs()
+      .then(({ blogs }) => {
+        if (!active || blogs.length === 0) return;
+
+        setPosts(
+          blogs.map((blog) => {
+            const date = new Date(blog.publishedAt || blog.createdAt);
+
+            return {
+              id: blog._id,
+              image: blog.coverImage || fallbackImages[blog.slug] || blog1,
+              author: blog.author,
+              title: blog.title,
+              slug: blog.slug,
+              month: date.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+              day: String(date.getDate()).padStart(2, "0"),
+            };
+          }),
+        );
+      })
+      .catch(() => {
+        // Existing static cards remain visible if the backend is unavailable.
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section
       id="latest-blog"
       className="
         relative
+        scroll-mt-[88px]
         overflow-hidden
         bg-white
         px-5
@@ -144,7 +188,7 @@ const LatestBlog = () => {
             lg:gap-6
           "
         >
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <motion.article
               key={post.id}
               variants={cardVariants}

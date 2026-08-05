@@ -1,5 +1,19 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+
 import Admin from "../models/Admin.js";
 import { generateToken } from "../utils/generateToken.js";
+
+// Return only safe account fields; password hashes never leave the backend.
+const adminProfile = (admin) => ({
+  id: admin.id,
+  name: admin.name,
+  email: admin.email,
+  role: admin.role,
+  avatar: admin.avatar || "",
+  createdAt: admin.createdAt,
+  updatedAt: admin.updatedAt,
+});
 
 // Authenticate an admin and return a signed access token.
 export const loginAdmin = async (request, response, next) => {
@@ -29,12 +43,7 @@ export const loginAdmin = async (request, response, next) => {
       success: true,
       message: "Login successful",
       token: generateToken(admin.id),
-      admin: {
-        id: admin.id,
-        name: admin.name,
-        email: admin.email,
-        role: admin.role,
-      },
+      admin: adminProfile(admin),
     });
   } catch (error) {
     return next(error);
@@ -45,8 +54,61 @@ export const loginAdmin = async (request, response, next) => {
 export const getCurrentAdmin = (request, response) => {
   response.status(200).json({
     success: true,
-    admin: request.admin,
+    admin: adminProfile(request.admin),
   });
+};
+
+// Return a public URL for a validated locally uploaded admin profile photo.
+export const uploadCurrentAdminAvatar = (request, response) => {
+  if (!request.file) {
+    return response.status(400).json({ success: false, message: "Choose a profile photo" });
+  }
+  const avatar = `${request.protocol}://${request.get("host")}/uploads/admin-profiles/${request.file.filename}`;
+  return response.status(201).json({ success: true, avatar });
+};
+
+// Allow the signed-in admin to update only their own editable profile fields.
+export const updateCurrentAdmin = async (request, response, next) => {
+  try {
+    const name = request.body.name?.trim();
+    const email = request.body.email?.trim().toLowerCase();
+    const avatar = request.body.avatar?.trim() || "";
+
+    if (!name || !email) {
+      return response.status(400).json({ success: false, message: "Name and email are required" });
+    }
+
+    const emailOwner = await Admin.findOne({ email, _id: { $ne: request.admin._id } });
+    if (emailOwner) {
+      return response.status(409).json({ success: false, message: "This email is already used by another admin" });
+    }
+
+    request.admin.name = name;
+    request.admin.email = email;
+    const previousAvatar = request.admin.avatar;
+    request.admin.avatar = avatar;
+    await request.admin.save();
+
+    if (previousAvatar && previousAvatar !== avatar && previousAvatar.includes("/uploads/admin-profiles/")) {
+      try {
+        const filename = path.basename(new URL(previousAvatar).pathname);
+        const uploadDirectory = path.resolve("uploads", "admin-profiles");
+        const imagePath = path.resolve(uploadDirectory, filename);
+        if (path.dirname(imagePath) === uploadDirectory) await fs.unlink(imagePath);
+      } catch (error) {
+        // Profile data is already saved, so a missing old file must not fail the request.
+        if (error.code !== "ENOENT") console.warn(`Unable to remove old admin avatar: ${error.message}`);
+      }
+    }
+
+    return response.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      admin: adminProfile(request.admin),
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 // Temporary local-development reset; production and remote requests are blocked.

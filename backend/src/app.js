@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
@@ -6,14 +8,27 @@ import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
 import adminAuthRouter from "./routes/adminAuth.routes.js";
+import adminBlogRouter from "./routes/adminBlog.routes.js";
 import adminEnquiryRouter from "./routes/adminEnquiry.routes.js";
+import adminFaqRouter from "./routes/adminFaq.routes.js";
+import adminHeroSlideRouter from "./routes/adminHeroSlide.routes.js";
+import adminSuccessStoryRouter from "./routes/adminSuccessStory.routes.js";
+import blogRouter from "./routes/blog.routes.js";
 import enquiryRouter from "./routes/enquiry.routes.js";
+import faqRouter from "./routes/faq.routes.js";
 import healthRouter from "./routes/health.routes.js";
+import heroSlideRouter from "./routes/heroSlide.routes.js";
+import successStoryRouter from "./routes/successStory.routes.js";
 
 const app = express();
 
 app.disable("x-powered-by");
-app.use(helmet());
+app.use(
+  helmet({
+    // Blog images are requested by the frontend running on a different origin.
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  }),
+);
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -22,6 +37,9 @@ app.use(
 );
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));
+
+// Serve locally uploaded blog images through stable public URLs.
+app.use("/uploads", express.static(path.resolve("uploads")));
 
 if (process.env.NODE_ENV !== "test") {
   app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
@@ -32,6 +50,22 @@ app.use("/api/health", healthRouter);
 // Accept public Let's Talk submissions and expose protected admin management.
 app.use("/api/enquiries", enquiryRouter);
 app.use("/api/admin/enquiries", adminEnquiryRouter);
+
+// One managed FAQ collection powers every shared Q&A section.
+app.use("/api/faqs", faqRouter);
+app.use("/api/admin/faqs", adminFaqRouter);
+
+// Expose published blogs publicly and editing tools only to admins.
+app.use("/api/blogs", blogRouter);
+app.use("/api/admin/blogs", adminBlogRouter);
+
+// Hero slide visuals stay fixed while admins manage image/text/order/status.
+app.use("/api/hero-slides", heroSlideRouter);
+app.use("/api/admin/hero-slides", adminHeroSlideRouter);
+
+// Success-story layout stays fixed while admins manage its structured content.
+app.use("/api/success-stories", successStoryRouter);
+app.use("/api/admin/success-stories", adminSuccessStoryRouter);
 
 // Mount all admin authentication endpoints under one API prefix.
 app.use("/api/admin/auth", adminAuthRouter);

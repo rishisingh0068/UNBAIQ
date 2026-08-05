@@ -10,6 +10,10 @@
   "scripts": {
     "create-admin": "node scripts/createAdmin.js",
     "dev": "node --watch src/server.js",
+    "seed:blogs": "node scripts/seedBlogs.js",
+    "seed:hero": "node scripts/seedHeroSlides.js",
+    "seed:success-stories": "node scripts/seedSuccessStories.js",
+    "seed:faqs": "node scripts/seedFaqs.js",
     "start": "node src/server.js"
   },
   "dependencies": {
@@ -20,6 +24,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.19.1",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "multer": "^2.2.0"
   }
 }

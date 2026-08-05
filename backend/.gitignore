@@ -2,4 +2,10 @@ node_modules/
 .env
 uploads/*
 !uploads/.gitkeep
+!uploads/blogs/
+uploads/blogs/*
+!uploads/blogs/.gitkeep
+!uploads/hero/
+uploads/hero/*
+!uploads/hero/.gitkeep
 npm-debug.log*

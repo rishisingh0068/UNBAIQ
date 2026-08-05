@@ -27,6 +27,11 @@ const adminSchema = new mongoose.Schema(
       enum: ["admin", "super-admin"],
       default: "admin",
     },
+    avatar: {
+      type: String,
+      trim: true,
+      default: "",
+    },
   },
   { timestamps: true },
 );

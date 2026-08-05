@@ -1,12 +1,16 @@
 import {
-  ChevronDown,
+  ChevronRight,
+  BookOpenText,
+  CircleHelp,
   LayoutDashboard,
   LogOut,
   Menu,
   MessageSquare,
+  Newspaper,
+  PanelsTopLeft,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo/logo.svg";
@@ -19,11 +23,9 @@ import {
 
 const AdminLayout = () => {
   const navigate = useNavigate();
-  const profileRef = useRef(null);
-  const admin = getStoredAdmin();
   const token = getAdminToken();
+  const [admin, setAdmin] = useState(() => getStoredAdmin());
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [enquiries, setEnquiries] = useState([]);
   const [enquiriesError, setEnquiriesError] = useState("");
 
@@ -48,18 +50,6 @@ const AdminLayout = () => {
     };
   }, [token]);
 
-  // Close the profile dropdown when the admin clicks elsewhere.
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setIsProfileOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
-
   const stats = useMemo(
     () => ({
       total: enquiries.length,
@@ -79,7 +69,6 @@ const AdminLayout = () => {
   // Close mobile/profile panels when a navigation item is selected.
   const handleNavigation = () => {
     setIsSidebarOpen(false);
-    setIsProfileOpen(false);
   };
 
   const navigationClass = ({ isActive }) =>
@@ -107,59 +96,26 @@ const AdminLayout = () => {
             onClick={handleNavigation}
             aria-label="UNBAIQ admin dashboard"
           >
-            <img src={logo} alt="UNBAIQ" className="h-9 w-auto max-w-[145px]" />
+            <img src={logo} alt="UNBAIQ" className="h-12 w-auto max-w-[185px]" />
           </NavLink>
         </div>
 
-        <div className="relative" ref={profileRef}>
-          <button
-            type="button"
-            onClick={() => setIsProfileOpen((current) => !current)}
-              className="flex shrink-0 items-center gap-3 rounded-lg px-1.5 py-1.5 text-left transition-colors hover:bg-[#f3f6f9] sm:px-2"
-            aria-expanded={isProfileOpen}
-            aria-label="Open admin profile"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d7e1e8] bg-[#f3f6f8] text-sm font-bold uppercase text-[#34495c] sm:h-10 sm:w-10">
+        {/* Show the saved admin photo beside the welcome message with an initial fallback. */}
+        <div className="flex items-center gap-3">
+          <div className="hidden text-right sm:block">
+            <p className="text-sm font-semibold uppercase tracking-[0.1em] text-[#8496a5]">Welcome</p>
+            <p className="mt-0.5 text-sm font-semibold text-[#173f61]">{admin?.name || "Admin"}</p>
+          </div>
+          {admin?.avatar ? (
+            <img
+              src={admin.avatar}
+              alt={`${admin.name || "Admin"} profile`}
+              className="h-11 w-11 shrink-0 rounded-full border-2 border-[#e1eaf0] object-cover shadow-sm"
+            />
+          ) : (
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#e1eaf0] bg-[#f2f6f9] text-sm font-bold uppercase text-[#173f61] shadow-sm">
               {admin?.name?.charAt(0) || "A"}
             </span>
-            <span className="hidden sm:block">
-              <span className="block text-sm font-semibold text-[#173f61]">
-                {admin?.name || "Admin"}
-              </span>
-              <span className="block text-xs capitalize text-[#8496a5]">
-                {admin?.role || "admin"}
-              </span>
-            </span>
-            <ChevronDown
-              size={16}
-              className={`hidden text-[#8496a5] transition-transform sm:block ${
-                isProfileOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {isProfileOpen && (
-            <div className="absolute right-0 mt-2 w-[280px] overflow-hidden rounded-xl border border-[#dce5ec] bg-white shadow-[0_18px_50px_rgba(6,61,107,0.16)]">
-              <div className="border-b border-[#e6edf2] p-5">
-                <p className="font-semibold text-[#063d6b]">
-                  {admin?.name || "Admin"}
-                </p>
-                <p className="mt-1 break-all text-xs text-[#667d90]">
-                  {admin?.email}
-                </p>
-                <span className="mt-3 inline-flex rounded-full bg-[#edf2f5] px-3 py-1 text-[11px] font-semibold capitalize text-[#526b80]">
-                  {admin?.role || "admin"}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="flex w-full items-center gap-3 px-5 py-4 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
-              >
-                <LogOut size={17} />
-                Log out
-              </button>
-            </div>
           )}
         </div>
       </header>
@@ -219,7 +175,49 @@ const AdminLayout = () => {
               </span>
             )}
           </NavLink>
+          <NavLink
+            to="/admin/hero-section"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <PanelsTopLeft size={19} />
+            <span>Hero Slider</span>
+          </NavLink>
+          <NavLink
+            to="/admin/blogs"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <Newspaper size={19} />
+            <span>Blogs</span>
+          </NavLink>
+          <NavLink
+            to="/admin/success-stories"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <BookOpenText size={19} />
+            <span>Success Stories</span>
+          </NavLink>
+          <NavLink
+            to="/admin/faqs"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <CircleHelp size={19} />
+            <span>FAQs</span>
+          </NavLink>
         </nav>
+
+        {/* Bottom account area opens the full profile page and keeps logout accessible. */}
+        <div className="border-t border-white/10 p-4">
+          <NavLink to="/admin/profile" onClick={handleNavigation} className="flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-white/10">
+            {admin?.avatar ? <img src={admin.avatar} alt={`${admin.name} profile`} className="h-10 w-10 shrink-0 rounded-full border border-white/15 object-cover" /> : <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-sm font-bold uppercase text-white">{admin?.name?.charAt(0) || "A"}</span>}
+            <span className="min-w-0 flex-1"><span className="block truncate text-sm font-semibold text-white">{admin?.name || "Admin"}</span><span className="block truncate text-[11px] capitalize text-slate-400">{admin?.role || "admin"}</span></span>
+            <ChevronRight size={16} className="text-slate-400" />
+          </NavLink>
+          <button type="button" onClick={handleLogout} className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-300"><LogOut size={15} /> Log out</button>
+        </div>
 
       </aside>
 
@@ -231,6 +229,7 @@ const AdminLayout = () => {
               enquiriesError,
               setEnquiries,
               stats,
+              setAdmin,
             }}
           />
         </div>

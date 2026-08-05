@@ -21,6 +21,16 @@ const AdminResetPassword = lazy(
 );
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminEnquiries = lazy(() => import("./pages/admin/AdminEnquiries"));
+const AdminBlogs = lazy(() => import("./pages/admin/AdminBlogs"));
+const AdminBlogForm = lazy(() => import("./pages/admin/AdminBlogForm"));
+const AdminHeroSlides = lazy(() => import("./pages/admin/AdminHeroSlides"));
+const AdminSuccessStories = lazy(() => import("./pages/admin/AdminSuccessStories"));
+const AdminSuccessStoryForm = lazy(() => import("./pages/admin/AdminSuccessStoryForm"));
+const AdminFaqs = lazy(() => import("./pages/admin/AdminFaqs"));
+const AdminHeroSlideForm = lazy(() => import("./pages/admin/AdminHeroSlideForm"));
+const AdminFaqForm = lazy(() => import("./pages/admin/AdminFaqForm"));
+const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
+const SuccessStoryDetail = lazy(() => import("./pages/SuccessStoryDetail"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
 const AdminProtectedRoute = lazy(
@@ -53,7 +63,20 @@ const App = () => {
           }
         >
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/enquiries" element={<AdminEnquiries />} />
+          <Route path="/admin/hero-section" element={<AdminHeroSlides />} />
+          <Route path="/admin/hero-section/new" element={<AdminHeroSlideForm />} />
+          <Route path="/admin/hero-section/:id/edit" element={<AdminHeroSlideForm />} />
+          <Route path="/admin/blogs" element={<AdminBlogs />} />
+          <Route path="/admin/blogs/new" element={<AdminBlogForm />} />
+          <Route path="/admin/blogs/:id/edit" element={<AdminBlogForm />} />
+          <Route path="/admin/success-stories" element={<AdminSuccessStories />} />
+          <Route path="/admin/success-stories/new" element={<AdminSuccessStoryForm />} />
+          <Route path="/admin/success-stories/:id/edit" element={<AdminSuccessStoryForm />} />
+          <Route path="/admin/faqs" element={<AdminFaqs />} />
+          <Route path="/admin/faqs/new" element={<AdminFaqForm />} />
+          <Route path="/admin/faqs/:id/edit" element={<AdminFaqForm />} />
         </Route>
 
         <Route element={<Layout />}>
@@ -67,6 +90,7 @@ const App = () => {
           <Route path="/case-study" element={<CaseStudy />} />
           <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/success-stories" element={<SuccessStories />} />
+          <Route path="/success-stories/:slug" element={<SuccessStoryDetail />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -4,8 +4,11 @@ import {
   getCurrentAdmin,
   loginAdmin,
   resetAdminPassword,
+  updateCurrentAdmin,
+  uploadCurrentAdminAvatar,
 } from "../controllers/adminAuth.controller.js";
 import { protectAdmin } from "../middlewares/adminAuth.js";
+import { uploadAdminProfileImage } from "../middlewares/uploadAdminProfileImage.js";
 
 const adminAuthRouter = Router();
 
@@ -17,5 +20,7 @@ adminAuthRouter.post("/reset-password", resetAdminPassword);
 
 // Protected route used to restore and verify an admin session.
 adminAuthRouter.get("/me", protectAdmin, getCurrentAdmin);
+adminAuthRouter.patch("/me", protectAdmin, updateCurrentAdmin);
+adminAuthRouter.post("/profile-image", protectAdmin, uploadAdminProfileImage, uploadCurrentAdminAvatar);
 
 export default adminAuthRouter;

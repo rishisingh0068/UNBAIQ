@@ -1,13 +1,50 @@
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { heroSlides } from "../../data/heroSlides";
+import { getPublicHeroSlides } from "../../services/heroSlide";
+
+const legacyImages = Object.fromEntries(
+  heroSlides.map((slide) => [slide.id, slide.image]),
+);
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 const HeroSlider = () => {
+  const [slides, setSlides] = useState(heroSlides);
+
+  // Prefer active database slides; static slides remain only if the API is unavailable.
+  useEffect(() => {
+    let active = true;
+
+    getPublicHeroSlides()
+      .then(({ slides: databaseSlides }) => {
+        if (!active) return;
+
+        setSlides(
+          databaseSlides.map((slide) => ({
+            ...slide,
+            id: slide._id,
+            image: slide.image || legacyImages[slide.legacyImageKey] || heroSlides[0].image,
+            alt: slide.altText,
+          })),
+        );
+      })
+      .catch(() => {
+        // Static hero slides remain visible while the backend is unavailable.
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // Hide the hero section when the admin has removed or deactivated every slide.
+  if (slides.length === 0) return null;
+
   return (
     <section className="hero-slider relative w-full overflow-hidden bg-black">
       <Swiper
@@ -28,15 +65,15 @@ const HeroSlider = () => {
         }}
         className="h-full w-full"
       >
-        {heroSlides.map((slide) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <article className="relative h-full w-full overflow-hidden bg-black">
               <img
                 src={slide.image}
                 alt={slide.alt}
-                loading={slide.id === 1 ? "eager" : "lazy"}
-                fetchPriority={slide.id === 1 ? "high" : "low"}
-                decoding={slide.id === 1 ? "sync" : "async"}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "low"}
+                decoding={index === 0 ? "sync" : "async"}
                 className="hero-slide-image"
               />
 
@@ -46,40 +83,8 @@ const HeroSlider = () => {
               {/* Responsive text */}
               <div className="absolute inset-x-0 bottom-0 z-10 lg:bottom-auto lg:left-[42px] lg:right-auto lg:top-[482px]">
                 <div className="mx-auto w-full max-w-[1600px] px-4 pb-16 sm:px-6 sm:pb-20 md:px-10 md:pb-24 lg:mx-0 lg:max-w-none lg:px-0 lg:pb-0">
-                  <h1 className="hero-slide-title max-w-[90%] text-white sm:max-w-[80%] md:max-w-[70%] lg:h-[133px] lg:w-[957px] lg:max-w-none">
-                    {slide.id === 1 ? (
-                      <>
-                        We Build Product That Builds
-                        <br />
-                        Futures
-                      </>
-                    ) : slide.id === 2 ? (
-                      <>
-                        Smarter Software, Powered by AI.
-                        <br />
-                        Designed for Market Success
-                      </>
-                    ) : slide.id === 3 ? (
-                      <>
-                        E-Commerce That Learns, Adapts,
-                        <br />
-                        and Grows with AI
-                      </>
-                    ) : slide.id === 4 ? (
-                      <>
-                        Intelligent Apps That Learn, Adapt,
-                        <br />
-                        and Engage
-                      </>
-                    ) : slide.id === 5 ? (
-                      <>
-                        AI-Powered CRM That Understands
-                        <br />
-                        Your Customers
-                      </>
-                    ) : (
-                      slide.title
-                    )}
+                  <h1 className="hero-slide-title max-w-[90%] whitespace-pre-line text-white sm:max-w-[80%] md:max-w-[70%] lg:h-[133px] lg:w-[957px] lg:max-w-none">
+                    {slide.title}
                   </h1>
                 </div>
               </div>

@@ -24,6 +24,11 @@ export const getStoredAdmin = () => {
   }
 };
 
+// Refresh visible profile information without replacing the active token.
+export const updateStoredAdmin = (admin) => {
+  sessionStorage.setItem(ADMIN_KEY, JSON.stringify(admin));
+};
+
 // Remove both token and profile when logout or token verification fails.
 export const clearAdminSession = () => {
   sessionStorage.removeItem(TOKEN_KEY);

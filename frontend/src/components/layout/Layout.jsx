@@ -13,22 +13,35 @@ const Layout = () => {
   useEffect(() => {
     if (location.hash) {
       const targetId = location.hash.slice(1);
+      let attempts = 0;
+      let timerId;
 
-      requestAnimationFrame(() => {
-        document.getElementById(targetId)?.scrollIntoView({
-          behavior: "instant",
-          block: "start",
-        });
-      });
+      // Retry briefly because routed page sections may render after navigation.
+      const scrollToHashTarget = () => {
+        const target = document.getElementById(targetId);
 
-      return;
+        if (target) {
+          target.scrollIntoView({ behavior: "auto", block: "start" });
+          return;
+        }
+
+        attempts += 1;
+        if (attempts < 10) {
+          timerId = window.setTimeout(scrollToHashTarget, 50);
+        }
+      };
+
+      timerId = window.setTimeout(scrollToHashTarget, 0);
+      return () => window.clearTimeout(timerId);
     }
 
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: "auto",
     });
+
+    return undefined;
   }, [location.pathname, location.hash]);
 
   return (

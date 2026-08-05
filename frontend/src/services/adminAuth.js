@@ -33,3 +33,28 @@ export const getCurrentAdmin = (token) =>
   request("/admin/auth/me", {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+// Update the authenticated admin's editable profile fields.
+export const updateCurrentAdmin = (token, profile) =>
+  request("/admin/auth/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(profile),
+  });
+
+// Upload one local profile photo without overriding the multipart boundary.
+export const uploadCurrentAdminAvatar = async (token, imageFile) => {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  const response = await fetch(`${API_URL}/admin/auth/profile-image`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || "Unable to upload the profile photo");
+  return data;
+};

@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { Navigate, NavLink, useParams } from "react-router-dom";
 
 import blog1 from "../assets/images/home/blog/blog1.svg";
 import blog2 from "../assets/images/home/blog/blog2.svg";
 import blog3 from "../assets/images/home/blog/blog3.svg";
+import BlogContent from "../components/blog/BlogContent";
+import { getPublishedBlog } from "../services/blog";
 
 const blogPosts = {
   "how-to-own-web-design-agency-for-free": {
@@ -73,9 +76,57 @@ const blogPosts = {
   },
 };
 
+const fallbackImages = {
+  "how-to-own-web-design-agency-for-free": blog1,
+  "five-difficult-things-about-web-design-agency": blog2,
+  "why-web-design-agency-is-so-famous": blog3,
+};
+
 const BlogDetail = () => {
   const { slug } = useParams();
-  const post = blogPosts[slug];
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Prefer editable MongoDB content and retain static posts as an API fallback.
+  useEffect(() => {
+    let active = true;
+
+    getPublishedBlog(slug)
+      .then(({ blog }) => {
+        if (!active) return;
+
+        setPost({
+          image: blog.coverImage || fallbackImages[blog.slug] || blog1,
+          title: blog.title,
+          author: blog.author,
+          date: new Date(blog.publishedAt || blog.createdAt).toLocaleDateString(
+            "en-US",
+            { year: "numeric", month: "long", day: "numeric" },
+          ),
+          intro: blog.excerpt,
+          content: blog.content,
+          isDatabasePost: true,
+        });
+      })
+      .catch(() => {
+        if (active) setPost(blogPosts[slug] || null);
+      })
+      .finally(() => {
+        if (active) setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <main className="flex min-h-[50vh] items-center justify-center bg-white">
+        <p className="text-sm text-[#60758a]">Loading blog...</p>
+      </main>
+    );
+  }
 
   if (!post) {
     return <Navigate to="/not-found" replace />;
@@ -109,30 +160,36 @@ const BlogDetail = () => {
 
         <div className="text-[16px] font-light leading-[1.7] text-[#173f61] sm:text-[17px]">
           <p className="mb-8">{post.intro}</p>
-          <h2 className="mb-4 text-[22px] font-medium text-[#06365f]">
-            {post.sectionTitle ?? "Here's what we'll cover:"}
-          </h2>
-          <ol className="mb-8 list-decimal space-y-2 pl-5">
-            {post.points.map(([title, content]) => (
-              <li key={title}>
-                <span className="font-semibold text-[#06365f]">{title}: </span>
-                {content}
-              </li>
-            ))}
-          </ol>
-          <div className="space-y-5">
-            {post.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            {post.closingTitle && (
-              <>
-                <h2 className="text-[22px] font-medium text-[#06365f]">
-                  {post.closingTitle}
-                </h2>
-                <p>{post.closingParagraph}</p>
-              </>
-            )}
-          </div>
+          {post.isDatabasePost ? (
+            <BlogContent content={post.content} />
+          ) : (
+            <>
+              <h2 className="mb-4 text-[22px] font-medium text-[#06365f]">
+                {post.sectionTitle ?? "Here's what we'll cover:"}
+              </h2>
+              <ol className="mb-8 list-decimal space-y-2 pl-5">
+                {post.points.map(([title, content]) => (
+                  <li key={title}>
+                    <span className="font-semibold text-[#06365f]">{title}: </span>
+                    {content}
+                  </li>
+                ))}
+              </ol>
+              <div className="space-y-5">
+                {post.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                {post.closingTitle && (
+                  <>
+                    <h2 className="text-[22px] font-medium text-[#06365f]">
+                      {post.closingTitle}
+                    </h2>
+                    <p>{post.closingParagraph}</p>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </article>
     </main>

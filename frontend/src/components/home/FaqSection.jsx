@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const faqData = [
+import { getPublicFaqs } from "../../services/faq";
+
+const fallbackFaqs = [
   {
     id: 1,
     question: "Why should I invest in digital transformation?",
@@ -40,10 +42,27 @@ const faqData = [
 
 const FaqSection = () => {
   const [activeFaq, setActiveFaq] = useState(null);
+  const [faqData, setFaqData] = useState(fallbackFaqs);
+
+  // Use managed active FAQs and retain static content only if the API is unavailable.
+  useEffect(() => {
+    let active = true;
+    getPublicFaqs()
+      .then(({ faqs }) => {
+        if (active) setFaqData(faqs.map((faq) => ({ ...faq, id: faq._id })));
+      })
+      .catch(() => {
+        // Existing questions remain visible during a temporary backend failure.
+      });
+    return () => { active = false; };
+  }, []);
 
   const handleToggle = (id) => {
     setActiveFaq((currentId) => (currentId === id ? null : id));
   };
+
+  // Hide the shared section when the admin has no active questions.
+  if (faqData.length === 0) return null;
 
   return (
     <section className="w-full bg-transparent px-5 py-12 sm:px-7 lg:px-10 xl:px-14">

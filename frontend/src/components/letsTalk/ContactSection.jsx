@@ -34,6 +34,13 @@ const ContactSection = () => {
     return () => { active = false; unsubscribe(); };
   }, []);
 
+  // Automatically dismiss successful submission feedback after two seconds.
+  useEffect(() => {
+    if (!isSubmitted) return undefined;
+    const hideMessageTimer = window.setTimeout(() => setIsSubmitted(false), 2000);
+    return () => window.clearTimeout(hideMessageTimer);
+  }, [isSubmitted]);
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -51,8 +58,9 @@ const ContactSection = () => {
 
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
-    } else if (!/^[0-9+\-\s()]{7,15}$/.test(formData.phone.trim())) {
-      newErrors.phone = "Enter a valid phone number";
+    } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+      // Enquiries accept exactly ten numeric digits to avoid incomplete or oversized numbers.
+      newErrors.phone = "Enter a 10-digit phone number";
     }
 
     if (!formData.subject.trim()) {
@@ -457,6 +465,7 @@ const ContactSection = () => {
               id="phone"
               name="phone"
               type="tel"
+              inputMode="numeric"
               value={formData.phone}
               onChange={handleChange}
               placeholder="Phone"

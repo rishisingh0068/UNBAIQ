@@ -16,6 +16,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo/logo.svg";
 import { getEnquiries } from "../../services/enquiry";
+import { subscribeToContentUpdates } from "../../services/liveUpdates";
 import {
   clearAdminSession,
   getAdminToken,
@@ -30,14 +31,14 @@ const AdminLayout = () => {
   const [enquiries, setEnquiries] = useState([]);
   const [enquiriesError, setEnquiriesError] = useState("");
 
-  // Load enquiry data once for sidebar badges and dashboard overview cards.
+  // Load enquiries and silently refetch after frontend submissions or admin status changes.
   useEffect(() => {
     let active = true;
-
-    getEnquiries(token)
+    const loadEnquiries = () => getEnquiries(token)
       .then(({ enquiries: enquiryList }) => {
         if (active) {
           setEnquiries(enquiryList);
+          setEnquiriesError("");
         }
       })
       .catch((requestError) => {
@@ -46,8 +47,12 @@ const AdminLayout = () => {
         }
       });
 
+    loadEnquiries();
+    const unsubscribe = subscribeToContentUpdates("enquiries", loadEnquiries);
+
     return () => {
       active = false;
+      unsubscribe();
     };
   }, [token]);
 

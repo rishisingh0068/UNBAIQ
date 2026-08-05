@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import Enquiry from "../models/Enquiry.js";
+import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[0-9+\-\s()]{7,15}$/;
@@ -39,6 +40,9 @@ export const createEnquiry = async (request, response, next) => {
     }
 
     await Enquiry.create(enquiryData);
+
+    // Notify open admin panels immediately after a public enquiry is saved.
+    publishContentUpdate("enquiries");
 
     return response.status(201).json({
       success: true,
@@ -112,6 +116,9 @@ export const updateEnquiryStatus = async (request, response, next) => {
         message: "Enquiry not found",
       });
     }
+
+    // Keep enquiry counts and lists synchronized across every open admin tab.
+    publishContentUpdate("enquiries");
 
     return response.status(200).json({
       success: true,

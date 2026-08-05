@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 import Blog from "../models/Blog.js";
 import { createSlug } from "../utils/createSlug.js";
+import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const ALLOWED_STATUSES = ["draft", "published"];
 
@@ -80,6 +81,9 @@ export const createBlog = async (request, response, next) => {
       slug: await generateUniqueSlug(data.title),
       publishedAt: data.status === "published" ? new Date() : null,
     });
+
+    // Refresh open public blog sections after a successful database insert.
+    publishContentUpdate("blogs");
 
     return response.status(201).json({
       success: true,
@@ -160,6 +164,9 @@ export const updateBlog = async (request, response, next) => {
 
     await blog.save();
 
+    // Publishing, unpublishing, or editing changes the public blog data.
+    publishContentUpdate("blogs");
+
     return response.status(200).json({
       success: true,
       message: "Blog updated successfully",
@@ -193,6 +200,9 @@ export const deleteBlog = async (request, response, next) => {
         if (error.code !== "ENOENT") console.warn(`Unable to remove blog image: ${error.message}`);
       }
     }
+
+    // Remove deleted or unpublished-visible cards from open frontend tabs.
+    publishContentUpdate("blogs");
 
     return response.status(200).json({ success: true, message: "Blog deleted successfully" });
   } catch (error) {

@@ -73,6 +73,7 @@ const AdminBlogs = () => {
 
   return (
     <section className="mx-auto max-w-[1500px]">
+      {/* Stack page actions on phones and retain the horizontal desktop toolbar. */}
       <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-semibold text-[#063d6b]">Blog posts</h2>
@@ -82,7 +83,7 @@ const AdminBlogs = () => {
         </div>
         <NavLink
           to="/admin/blogs/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#063d6b] px-4 py-3 text-sm font-semibold text-white hover:bg-[#0a527f]"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#063d6b] px-4 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] sm:w-auto"
         >
           <Plus size={18} /> Add new blog
         </NavLink>
@@ -103,7 +104,7 @@ const AdminBlogs = () => {
         </div>
       ) : (
         <div className="mt-7 overflow-hidden rounded-xl border border-[#dce5ec] bg-white shadow-[0_8px_28px_rgba(32,45,58,0.06)]">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto overscroll-x-contain">
             <table className="w-full min-w-[760px] text-left text-sm">
               <thead className="bg-[#f8fafb] text-xs uppercase tracking-wide text-[#667d90]">
                 <tr>
@@ -132,7 +133,7 @@ const AdminBlogs = () => {
                       {new Date(blog.updatedAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <div className="flex justify-end gap-2">
+                      <div className="flex flex-wrap justify-end gap-2">
                         <button
                           type="button"
                           onClick={() => toggleStatus(blog)}

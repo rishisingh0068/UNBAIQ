@@ -59,8 +59,9 @@ const AdminResetPassword = () => {
     "mt-2 flex items-center gap-3 rounded-lg border border-[#cedce6] px-4 focus-within:border-[#2776a2] focus-within:ring-2 focus-within:ring-[#2776a2]/10";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f3f7fa] px-5 py-12 font-lexend">
-      <section className="w-full max-w-[460px] rounded-[18px] border border-[#dce7ef] bg-white p-7 shadow-[0_24px_70px_rgba(6,61,107,0.12)] sm:p-9">
+    <main className="flex min-h-screen items-center justify-center bg-[#f3f7fa] px-3 py-6 font-lexend sm:px-5 sm:py-12">
+      {/* Keep password recovery fully usable on narrow mobile screens. */}
+      <section className="w-full max-w-[460px] rounded-[16px] border border-[#dce7ef] bg-white p-5 shadow-[0_24px_70px_rgba(6,61,107,0.12)] sm:rounded-[18px] sm:p-9">
         <NavLink
           to="/admin/login"
           className="text-[13px] font-medium text-[#557086] hover:text-[#063d6b]"
@@ -72,7 +73,7 @@ const AdminResetPassword = () => {
           <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#2776a2]">
             UNBAIQ Admin
           </p>
-          <h1 className="mt-2 text-[28px] font-semibold tracking-[-0.03em] text-[#063d6b]">
+          <h1 className="mt-2 text-[25px] font-semibold tracking-[-0.03em] text-[#063d6b] sm:text-[28px]">
             Reset password
           </h1>
           <p className="mt-2 text-sm leading-6 text-[#667d90]">

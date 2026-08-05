@@ -2,6 +2,7 @@ import {
   ChevronRight,
   BookOpenText,
   CircleHelp,
+  ContactRound,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -80,8 +81,8 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-[#f3f6f9] font-lexend text-[#173f61]">
-      {/* Keep the header compact so the page title and profile remain visible. */}
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[72px] items-center justify-between border-b border-[#dce5ec] bg-white px-4 shadow-sm sm:px-6 lg:left-[250px] lg:pl-6 lg:pr-8">
+      {/* Responsive header preserves usable logo/profile space from phones through desktop. */}
+      <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#dce5ec] bg-white px-3 shadow-sm sm:h-[72px] sm:px-6 lg:left-[250px] lg:pl-6 lg:pr-8">
         <div className="flex min-w-0 items-center gap-3 sm:gap-4">
           <button
             type="button"
@@ -96,7 +97,7 @@ const AdminLayout = () => {
             onClick={handleNavigation}
             aria-label="UNBAIQ admin dashboard"
           >
-            <img src={logo} alt="UNBAIQ" className="h-12 w-auto max-w-[185px]" />
+            <img src={logo} alt="UNBAIQ" className="h-9 w-auto max-w-[125px] sm:h-12 sm:max-w-[185px]" />
           </NavLink>
         </div>
 
@@ -110,10 +111,10 @@ const AdminLayout = () => {
             <img
               src={admin.avatar}
               alt={`${admin.name || "Admin"} profile`}
-              className="h-11 w-11 shrink-0 rounded-full border-2 border-[#e1eaf0] object-cover shadow-sm"
+              className="h-9 w-9 shrink-0 rounded-full border-2 border-[#e1eaf0] object-cover shadow-sm sm:h-11 sm:w-11"
             />
           ) : (
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#e1eaf0] bg-[#f2f6f9] text-sm font-bold uppercase text-[#173f61] shadow-sm">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-[#e1eaf0] bg-[#f2f6f9] text-sm font-bold uppercase text-[#173f61] shadow-sm sm:h-11 sm:w-11">
               {admin?.name?.charAt(0) || "A"}
             </span>
           )}
@@ -130,11 +131,11 @@ const AdminLayout = () => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-[60] flex w-[250px] flex-col bg-[#202d3a] shadow-2xl transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-[60] flex w-[min(86vw,280px)] flex-col bg-[#202d3a] shadow-2xl transition-transform duration-300 lg:w-[250px] lg:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-white/10 px-5">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5 sm:h-[72px]">
           <div>
             <p className="text-sm font-semibold tracking-[0.08em] text-white">
               UNBAIQ ADMIN
@@ -153,7 +154,7 @@ const AdminLayout = () => {
           </button>
         </div>
 
-        <nav className="flex-1 space-y-2 px-4 py-5" aria-label="Admin navigation">
+        <nav className="flex-1 space-y-2 overflow-y-auto px-4 py-4 sm:py-5" aria-label="Admin navigation">
           <NavLink
             to="/admin/dashboard"
             onClick={handleNavigation}
@@ -207,6 +208,15 @@ const AdminLayout = () => {
             <CircleHelp size={19} />
             <span>FAQs</span>
           </NavLink>
+          {/* Open the singleton editor for the public Get in Touch information. */}
+          <NavLink
+            to="/admin/contact-content"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <ContactRound size={19} />
+            <span>Contact Content</span>
+          </NavLink>
         </nav>
 
         {/* Bottom account area opens the full profile page and keeps logout accessible. */}
@@ -221,8 +231,8 @@ const AdminLayout = () => {
 
       </aside>
 
-      <div className="min-h-screen pt-[72px] lg:pl-[250px]">
-        <div className="p-5 sm:p-7 lg:p-8">
+      <div className="min-h-screen pt-16 sm:pt-[72px] lg:pl-[250px]">
+        <div className="p-4 sm:p-6 lg:p-8">
           <Outlet
             context={{
               enquiries,

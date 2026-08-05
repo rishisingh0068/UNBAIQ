@@ -80,10 +80,11 @@ const AdminProfile = () => {
   if (!profile) return <p className="rounded-lg bg-red-50 p-4 text-sm text-red-700">{error || "Unable to load admin profile"}</p>;
 
   return <section className="mx-auto max-w-5xl">
+    {/* Profile columns, padding, and save action adapt from phones to desktop. */}
     <header><p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8496a5]">Account settings</p><h2 className="mt-1 text-2xl font-semibold text-[#063d6b]">Admin Profile</h2><p className="mt-1 text-sm text-[#667d90]">View account information and update your personal details.</p></header>
 
     <div className="mt-7 grid gap-6 lg:grid-cols-[280px_1fr]">
-      <aside className="h-fit rounded-xl border border-[#dce5ec] bg-white p-6 text-center shadow-sm">
+      <aside className="h-fit rounded-xl border border-[#dce5ec] bg-white p-5 text-center shadow-sm sm:p-6">
         {preview ? <img src={preview} alt={`${profile.name} profile`} className="mx-auto h-24 w-24 rounded-full border-4 border-[#eef3f6] object-cover shadow-sm" /> : <span className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#cddbe5] bg-[#f1f5f8] text-2xl font-bold uppercase text-[#274860]">{profile.name?.charAt(0) || "A"}</span>}
         <h3 className="mt-4 text-lg font-semibold text-[#173f61]">{profile.name}</h3>
         <p className="mt-1 break-all text-xs text-[#8496a5]">{profile.email}</p>
@@ -92,7 +93,7 @@ const AdminProfile = () => {
         <p className="mt-2 text-[10px] text-[#8496a5]">JPG, PNG or WEBP · Max 5 MB</p>
       </aside>
 
-      <form onSubmit={handleSubmit} className="rounded-xl border border-[#dce5ec] bg-white p-6 shadow-sm sm:p-8">
+      <form onSubmit={handleSubmit} className="min-w-0 rounded-xl border border-[#dce5ec] bg-white p-5 shadow-sm sm:p-8">
         <div className="flex items-center gap-3 border-b border-[#e6edf2] pb-5"><span className="rounded-lg bg-[#e9f4fa] p-2.5 text-[#176b98]"><UserRound size={20} /></span><div><h3 className="font-semibold text-[#063d6b]">Account information</h3><p className="mt-0.5 text-xs text-[#8496a5]">Name and email can be updated.</p></div></div>
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           <label className="block"><span className="text-sm font-medium text-[#244b67]">Full name *</span><input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} className={inputClass} required /></label>
@@ -104,7 +105,7 @@ const AdminProfile = () => {
         </div>
         {error && <p className="mt-5 rounded-lg bg-red-50 p-4 text-sm text-red-700">{error}</p>}
         {success && <p className="mt-5 rounded-lg bg-green-50 p-4 text-sm text-green-700">{success}</p>}
-        <div className="mt-6 flex justify-end"><button type="submit" disabled={isSaving} className="inline-flex items-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60"><Save size={17} /> {isSaving ? "Saving..." : "Save changes"}</button></div>
+        <div className="mt-6 flex justify-end"><button type="submit" disabled={isSaving} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60 sm:w-auto"><Save size={17} /> {isSaving ? "Saving..." : "Save changes"}</button></div>
       </form>
     </div>
   </section>;

@@ -30,6 +30,7 @@ const AdminFaqs = lazy(() => import("./pages/admin/AdminFaqs"));
 const AdminHeroSlideForm = lazy(() => import("./pages/admin/AdminHeroSlideForm"));
 const AdminFaqForm = lazy(() => import("./pages/admin/AdminFaqForm"));
 const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
+const AdminContactContent = lazy(() => import("./pages/admin/AdminContactContent"));
 const SuccessStoryDetail = lazy(() => import("./pages/SuccessStoryDetail"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const AdminRoute = lazy(() => import("./components/admin/AdminRoute"));
@@ -65,6 +66,8 @@ const App = () => {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/enquiries" element={<AdminEnquiries />} />
+          {/* Contact content uses one protected editor for the public Let's Talk details. */}
+          <Route path="/admin/contact-content" element={<AdminContactContent />} />
           <Route path="/admin/hero-section" element={<AdminHeroSlides />} />
           <Route path="/admin/hero-section/new" element={<AdminHeroSlideForm />} />
           <Route path="/admin/hero-section/:id/edit" element={<AdminHeroSlideForm />} />

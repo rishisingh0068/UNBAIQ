@@ -6,6 +6,7 @@ import blog2 from "../assets/images/home/blog/blog2.svg";
 import blog3 from "../assets/images/home/blog/blog3.svg";
 import BlogContent from "../components/blog/BlogContent";
 import { getPublishedBlog } from "../services/blog";
+import { subscribeToContentUpdates } from "../services/liveUpdates";
 
 const blogPosts = {
   "how-to-own-web-design-agency-for-free": {
@@ -87,11 +88,10 @@ const BlogDetail = () => {
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Prefer editable MongoDB content and retain static posts as an API fallback.
+  // Prefer MongoDB content and refetch the open post after every blog mutation.
   useEffect(() => {
     let active = true;
-
-    getPublishedBlog(slug)
+    const loadBlog = () => getPublishedBlog(slug)
       .then(({ blog }) => {
         if (!active) return;
 
@@ -115,8 +115,12 @@ const BlogDetail = () => {
         if (active) setIsLoading(false);
       });
 
+    loadBlog();
+    const unsubscribe = subscribeToContentUpdates("blogs", loadBlog);
+
     return () => {
       active = false;
+      unsubscribe();
     };
   }, [slug]);
 

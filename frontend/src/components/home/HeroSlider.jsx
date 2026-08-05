@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { heroSlides } from "../../data/heroSlides";
 import { getPublicHeroSlides } from "../../services/heroSlide";
+import { subscribeToContentUpdates } from "../../services/liveUpdates";
 
 const legacyImages = Object.fromEntries(
   heroSlides.map((slide) => [slide.id, slide.image]),
@@ -16,11 +17,10 @@ import "swiper/css/pagination";
 const HeroSlider = () => {
   const [slides, setSlides] = useState(heroSlides);
 
-  // Prefer active database slides; static slides remain only if the API is unavailable.
+  // Load once and silently refetch when the backend broadcasts a hero-slide mutation.
   useEffect(() => {
     let active = true;
-
-    getPublicHeroSlides()
+    const loadSlides = () => getPublicHeroSlides()
       .then(({ slides: databaseSlides }) => {
         if (!active) return;
 
@@ -37,8 +37,12 @@ const HeroSlider = () => {
         // Static hero slides remain visible while the backend is unavailable.
       });
 
+    loadSlides();
+    const unsubscribe = subscribeToContentUpdates("hero-slides", loadSlides);
+
     return () => {
       active = false;
+      unsubscribe();
     };
   }, []);
 

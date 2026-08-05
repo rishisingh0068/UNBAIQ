@@ -153,7 +153,8 @@ const AdminBlogForm = () => {
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="mt-7 space-y-6 rounded-xl border border-[#dce5ec] bg-white p-6 shadow-[0_8px_28px_rgba(32,45,58,0.06)] sm:p-8">
+      {/* Phone forms use compact padding and expand to two columns on larger screens. */}
+      <form onSubmit={handleSubmit} className="mt-5 space-y-6 rounded-xl border border-[#dce5ec] bg-white p-4 shadow-[0_8px_28px_rgba(32,45,58,0.06)] sm:mt-7 sm:p-8">
         <div className="grid gap-6 md:grid-cols-2">
           <label className="block md:col-span-2">
             <span className="text-sm font-medium text-[#244b67]">Title *</span>
@@ -220,7 +221,7 @@ const AdminBlogForm = () => {
         {error && <p className="rounded-lg bg-red-50 p-4 text-sm text-red-700" role="alert">{error}</p>}
 
         <div className="flex justify-end">
-          <button type="submit" disabled={isSubmitting} className="inline-flex items-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60">
+          <button type="submit" disabled={isSubmitting} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60 sm:w-auto">
             <Save size={17} /> {isSubmitting ? "Saving..." : "Save blog"}
           </button>
         </div>

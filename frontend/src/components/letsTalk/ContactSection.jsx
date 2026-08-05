@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapPin, Clock3, Phone } from "lucide-react";
 
 import { submitEnquiry } from "../../services/enquiry";
+import { defaultContactContent, getPublicContactContent } from "../../services/contactContent";
+import { subscribeToContentUpdates } from "../../services/liveUpdates";
 
 const initialFormData = {
   name: "",
@@ -12,12 +14,25 @@ const initialFormData = {
 };
 
 const ContactSection = () => {
+  const [contactContent, setContactContent] = useState(defaultContactContent);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
   // 🔴 Changed: tracks successful form submission.
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  // Load contact copy and refetch it after every successful admin save broadcast.
+  useEffect(() => {
+    let active = true;
+    const loadContactContent = () => getPublicContactContent()
+      .then(({ content }) => active && setContactContent({ ...defaultContactContent, ...content }))
+      .catch(() => {});
+
+    loadContactContent();
+    const unsubscribe = subscribeToContentUpdates("contact-content", loadContactContent);
+    return () => { active = false; unsubscribe(); };
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -137,6 +152,17 @@ const ContactSection = () => {
         lg:py-20
       "
     >
+      {/* Keep successful submission feedback visible at the top of every viewport size. */}
+      {isSubmitted && (
+        <div
+          className="fixed left-1/2 top-[92px] z-[100] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-center text-sm font-semibold text-green-700 shadow-[0_10px_35px_rgba(22,101,52,0.18)] sm:top-[104px]"
+          role="status"
+          aria-live="polite"
+        >
+          Your enquiry has been submitted successfully.
+        </div>
+      )}
+
       <div
         className="
           mx-auto
@@ -161,7 +187,7 @@ const ContactSection = () => {
               lg:text-[40px]
             "
           >
-            Get in Touch
+            {contactContent.heading}
           </h2>
 
           <p
@@ -174,7 +200,7 @@ const ContactSection = () => {
               sm:text-[15px]
             "
           >
-            Get in touch to start discussing your software product needs.
+            {contactContent.descriptionOne}
           </p>
 
           <p
@@ -187,7 +213,7 @@ const ContactSection = () => {
               sm:text-[15px]
             "
           >
-            Not sure where to start? We can help with that too.
+            {contactContent.descriptionTwo}
           </p>
 
           <div
@@ -220,7 +246,7 @@ const ContactSection = () => {
 
               <div>
                 <p className="text-[12px] font-medium text-[#294861]">
-                  Our Address in India
+                  {contactContent.indiaLabel}
                 </p>
 
                 <p
@@ -233,9 +259,7 @@ const ContactSection = () => {
                     sm:text-[15px]
                   "
                 >
-                  Bhutani CyberPark, C-712A
-                  <br />
-                  Sec-62, Noida, Uttar Pradesh
+                  <span className="whitespace-pre-line">{contactContent.indiaAddress}</span>
                 </p>
               </div>
             </div>
@@ -265,7 +289,7 @@ const ContactSection = () => {
         text-[#5f7288]
       "
     >
-      Our Address in Dubai
+      {contactContent.dubaiLabel}
     </p>
 
     <p
@@ -278,7 +302,7 @@ const ContactSection = () => {
         sm:text-[16px]
       "
     >
-      Sharjah Media City, Sharjah UAE
+      <span className="whitespace-pre-line">{contactContent.dubaiAddress}</span>
     </p>
   </div>
 </div>
@@ -302,7 +326,7 @@ const ContactSection = () => {
 
               <div>
                 <p className="text-[12px] font-medium text-[#294861]">
-                  We Are Available
+                  {contactContent.availabilityLabel}
                 </p>
 
                 <p
@@ -315,11 +339,11 @@ const ContactSection = () => {
                     sm:text-[15px]
                   "
                 >
-                  Mon - Fri: 9.00am to 6.00pm
+                  {contactContent.workingHours}
                 </p>
 
                 <p className="mt-1 text-[12px] text-[#063d6b]">
-                  Sunday Holiday
+                  {contactContent.holidayText}
                 </p>
               </div>
             </div>
@@ -343,7 +367,7 @@ const ContactSection = () => {
 
               <div>
                 <p className="text-[12px] font-medium text-[#294861]">
-                  Contact
+                  {contactContent.contactLabel}
                 </p>
 
                 <p
@@ -356,9 +380,9 @@ const ContactSection = () => {
                     sm:text-[15px]
                   "
                 >
-                  9911916600
+                  {contactContent.phone}
                   <br />
-                  contact@unbaiq.com
+                  {contactContent.email}
                 </p>
               </div>
             </div>
@@ -531,16 +555,6 @@ const ContactSection = () => {
             </p>
           )}
 
-          {/* 🔴 Changed: green form-submission success message. */}
-          {isSubmitted && (
-            <p
-              className="mt-4 text-center text-[14px] font-medium text-green-600 sm:text-right"
-              role="status"
-              aria-live="polite"
-            >
-              Submitted successfully.
-            </p>
-          )}
         </form>
       </div>
     </section>

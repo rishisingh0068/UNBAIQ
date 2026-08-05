@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 
 import { getPublishedSuccessStory } from "../services/successStory";
+import { subscribeToContentUpdates } from "../services/liveUpdates";
 
 const SuccessStoryDetail = () => {
   const { slug } = useParams();
@@ -10,14 +11,25 @@ const SuccessStoryDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Load one published story while keeping every visual section fixed in code.
+  // Reload the open story after backend edits, publishing changes, or deletion.
   useEffect(() => {
     let active = true;
-    getPublishedSuccessStory(slug)
-      .then(({ story: item }) => active && setStory(item))
-      .catch((requestError) => active && setError(requestError.message))
+    const loadStory = () => getPublishedSuccessStory(slug)
+      .then(({ story: item }) => {
+        if (!active) return;
+        setStory(item);
+        setError("");
+      })
+      .catch((requestError) => {
+        if (!active) return;
+        setStory(null);
+        setError(requestError.message);
+      })
       .finally(() => active && setIsLoading(false));
-    return () => { active = false; };
+
+    loadStory();
+    const unsubscribe = subscribeToContentUpdates("success-stories", loadStory);
+    return () => { active = false; unsubscribe(); };
   }, [slug]);
 
   if (isLoading) return <main className="flex min-h-[60vh] items-center justify-center text-[#60758a]">Loading success story...</main>;

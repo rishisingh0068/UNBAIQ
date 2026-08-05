@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -6,6 +7,7 @@ import blog1 from "../../assets/images/home/blog/blog1.svg";
 import blog2 from "../../assets/images/home/blog/blog2.svg";
 import blog3 from "../../assets/images/home/blog/blog3.svg";
 import { getPublishedBlogs } from "../../services/blog";
+import { subscribeToContentUpdates } from "../../services/liveUpdates";
 
 const blogPosts = [
   {
@@ -60,14 +62,28 @@ const cardVariants = {
 
 const LatestBlog = () => {
   const [posts, setPosts] = useState(blogPosts);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(1);
 
-  // Replace static cards with published database posts when the API is ready.
+  // Match the carousel capacity to the same mobile, tablet, and desktop card layout.
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth >= 1024) setVisibleCount(3);
+      else if (window.innerWidth >= 768) setVisibleCount(2);
+      else setVisibleCount(1);
+    };
+
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  // Load published posts and silently refetch after every backend blog mutation.
   useEffect(() => {
     let active = true;
-
-    getPublishedBlogs()
+    const loadBlogs = () => getPublishedBlogs()
       .then(({ blogs }) => {
-        if (!active || blogs.length === 0) return;
+        if (!active) return;
 
         setPosts(
           blogs.map((blog) => {
@@ -89,10 +105,21 @@ const LatestBlog = () => {
         // Existing static cards remain visible if the backend is unavailable.
       });
 
+    loadBlogs();
+    const unsubscribe = subscribeToContentUpdates("blogs", loadBlogs);
+
     return () => {
       active = false;
+      unsubscribe();
     };
   }, []);
+
+  // Derive a safe position after data or breakpoints change without an extra effect render.
+  const lastIndex = Math.max(0, posts.length - visibleCount);
+  const safeIndex = Math.min(currentIndex, lastIndex);
+  const visiblePosts = posts.slice(safeIndex, safeIndex + visibleCount);
+  const canMoveLeft = safeIndex > 0;
+  const canMoveRight = safeIndex < lastIndex;
 
   return (
     <section
@@ -168,27 +195,38 @@ const LatestBlog = () => {
           </h2>
         </motion.div>
 
-        {/* Blog cards */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.15,
-          }}
-          transition={{
-            staggerChildren: 0.16,
-          }}
-          className="
-            grid
-            grid-cols-1
-            gap-7
-            md:grid-cols-2
-            lg:grid-cols-3
-            lg:gap-6
-          "
-        >
-          {posts.map((post) => (
+        {/* Carousel shows at most three cards and reveals directional controls only when needed. */}
+        <div className="relative">
+          {canMoveLeft && (
+            <button
+              type="button"
+              onClick={() => setCurrentIndex(safeIndex - 1)}
+              aria-label="Show previous blog"
+              className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[#003b68] text-white shadow-lg transition hover:bg-[#07517f] sm:-left-5"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
+
+          {canMoveRight && (
+            <button
+              type="button"
+              onClick={() => setCurrentIndex(safeIndex + 1)}
+              aria-label="Show next blog"
+              className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[#003b68] text-white shadow-lg transition hover:bg-[#07517f] sm:-right-5"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
+
+          <motion.div
+            key={`${safeIndex}-${visibleCount}`}
+            initial="hidden"
+            animate="visible"
+            transition={{ staggerChildren: 0.12 }}
+            className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+          >
+          {visiblePosts.map((post) => (
             <motion.article
               key={post.id}
               variants={cardVariants}
@@ -352,7 +390,8 @@ const LatestBlog = () => {
               </div>
             </motion.article>
           ))}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

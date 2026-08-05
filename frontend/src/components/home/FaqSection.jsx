@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { getPublicFaqs } from "../../services/faq";
+import { subscribeToContentUpdates } from "../../services/liveUpdates";
 
 const fallbackFaqs = [
   {
@@ -44,17 +45,20 @@ const FaqSection = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [faqData, setFaqData] = useState(fallbackFaqs);
 
-  // Use managed active FAQs and retain static content only if the API is unavailable.
+  // Load managed FAQs and refetch them whenever the backend broadcasts a FAQ mutation.
   useEffect(() => {
     let active = true;
-    getPublicFaqs()
+    const loadFaqs = () => getPublicFaqs()
       .then(({ faqs }) => {
         if (active) setFaqData(faqs.map((faq) => ({ ...faq, id: faq._id })));
       })
       .catch(() => {
         // Existing questions remain visible during a temporary backend failure.
       });
-    return () => { active = false; };
+
+    loadFaqs();
+    const unsubscribe = subscribeToContentUpdates("faqs", loadFaqs);
+    return () => { active = false; unsubscribe(); };
   }, []);
 
   const handleToggle = (id) => {

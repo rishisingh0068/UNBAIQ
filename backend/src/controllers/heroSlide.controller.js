@@ -4,6 +4,7 @@ import path from "node:path";
 import mongoose from "mongoose";
 
 import HeroSlide from "../models/HeroSlide.js";
+import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const slidePayload = (body) => ({
   title: body.title?.trim(),
@@ -36,6 +37,8 @@ export const createHeroSlide = async (request, response, next) => {
     }
 
     const slide = await HeroSlide.create(data);
+    // Tell open homepages that the active slide collection may have changed.
+    publishContentUpdate("hero-slides");
     return response.status(201).json({ success: true, message: "Hero slide created", slide });
   } catch (error) {
     return next(error);
@@ -90,6 +93,9 @@ export const updateHeroSlide = async (request, response, next) => {
     Object.assign(slide, data);
     await slide.save();
 
+    // Text, order, image, and visibility updates all refresh the public slider.
+    publishContentUpdate("hero-slides");
+
     return response.status(200).json({ success: true, message: "Hero slide updated", slide });
   } catch (error) {
     return next(error);
@@ -124,6 +130,9 @@ export const deleteHeroSlide = async (request, response, next) => {
         }
       }
     }
+
+    // Remove the deleted slide from every connected homepage.
+    publishContentUpdate("hero-slides");
 
     return response.status(200).json({
       success: true,

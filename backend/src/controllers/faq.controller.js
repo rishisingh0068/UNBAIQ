@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import Faq from "../models/Faq.js";
+import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const faqPayload = (body) => ({
   question: body.question?.trim(),
@@ -20,6 +21,8 @@ export const createFaq = async (request, response, next) => {
       return response.status(400).json({ success: false, message: "Question, answer and a valid display order are required" });
     }
     const faq = await Faq.create(data);
+    // Refresh active FAQ sections after successful creation.
+    publishContentUpdate("faqs");
     return response.status(201).json({ success: true, message: "FAQ created successfully", faq });
   } catch (error) {
     return next(error);
@@ -62,6 +65,7 @@ export const updateFaq = async (request, response, next) => {
     }
     const faq = await Faq.findByIdAndUpdate(request.params.id, data, { new: true, runValidators: true });
     if (!faq) return response.status(404).json({ success: false, message: "FAQ not found" });
+    publishContentUpdate("faqs");
     return response.status(200).json({ success: true, message: "FAQ updated successfully", faq });
   } catch (error) {
     return next(error);
@@ -76,6 +80,7 @@ export const deleteFaq = async (request, response, next) => {
     }
     const faq = await Faq.findByIdAndDelete(request.params.id);
     if (!faq) return response.status(404).json({ success: false, message: "FAQ not found" });
+    publishContentUpdate("faqs");
     return response.status(200).json({ success: true, message: "FAQ deleted successfully" });
   } catch (error) {
     return next(error);

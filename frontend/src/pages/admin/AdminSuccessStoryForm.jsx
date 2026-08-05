@@ -91,7 +91,8 @@ const AdminSuccessStoryForm = () => {
   return <section className="mx-auto max-w-5xl">
     <NavLink to="/admin/success-stories" className="inline-flex items-center gap-2 text-sm font-semibold text-[#176b98]"><ArrowLeft size={17} /> Back to success stories</NavLink>
     <header className="mt-5"><h2 className="text-2xl font-semibold text-[#063d6b]">{isEditing ? "Edit success story" : "Add success story"}</h2><p className="mt-1 text-sm text-[#667d90]">Content follows the approved design structure automatically.</p></header>
-    <form onSubmit={handleSubmit} className="mt-7 space-y-6 rounded-xl border border-[#dce5ec] bg-white p-6 shadow-[0_8px_28px_rgba(32,45,58,0.06)] sm:p-8">
+    {/* Long structured fields use mobile-safe padding before the desktop grid begins. */}
+    <form onSubmit={handleSubmit} className="mt-5 space-y-6 rounded-xl border border-[#dce5ec] bg-white p-4 shadow-[0_8px_28px_rgba(32,45,58,0.06)] sm:mt-7 sm:p-8">
       <div className="grid gap-6 md:grid-cols-2">
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Story title *</span><input name="title" value={form.title} onChange={handleChange} className={inputClass} required /></label>
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Short description *</span><textarea name="description" value={form.description} onChange={handleChange} rows={3} className={`${inputClass} resize-y`} required /></label>
@@ -110,7 +111,7 @@ const AdminSuccessStoryForm = () => {
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Company name *</span><input name="companyName" value={form.companyName} onChange={handleChange} className={inputClass} required /></label>
       </div>
       {error && <p className="rounded-lg bg-red-50 p-4 text-sm text-red-700" role="alert">{error}</p>}
-      <div className="flex justify-end"><button type="submit" disabled={isSaving} className="inline-flex items-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60"><Save size={17} /> {isSaving ? "Saving..." : "Save success story"}</button></div>
+      <div className="flex justify-end"><button type="submit" disabled={isSaving} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#063d6b] px-5 py-3 text-sm font-semibold text-white hover:bg-[#0a527f] disabled:opacity-60 sm:w-auto"><Save size={17} /> {isSaving ? "Saving..." : "Save success story"}</button></div>
     </form>
   </section>;
 };

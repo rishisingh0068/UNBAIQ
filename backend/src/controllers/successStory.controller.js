@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 import SuccessStory from "../models/SuccessStory.js";
 import { createSlug } from "../utils/createSlug.js";
+import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const ALLOWED_STATUSES = ["draft", "published"];
 
@@ -73,6 +74,8 @@ export const createSuccessStory = async (request, response, next) => {
       slug: await generateUniqueSlug(data.title),
       publishedAt: data.status === "published" ? new Date() : null,
     });
+    // Refresh connected story listings after a successful insert.
+    publishContentUpdate("success-stories");
     return response.status(201).json({ success: true, message: "Success story created", story });
   } catch (error) {
     return next(error);
@@ -124,6 +127,9 @@ export const updateSuccessStory = async (request, response, next) => {
     if (data.status === "draft") story.publishedAt = null;
     await story.save();
 
+    // Content and publish-state edits update list and detail pages in real time.
+    publishContentUpdate("success-stories");
+
     return response.status(200).json({ success: true, message: "Success story updated", story });
   } catch (error) {
     return next(error);
@@ -153,6 +159,9 @@ export const deleteSuccessStory = async (request, response, next) => {
         if (error.code !== "ENOENT") console.warn(`Unable to remove success-story image: ${error.message}`);
       }
     }
+
+    // Connected public pages remove the deleted story immediately.
+    publishContentUpdate("success-stories");
 
     return response.status(200).json({ success: true, message: "Success story deleted successfully" });
   } catch (error) {

@@ -9,12 +9,15 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
 import adminAuthRouter from "./routes/adminAuth.routes.js";
 import adminBlogRouter from "./routes/adminBlog.routes.js";
+import adminContactContentRouter from "./routes/adminContactContent.routes.js";
 import adminEnquiryRouter from "./routes/adminEnquiry.routes.js";
 import adminFaqRouter from "./routes/adminFaq.routes.js";
 import adminHeroSlideRouter from "./routes/adminHeroSlide.routes.js";
 import adminSuccessStoryRouter from "./routes/adminSuccessStory.routes.js";
 import blogRouter from "./routes/blog.routes.js";
+import contactContentRouter from "./routes/contactContent.routes.js";
 import enquiryRouter from "./routes/enquiry.routes.js";
+import eventsRouter from "./routes/events.routes.js";
 import faqRouter from "./routes/faq.routes.js";
 import healthRouter from "./routes/health.routes.js";
 import heroSlideRouter from "./routes/heroSlide.routes.js";
@@ -47,9 +50,16 @@ if (process.env.NODE_ENV !== "test") {
 
 app.use("/api/health", healthRouter);
 
+// One native SSE stream keeps open public pages synchronized with saved content.
+app.use("/api/events", eventsRouter);
+
 // Accept public Let's Talk submissions and expose protected admin management.
 app.use("/api/enquiries", enquiryRouter);
 app.use("/api/admin/enquiries", adminEnquiryRouter);
+
+// A public reader and protected singleton editor manage the Get in Touch details.
+app.use("/api/contact-content", contactContentRouter);
+app.use("/api/admin/contact-content", adminContactContentRouter);
 
 // One managed FAQ collection powers every shared Q&A section.
 app.use("/api/faqs", faqRouter);

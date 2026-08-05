@@ -37,7 +37,8 @@ const AdminEnquiries = () => {
 
   return (
     <section className="mx-auto max-w-[1500px]">
-      <header className="mb-7">
+      {/* Compact card padding and wrapping protect long enquiry content on phones. */}
+      <header className="mb-5 sm:mb-7">
         <h2 className="text-2xl font-semibold text-[#063d6b]">Enquiry inbox</h2>
         <p className="mt-1 text-sm text-[#667d90]">
           Review messages submitted through the Let&apos;s Talk form.
@@ -59,7 +60,7 @@ const AdminEnquiries = () => {
           {enquiries.map((enquiry) => (
             <article
               key={enquiry._id}
-              className="rounded-xl border border-[#dce5ec] bg-white p-6 shadow-[0_8px_28px_rgba(32,45,58,0.06)]"
+              className="min-w-0 rounded-xl border border-[#dce5ec] bg-white p-4 shadow-[0_8px_28px_rgba(32,45,58,0.06)] sm:p-6"
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -111,7 +112,7 @@ const AdminEnquiries = () => {
 
               <div className="mt-5 flex flex-col gap-2 border-t border-[#e7eef3] pt-4 text-sm text-[#526b80] sm:flex-row sm:gap-6">
                 <a
-                  className="inline-flex items-center gap-2 hover:text-[#176b98]"
+                  className="inline-flex min-w-0 items-center gap-2 break-all hover:text-[#176b98]"
                   href={`mailto:${enquiry.email}`}
                 >
                   <Mail size={16} /> {enquiry.email}

@@ -3,20 +3,28 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { getPublishedSuccessStories } from "../services/successStory";
+import { subscribeToContentUpdates } from "../services/liveUpdates";
 
 const SuccessStories = () => {
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // The public listing contains only stories currently published by the admin.
+  // Load published stories and silently refetch when their backend collection changes.
   useEffect(() => {
     let active = true;
-    getPublishedSuccessStories()
-      .then(({ stories: list }) => active && setStories(list))
+    const loadStories = () => getPublishedSuccessStories()
+      .then(({ stories: list }) => {
+        if (!active) return;
+        setStories(list);
+        setError("");
+      })
       .catch((requestError) => active && setError(requestError.message))
       .finally(() => active && setIsLoading(false));
-    return () => { active = false; };
+
+    loadStories();
+    const unsubscribe = subscribeToContentUpdates("success-stories", loadStories);
+    return () => { active = false; unsubscribe(); };
   }, []);
 
   return <main className="min-h-screen bg-white font-lexend text-[#06365f]">

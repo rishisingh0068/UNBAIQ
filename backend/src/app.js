@@ -25,6 +25,26 @@ import successStoryRouter from "./routes/successStory.routes.js";
 
 const app = express();
 
+// Normalize configured origins and safely support local, production, and Netlify preview frontends.
+const configuredClientUrl = process.env.CLIENT_URL?.replace(/\/$/, "");
+const allowedOrigins = new Set([
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://unbaiq.netlify.app",
+  configuredClientUrl,
+].filter(Boolean));
+
+const isAllowedOrigin = (origin) => {
+  if (!origin || allowedOrigins.has(origin.replace(/\/$/, ""))) return true;
+
+  try {
+    const { hostname, protocol } = new URL(origin);
+    return protocol === "https:" && hostname.endsWith("--unbaiq.netlify.app");
+  } catch {
+    return false;
+  }
+};
+
 app.disable("x-powered-by");
 app.use(
   helmet({
@@ -34,7 +54,11 @@ app.use(
 );
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    // Reflect only approved origins so browser login and SSE work across deployments.
+    origin(origin, callback) {
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      return callback(new Error("Origin is not allowed by CORS"));
+    },
     credentials: true,
   }),
 );

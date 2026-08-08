@@ -14,7 +14,7 @@ const AdminProtectedRoute = ({ children }) => {
     token ? "checking" : "unauthenticated",
   );
 
-  // Verify the token with the backend before rendering protected admin content.
+  // Verify the token with the backend before rendering protected admin content
   useEffect(() => {
     let active = true;
 

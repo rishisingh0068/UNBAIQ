@@ -1,6 +1,7 @@
 import multer from "multer";
 
-const allowedMimeTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+// Keep every admin image form aligned, including Cloudinary-compatible SVG uploads.
+const allowedMimeTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/svg+xml"]);
 
 // Reuse one memory-only validator so Render never depends on temporary upload files.
 export const createImageUpload = ({ maxMegabytes, invalidTypeMessage }) => {

@@ -42,8 +42,9 @@ const AdminHeroSlideForm = () => {
   const handleImage = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 10 * 1024 * 1024) {
-      setError("Choose a JPG, PNG or WEBP image up to 10 MB");
+    // Accept SVG slides alongside the existing raster formats.
+    if (!['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'].includes(file.type) || file.size > 10 * 1024 * 1024) {
+      setError("Choose a JPG, PNG, WEBP or SVG image up to 10 MB");
       event.target.value = "";
       return;
     }
@@ -83,7 +84,7 @@ const AdminHeroSlideForm = () => {
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Slide text *</span><textarea value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} rows={4} className={`${inputClass} resize-y`} required /></label>
         <label className="block"><span className="text-sm font-medium text-[#244b67]">Image alt text *</span><input value={form.altText} onChange={(event) => setForm({ ...form, altText: event.target.value })} className={inputClass} required /></label>
         <label className="block"><span className="text-sm font-medium text-[#244b67]">Display order *</span><input type="number" min="1" value={form.order} onChange={(event) => setForm({ ...form, order: event.target.value })} className={inputClass} required /></label>
-        <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Slide image {isEditing ? "(optional replacement)" : "*"}</span><input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImage} required={!isEditing} className={`${inputClass} file:mr-4 file:rounded-md file:border-0 file:bg-[#e9f4fa] file:px-4 file:py-2 file:font-semibold file:text-[#176b98]`} />{preview ? <img src={preview} alt="Hero preview" className="mt-4 h-64 w-full rounded-xl object-cover" /> : <div className="mt-4 flex h-48 items-center justify-center rounded-xl border border-dashed text-[#8496a5]"><ImagePlus size={32} /></div>}</label>
+        <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Slide image {isEditing ? "(optional replacement)" : "*"}</span><input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleImage} required={!isEditing} className={`${inputClass} file:mr-4 file:rounded-md file:border-0 file:bg-[#e9f4fa] file:px-4 file:py-2 file:font-semibold file:text-[#176b98]`} />{preview ? <img src={preview} alt="Hero preview" className="mt-4 h-64 w-full rounded-xl object-cover" /> : <div className="mt-4 flex h-48 items-center justify-center rounded-xl border border-dashed text-[#8496a5]"><ImagePlus size={32} /></div>}</label>
         <label className="flex items-center gap-3 text-sm font-medium text-[#244b67] md:col-span-2"><input type="checkbox" checked={form.active} onChange={(event) => setForm({ ...form, active: event.target.checked })} /> Published</label>
       </div>
       {error && <p className="mt-5 rounded-lg bg-red-50 p-4 text-sm text-red-700">{error}</p>}

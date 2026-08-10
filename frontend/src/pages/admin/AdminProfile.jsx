@@ -40,8 +40,9 @@ const AdminProfile = () => {
   const handleImage = (event) => {
     const image = event.target.files?.[0];
     if (!image) return;
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(image.type) || image.size > 5 * 1024 * 1024) {
-      setError("Choose a JPG, PNG or WEBP profile photo up to 5 MB");
+    // Use the same SVG-capable image formats as the other admin upload forms.
+    if (!['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'].includes(image.type) || image.size > 5 * 1024 * 1024) {
+      setError("Choose a JPG, PNG, WEBP or SVG profile photo up to 5 MB");
       event.target.value = "";
       return;
     }
@@ -89,8 +90,8 @@ const AdminProfile = () => {
         <h3 className="mt-4 text-lg font-semibold text-[#173f61]">{profile.name}</h3>
         <p className="mt-1 break-all text-xs text-[#8496a5]">{profile.email}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#e9f4fa] px-3 py-1 text-xs font-semibold capitalize text-[#176b98]"><ShieldCheck size={14} /> {profile.role}</span>
-        <label className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#063d6b] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#0a527f]"><Camera size={15} /> {profile.avatar ? "Change photo" : "Upload photo"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImage} className="sr-only" /></label>
-        <p className="mt-2 text-[10px] text-[#8496a5]">JPG, PNG or WEBP · Max 5 MB</p>
+        <label className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[#063d6b] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#0a527f]"><Camera size={15} /> {profile.avatar ? "Change photo" : "Upload photo"}<input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleImage} className="sr-only" /></label>
+        <p className="mt-2 text-[10px] text-[#8496a5]">JPG, PNG, WEBP or SVG · Max 5 MB</p>
       </aside>
 
       <form onSubmit={handleSubmit} className="min-w-0 rounded-xl border border-[#dce5ec] bg-white p-5 shadow-sm sm:p-8">

@@ -52,8 +52,9 @@ const AdminSuccessStoryForm = () => {
   const handleImage = (event) => {
     const image = event.target.files?.[0];
     if (!image) return;
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(image.type) || image.size > 10 * 1024 * 1024) {
-      setError("Choose a JPG, PNG or WEBP image up to 10 MB");
+    // Accept SVG story covers alongside the existing raster formats.
+    if (!['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'].includes(image.type) || image.size > 10 * 1024 * 1024) {
+      setError("Choose a JPG, PNG, WEBP or SVG image up to 10 MB");
       event.target.value = "";
       return;
     }
@@ -100,7 +101,7 @@ const AdminSuccessStoryForm = () => {
         <label className="block"><span className="text-sm font-medium text-[#244b67]">Timeline *</span><input name="timeline" value={form.timeline} onChange={handleChange} className={inputClass} required /></label>
         <label className="block"><span className="text-sm font-medium text-[#244b67]">Platform *</span><input name="platform" value={form.platform} onChange={handleChange} className={inputClass} required /></label>
         <label className="block"><span className="text-sm font-medium text-[#244b67]">Status *</span><select name="status" value={form.status} onChange={handleChange} className={inputClass}><option value="draft">Unpublished</option><option value="published">Published</option></select></label>
-        <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Cover image {isEditing ? "(optional replacement)" : "*"}</span><input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImage} className={`${inputClass} file:mr-4 file:rounded-md file:border-0 file:bg-[#e9f4fa] file:px-4 file:py-2 file:font-semibold file:text-[#176b98]`} required={!isEditing} />{preview && <img src={preview} alt="Success story preview" className="mt-4 h-56 w-full rounded-xl object-cover" />}</label>
+        <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Cover image {isEditing ? "(optional replacement)" : "*"}</span><input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleImage} className={`${inputClass} file:mr-4 file:rounded-md file:border-0 file:bg-[#e9f4fa] file:px-4 file:py-2 file:font-semibold file:text-[#176b98]`} required={!isEditing} />{preview && <img src={preview} alt="Success story preview" className="mt-4 h-56 w-full rounded-xl object-cover" />}</label>
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Image alt text *</span><input name="imageAlt" value={form.imageAlt} onChange={handleChange} className={inputClass} required /></label>
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">The Challenge *</span><textarea name="challenge" value={form.challenge} onChange={handleChange} rows={6} className={`${inputClass} resize-y`} required /></label>
         <label className="block md:col-span-2"><span className="text-sm font-medium text-[#244b67]">Our Approach *</span><textarea name="approach" value={form.approach} onChange={handleChange} rows={6} className={`${inputClass} resize-y`} required /></label>

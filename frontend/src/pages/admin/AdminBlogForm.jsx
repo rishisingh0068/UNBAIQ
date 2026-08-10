@@ -75,8 +75,9 @@ const AdminBlogForm = () => {
 
     if (!image) return;
 
-    if (!["image/jpeg", "image/png", "image/webp"].includes(image.type)) {
-      setError("Choose a JPG, PNG or WEBP image");
+    // Mirror the backend image allow-list so SVG covers can be uploaded safely.
+    if (!["image/jpeg", "image/png", "image/webp", "image/svg+xml"].includes(image.type)) {
+      setError("Choose a JPG, PNG, WEBP or SVG image");
       event.target.value = "";
       return;
     }
@@ -176,12 +177,12 @@ const AdminBlogForm = () => {
             <span className="text-sm font-medium text-[#244b67]">Cover image</span>
             <input
               type="file"
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
               onChange={handleImageChange}
               className={`${inputClass} file:mr-4 file:rounded-md file:border-0 file:bg-[#e9f4fa] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#176b98]`}
             />
             <span className="mt-2 block text-xs text-[#8496a5]">
-              JPG, PNG or WEBP. Maximum file size 5 MB.
+              JPG, PNG, WEBP or SVG. Maximum file size 5 MB.
             </span>
             {imagePreview && (
               <img

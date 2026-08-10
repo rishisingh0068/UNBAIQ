@@ -107,8 +107,22 @@ const AdminLayout = () => {
           </NavLink>
         </div>
 
-        {/* Show the saved admin photo beside the welcome message with an initial fallback. */}
+        {/* Keep the live notification shortcut beside the saved admin identity. */}
         <div className="flex items-center gap-3">
+          <NavLink
+            to="/admin/notifications"
+            onClick={handleNavigation}
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d8e3eb] bg-white text-[#526b80] shadow-sm transition hover:border-[#bcd1df] hover:bg-[#f3f8fb] hover:text-[#0d759f] sm:h-11 sm:w-11"
+            aria-label={stats.new > 0 ? `${stats.new} new notifications` : "View notifications"}
+            title={stats.new > 0 ? `${stats.new} new notifications` : "No new notifications"}
+          >
+            <Bell size={19} aria-hidden="true" />
+            {stats.new > 0 && (
+              <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-red-500 px-1 text-[10px] font-bold leading-none text-white shadow-sm">
+                {stats.new > 99 ? "99+" : stats.new}
+              </span>
+            )}
+          </NavLink>
           <div className="hidden text-right sm:block">
             <p className="text-sm font-semibold uppercase tracking-[0.1em] text-[#8496a5]">Welcome</p>
             <p className="mt-0.5 text-sm font-semibold text-[#173f61]">{admin?.name || "Admin"}</p>

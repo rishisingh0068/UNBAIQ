@@ -1,4 +1,5 @@
 import {
+  Bell,
   ChevronRight,
   BookOpenText,
   CircleHelp,
@@ -167,6 +168,20 @@ const AdminLayout = () => {
           >
             <LayoutDashboard size={19} />
             Dashboard
+          </NavLink>
+          {/* Keep new-enquiry notifications visible and live in the primary sidebar. */}
+          <NavLink
+            to="/admin/notifications"
+            onClick={handleNavigation}
+            className={navigationClass}
+          >
+            <Bell size={19} />
+            <span>Notifications</span>
+            {stats.new > 0 && (
+              <span className="ml-auto min-w-6 rounded-full bg-red-500 px-2 py-0.5 text-center text-[11px] font-bold text-white">
+                {stats.new > 99 ? "99+" : stats.new}
+              </span>
+            )}
           </NavLink>
           <NavLink
             to="/admin/enquiries"

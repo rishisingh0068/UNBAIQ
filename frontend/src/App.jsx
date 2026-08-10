@@ -20,6 +20,8 @@ const AdminResetPassword = lazy(
   () => import("./pages/admin/AdminResetPassword"),
 );
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+// Load the live enquiry notification inbox only when an admin opens it.
+const AdminNotifications = lazy(() => import("./pages/admin/AdminNotifications"));
 const AdminEnquiries = lazy(() => import("./pages/admin/AdminEnquiries"));
 const AdminBlogs = lazy(() => import("./pages/admin/AdminBlogs"));
 const AdminBlogForm = lazy(() => import("./pages/admin/AdminBlogForm"));
@@ -64,6 +66,7 @@ const App = () => {
           }
         >
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/notifications" element={<AdminNotifications />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/enquiries" element={<AdminEnquiries />} />
           {/* Contact content uses one protected editor for the public Let's Talk details. */}

@@ -1,9 +1,7 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import mongoose from "mongoose";
 
 import HeroSlide from "../models/HeroSlide.js";
+import { deleteCloudinaryImageSafely, uploadCloudinaryImage } from "../utils/cloudinaryImages.js";
 import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const slidePayload = (body) => ({
@@ -14,14 +12,17 @@ const slidePayload = (body) => ({
   active: body.active !== false,
 });
 
-// Return a public URL for a validated locally uploaded hero image.
-export const uploadHeroSlideImage = (request, response) => {
-  if (!request.file) {
-    return response.status(400).json({ success: false, message: "Choose a hero image" });
+// Stream a validated hero image to permanent Cloudinary storage.
+export const uploadHeroSlideImage = async (request, response, next) => {
+  try {
+    if (!request.file) {
+      return response.status(400).json({ success: false, message: "Choose a hero image" });
+    }
+    const { url: image } = await uploadCloudinaryImage(request.file.buffer, "hero-slides");
+    return response.status(201).json({ success: true, image });
+  } catch (error) {
+    return next(error);
   }
-
-  const image = `${request.protocol}://${request.get("host")}/uploads/hero/${request.file.filename}`;
-  return response.status(201).json({ success: true, image });
 };
 
 // Create a new slide while keeping frontend styling outside database control.
@@ -90,8 +91,13 @@ export const updateHeroSlide = async (request, response, next) => {
     }
 
     if (!data.image) data.image = slide.image;
+    const previousImage = slide.image;
     Object.assign(slide, data);
     await slide.save();
+
+    if (previousImage && previousImage !== slide.image) {
+      await deleteCloudinaryImageSafely(previousImage, "hero image");
+    }
 
     // Text, order, image, and visibility updates all refresh the public slider.
     publishContentUpdate("hero-slides");
@@ -102,7 +108,7 @@ export const updateHeroSlide = async (request, response, next) => {
   }
 };
 
-// Delete one slide and remove only its own locally uploaded hero image.
+// Delete one slide and remove its matching Cloudinary image.
 export const deleteHeroSlide = async (request, response, next) => {
   try {
     if (!mongoose.isValidObjectId(request.params.id)) {
@@ -114,22 +120,7 @@ export const deleteHeroSlide = async (request, response, next) => {
       return response.status(404).json({ success: false, message: "Hero slide not found" });
     }
 
-    if (slide.image?.includes("/uploads/hero/")) {
-      try {
-        const filename = path.basename(new URL(slide.image).pathname);
-        const uploadDirectory = path.resolve("uploads", "hero");
-        const imagePath = path.resolve(uploadDirectory, filename);
-
-        if (path.dirname(imagePath) === uploadDirectory) {
-          await fs.unlink(imagePath);
-        }
-      } catch (error) {
-        // A missing local file must not restore an already deleted database record.
-        if (error.code !== "ENOENT") {
-          console.warn(`Unable to remove hero image: ${error.message}`);
-        }
-      }
-    }
+    await deleteCloudinaryImageSafely(slide.image, "hero image");
 
     // Remove the deleted slide from every connected homepage.
     publishContentUpdate("hero-slides");

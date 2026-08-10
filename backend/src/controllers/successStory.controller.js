@@ -1,10 +1,8 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import mongoose from "mongoose";
 
 import SuccessStory from "../models/SuccessStory.js";
 import { createSlug } from "../utils/createSlug.js";
+import { deleteCloudinaryImageSafely, uploadCloudinaryImage } from "../utils/cloudinaryImages.js";
 import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const ALLOWED_STATUSES = ["draft", "published"];
@@ -51,13 +49,17 @@ const generateUniqueSlug = async (title) => {
   return slug;
 };
 
-// Return a stable public URL after validating and storing a local image.
-export const uploadSuccessStoryCoverImage = (request, response) => {
-  if (!request.file) {
-    return response.status(400).json({ success: false, message: "Choose a success-story image" });
+// Stream a validated success-story image to permanent Cloudinary storage.
+export const uploadSuccessStoryCoverImage = async (request, response, next) => {
+  try {
+    if (!request.file) {
+      return response.status(400).json({ success: false, message: "Choose a success-story image" });
+    }
+    const { url: coverImage } = await uploadCloudinaryImage(request.file.buffer, "success-stories");
+    return response.status(201).json({ success: true, coverImage });
+  } catch (error) {
+    return next(error);
   }
-  const coverImage = `${request.protocol}://${request.get("host")}/uploads/success-stories/${request.file.filename}`;
-  return response.status(201).json({ success: true, coverImage });
 };
 
 // Create a complete story as either unpublished draft or published content.
@@ -122,10 +124,15 @@ export const updateSuccessStory = async (request, response, next) => {
     }
 
     const wasPublished = story.status === "published";
+    const previousCoverImage = story.coverImage;
     Object.assign(story, data);
     if (data.status === "published" && !wasPublished) story.publishedAt = new Date();
     if (data.status === "draft") story.publishedAt = null;
     await story.save();
+
+    if (previousCoverImage && previousCoverImage !== story.coverImage) {
+      await deleteCloudinaryImageSafely(previousCoverImage, "success-story image");
+    }
 
     // Content and publish-state edits update list and detail pages in real time.
     publishContentUpdate("success-stories");
@@ -136,7 +143,7 @@ export const updateSuccessStory = async (request, response, next) => {
   }
 };
 
-// Delete one story and remove only its matching backend upload image.
+// Delete one story and remove its matching Cloudinary image.
 export const deleteSuccessStory = async (request, response, next) => {
   try {
     if (!mongoose.isValidObjectId(request.params.id)) {
@@ -148,17 +155,7 @@ export const deleteSuccessStory = async (request, response, next) => {
       return response.status(404).json({ success: false, message: "Success story not found" });
     }
 
-    if (story.coverImage?.includes("/uploads/success-stories/")) {
-      try {
-        const filename = path.basename(new URL(story.coverImage).pathname);
-        const uploadDirectory = path.resolve("uploads", "success-stories");
-        const imagePath = path.resolve(uploadDirectory, filename);
-        if (path.dirname(imagePath) === uploadDirectory) await fs.unlink(imagePath);
-      } catch (error) {
-        // Original frontend assets are outside this directory and remain untouched.
-        if (error.code !== "ENOENT") console.warn(`Unable to remove success-story image: ${error.message}`);
-      }
-    }
+    await deleteCloudinaryImageSafely(story.coverImage, "success-story image");
 
     // Connected public pages remove the deleted story immediately.
     publishContentUpdate("success-stories");

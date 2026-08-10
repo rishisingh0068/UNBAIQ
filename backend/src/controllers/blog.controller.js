@@ -1,10 +1,8 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import mongoose from "mongoose";
 
 import Blog from "../models/Blog.js";
 import { createSlug } from "../utils/createSlug.js";
+import { deleteCloudinaryImageSafely, uploadCloudinaryImage } from "../utils/cloudinaryImages.js";
 import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const ALLOWED_STATUSES = ["draft", "published"];
@@ -19,22 +17,17 @@ const normalizeContent = (content) =>
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
-// Return the public URL generated for a validated local blog image.
-export const uploadBlogCoverImage = (request, response) => {
-  if (!request.file) {
-    return response.status(400).json({
-      success: false,
-      message: "Choose a blog image to upload",
-    });
+// Stream a validated blog cover to permanent Cloudinary storage.
+export const uploadBlogCoverImage = async (request, response, next) => {
+  try {
+    if (!request.file) {
+      return response.status(400).json({ success: false, message: "Choose a blog image to upload" });
+    }
+    const { url: coverImage } = await uploadCloudinaryImage(request.file.buffer, "blogs");
+    return response.status(201).json({ success: true, message: "Blog image uploaded successfully", coverImage });
+  } catch (error) {
+    return next(error);
   }
-
-  const coverImage = `${request.protocol}://${request.get("host")}/uploads/blogs/${request.file.filename}`;
-
-  return response.status(201).json({
-    success: true,
-    message: "Blog image uploaded successfully",
-    coverImage,
-  });
 };
 
 // Generate a unique slug without changing existing published URLs later.
@@ -154,6 +147,7 @@ export const updateBlog = async (request, response, next) => {
     }
 
     const wasPublished = blog.status === "published";
+    const previousCoverImage = blog.coverImage;
     Object.assign(blog, data);
 
     if (data.status === "published" && !wasPublished) {
@@ -163,6 +157,10 @@ export const updateBlog = async (request, response, next) => {
     }
 
     await blog.save();
+
+    if (previousCoverImage && previousCoverImage !== blog.coverImage) {
+      await deleteCloudinaryImageSafely(previousCoverImage, "blog image");
+    }
 
     // Publishing, unpublishing, or editing changes the public blog data.
     publishContentUpdate("blogs");
@@ -177,7 +175,7 @@ export const updateBlog = async (request, response, next) => {
   }
 };
 
-// Delete one blog and remove only its matching locally uploaded cover image.
+// Delete one blog and its matching Cloudinary cover image.
 export const deleteBlog = async (request, response, next) => {
   try {
     if (!mongoose.isValidObjectId(request.params.id)) {
@@ -189,17 +187,7 @@ export const deleteBlog = async (request, response, next) => {
       return response.status(404).json({ success: false, message: "Blog not found" });
     }
 
-    if (blog.coverImage?.includes("/uploads/blogs/")) {
-      try {
-        const filename = path.basename(new URL(blog.coverImage).pathname);
-        const uploadDirectory = path.resolve("uploads", "blogs");
-        const imagePath = path.resolve(uploadDirectory, filename);
-        if (path.dirname(imagePath) === uploadDirectory) await fs.unlink(imagePath);
-      } catch (error) {
-        // A missing image must not restore an already deleted database record.
-        if (error.code !== "ENOENT") console.warn(`Unable to remove blog image: ${error.message}`);
-      }
-    }
+    await deleteCloudinaryImageSafely(blog.coverImage, "blog image");
 
     // Remove deleted or unpublished-visible cards from open frontend tabs.
     publishContentUpdate("blogs");

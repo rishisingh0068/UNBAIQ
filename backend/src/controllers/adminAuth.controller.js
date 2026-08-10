@@ -1,7 +1,5 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import Admin from "../models/Admin.js";
+import { deleteCloudinaryImageSafely, uploadCloudinaryImage } from "../utils/cloudinaryImages.js";
 import { generateToken } from "../utils/generateToken.js";
 
 // Return only safe account fields; password hashes never leave the backend.
@@ -58,13 +56,17 @@ export const getCurrentAdmin = (request, response) => {
   });
 };
 
-// Return a public URL for a validated locally uploaded admin profile photo.
-export const uploadCurrentAdminAvatar = (request, response) => {
-  if (!request.file) {
-    return response.status(400).json({ success: false, message: "Choose a profile photo" });
+// Stream a validated profile photo to permanent Cloudinary storage.
+export const uploadCurrentAdminAvatar = async (request, response, next) => {
+  try {
+    if (!request.file) {
+      return response.status(400).json({ success: false, message: "Choose a profile photo" });
+    }
+    const { url: avatar } = await uploadCloudinaryImage(request.file.buffer, "admin-profiles");
+    return response.status(201).json({ success: true, avatar });
+  } catch (error) {
+    return next(error);
   }
-  const avatar = `${request.protocol}://${request.get("host")}/uploads/admin-profiles/${request.file.filename}`;
-  return response.status(201).json({ success: true, avatar });
 };
 
 // Allow the signed-in admin to update only their own editable profile fields.
@@ -89,16 +91,8 @@ export const updateCurrentAdmin = async (request, response, next) => {
     request.admin.avatar = avatar;
     await request.admin.save();
 
-    if (previousAvatar && previousAvatar !== avatar && previousAvatar.includes("/uploads/admin-profiles/")) {
-      try {
-        const filename = path.basename(new URL(previousAvatar).pathname);
-        const uploadDirectory = path.resolve("uploads", "admin-profiles");
-        const imagePath = path.resolve(uploadDirectory, filename);
-        if (path.dirname(imagePath) === uploadDirectory) await fs.unlink(imagePath);
-      } catch (error) {
-        // Profile data is already saved, so a missing old file must not fail the request.
-        if (error.code !== "ENOENT") console.warn(`Unable to remove old admin avatar: ${error.message}`);
-      }
+    if (previousAvatar && previousAvatar !== avatar) {
+      await deleteCloudinaryImageSafely(previousAvatar, "admin avatar");
     }
 
     return response.status(200).json({

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Navigate, NavLink, useParams } from "react-router-dom";
 
-import blog1 from "../assets/images/home/blog/blog1.svg";
-import blog2 from "../assets/images/home/blog/blog2.svg";
-import blog3 from "../assets/images/home/blog/blog3.svg";
+// Reuse the optimized WebP covers when a database blog has no uploaded image.
+import blog1 from "../assets/images/home/blog/blog1.webp";
+import blog2 from "../assets/images/home/blog/blog2.webp";
+import blog3 from "../assets/images/home/blog/blog3.webp";
 import BlogContent from "../components/blog/BlogContent";
 import { getPublishedBlog } from "../services/blog";
 import { subscribeToContentUpdates } from "../services/liveUpdates";

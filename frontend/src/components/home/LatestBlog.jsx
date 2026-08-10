@@ -3,9 +3,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import blog1 from "../../assets/images/home/blog/blog1.svg";
-import blog2 from "../../assets/images/home/blog/blog2.svg";
-import blog3 from "../../assets/images/home/blog/blog3.svg";
+// Use lightweight WebP fallbacks for the three original homepage blog cards.
+import blog1 from "../../assets/images/home/blog/blog1.webp";
+import blog2 from "../../assets/images/home/blog/blog2.webp";
+import blog3 from "../../assets/images/home/blog/blog3.webp";
 import { getPublishedBlogs } from "../../services/blog";
 import { subscribeToContentUpdates } from "../../services/liveUpdates";
 

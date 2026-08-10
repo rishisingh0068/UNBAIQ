@@ -105,9 +105,10 @@ const AdminBlogs = () => {
       ) : (
         <div className="mt-7 overflow-hidden rounded-xl border border-[#dce5ec] bg-white shadow-[0_8px_28px_rgba(32,45,58,0.06)]">
           <div className="overflow-x-auto overscroll-x-contain">
-            <table className="w-full min-w-[760px] text-left text-sm">
+            <table className="w-full min-w-[900px] text-left text-sm">
               <thead className="bg-[#f8fafb] text-xs uppercase tracking-wide text-[#667d90]">
                 <tr>
+                  <th className="px-6 py-4 font-semibold">Image</th>
                   <th className="px-6 py-4 font-semibold">Title</th>
                   <th className="px-6 py-4 font-semibold">Author</th>
                   <th className="px-6 py-4 font-semibold">Status</th>
@@ -118,6 +119,20 @@ const AdminBlogs = () => {
               <tbody className="divide-y divide-[#e6edf2]">
                 {blogs.map((blog) => (
                   <tr key={blog._id} className="hover:bg-[#fbfcfd]">
+                    {/* Show the saved blog cover just like the Hero Slider preview. */}
+                    <td className="px-6 py-4">
+                      {blog.coverImage ? (
+                        <img
+                          src={blog.coverImage}
+                          alt={`${blog.title} cover`}
+                          className="h-16 w-28 rounded-lg object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-16 w-28 items-center justify-center rounded-lg bg-[#eef3f6] text-xs font-medium text-[#7890a3]">
+                          No image
+                        </div>
+                      )}
+                    </td>
                     <td className="px-6 py-4">
                       <p className="max-w-md font-semibold text-[#173f61]">{blog.title}</p>
                       <p className="mt-1 text-xs text-[#8496a5]">/{blog.slug}</p>

@@ -14,6 +14,7 @@
     "seed:hero": "node scripts/seedHeroSlides.js",
     "seed:success-stories": "node scripts/seedSuccessStories.js",
     "seed:faqs": "node scripts/seedFaqs.js",
+    "migrate:blog-images": "node scripts/migrateBlogImages.js",
     "start": "node src/server.js"
   },
   "dependencies": {

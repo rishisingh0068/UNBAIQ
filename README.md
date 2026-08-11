@@ -1,257 +1,235 @@
 # UNBAIQ Website
 
-UNBAIQ is a modern, responsive corporate website for presenting the company's
-software services, working approach, portfolio, case studies, and contact
-information. The interface is built as a React single-page application with
-responsive layouts and motion-based interactions.
+UNBAIQ ki official full-stack corporate website. Is project me public marketing website ke saath ek protected admin panel bhi hai, jahan se hero slides, blogs, success stories, FAQs, enquiries aur contact details manage ki ja sakti hain.
 
-## What I Built
+## Project me kya bana hai?
 
-- A responsive landing page with a full-screen hero slider
-- Desktop and mobile navigation with an animated mobile menu
-- Dedicated pages for:
-  - Home
-  - What We Do
-  - Our Approach
-  - Services
-  - About
-  - Let's Talk 
-  - Case Study
-  - Custom 404 page
-- Reusable sections for services, business solutions, work samples, client
-  testimonials, partner logos, blogs, FAQs, and the footer
-- A responsive contact form with client-side validation
-- Dynamic browser page titles
-- Automatic scroll-to-top when navigating between routes
-- Responsive designs for mobile, tablet, laptop, and large desktop screens
+### Public website
 
-## Tech Stack
+- Responsive home page aur animated hero slider
+- What We Do, Our Approach, Services, About aur Dubai office pages
+- Blog listing/detail aur success stories
+- Let's Talk form, jo enquiry ko database me save karta hai
+- Reusable FAQ, testimonials, portfolio aur contact sections
+- Mobile, tablet aur desktop responsive layout
+- Route-based lazy loading, animations aur custom 404 page
 
-| Technology | Purpose |
-| --- | --- |
-| React 19 | Component-based user interface |
-| Vite 8 | Development server and production bundling |
-| React Router DOM 7 | Client-side routing |
-| Tailwind CSS 4 | Responsive layouts, spacing, colors, and utility styling |
-| Framer Motion 12 | Scroll reveals, stagger animations, transitions, and interactive motion |
-| Swiper 14 | Hero image slider with autoplay, fade effect, looping, and pagination |
-| Lucide React | Interface icons |
-| React Icons | Additional social and interface icons |
-| CSS | Global styling, custom transitions, responsive behavior, and Swiper overrides |
-| ESLint | Code-quality checks |
+### Admin panel
 
-The project uses the **Lexend** typeface, loaded from Google Fonts.
+- Secure admin login aur JWT-based authentication
+- Dashboard aur live enquiry notifications (Server-Sent Events)
+- Enquiries ko view aur manage karna
+- Blogs, hero slides, success stories aur FAQs ka CRUD
+- Public contact information edit karna
+- Admin profile aur password management
+- Cloudinary par image uploads
 
-## Animation Implementation
+Admin panel ka entry URL: `http://localhost:5173/admin`
 
-Animations are implemented with a combination of Framer Motion, Swiper, and CSS
-transitions.
+## Kaise bana hai?
 
-Framer Motion is used in sections such as:
+Project do independent applications me divided hai:
 
-- Navbar and mobile menu
-- Why Choose Us
-- Solutions
-- Our Work
-- Business Growth
-- Testimonials
-- Partner logo marquee
-- Latest Blogs
-- FAQs
-- Right Solutions
-
-
-
-## Project Structure
-
+```text
 UNBAIQ/
-├── README.md
-├── backend/                  # Reserved for a future backend
-└── frontend/
-    ├── public/               # Public assets
-    ├── src/
-    │   ├── assets/           # Logos, illustrations, and page images
-    │   ├── components/
-    │   │   ├── about/
-    │   │   ├── caseStudy/
-    │   │   ├── common/
-    │   │   ├── home/
-    │   │   ├── layout/
-    │   │   ├── letsTalk/
-    │   │   ├── ourServices/
-    │   │   ├── OurApproch/
-    │   │   └── whatwedo/
-    │   ├── data/             # Navigation and hero-slide content
-    │   ├── pages/            # Route-level page components
-    │   ├── styles/           # Shared theme values
-    │   ├── App.jsx           # Application routes
-    │   ├── index.css         # Global and custom styles
-    │   └── main.jsx          # React application entry point
-    ├── package.json
-    └── vite.config.js
+|-- frontend/                 React + Vite single-page application
+|   |-- public/               Static public files and hosting rules
+|   `-- src/
+|       |-- assets/           Images, logos and illustrations
+|       |-- components/       Reusable UI and admin components
+|       |-- data/             Static navigation/slide data
+|       |-- pages/            Public and admin route pages
+|       |-- services/         Backend API calls
+|       |-- styles/           Shared theme values
+|       |-- App.jsx           Application routes
+|       `-- main.jsx          React entry point
+|-- backend/                  Express REST API
+|   |-- scripts/              Admin creation, seed and migration scripts
+|   |-- src/
+|   |   |-- config/           MongoDB and Cloudinary setup
+|   |   |-- controllers/      Request/business logic
+|   |   |-- middlewares/      Auth, uploads and error handling
+|   |   |-- models/           Mongoose database models
+|   |   |-- routes/           Public and protected API routes
+|   |   |-- utils/            Tokens, slugs, images and live events
+|   |   |-- app.js            Express application configuration
+|   |   `-- server.js         API entry point
+|   `-- uploads/              Legacy/local uploaded assets
+`-- README.md
 ```
 
-## Routes
+Frontend backend ko REST APIs ke through call karta hai. MongoDB me application content store hota hai, Cloudinary uploaded images ko host karta hai, aur SSE open admin/public pages ko saved changes aur enquiries ki live updates deta hai.
 
-| Route | Page |
+## Tech stack
+
+| Layer | Technologies |
 | --- | --- |
-| `/` | Home |
-| `/what-we-do` | What We Do |
-| `/our-approach` | Our Approach |
-| `/services` | Services |
-| `/about` | About |
-| `/lets-talk` | Contact / Let's Talk |
-| `/case-study` | Case Study |
-| Any unknown route | 404 page |
+| Frontend | React 19, Vite 8, React Router 7 |
+| UI | Tailwind CSS 4, custom CSS, Lucide/React Icons |
+| Motion | Framer Motion, Swiper |
+| Backend | Node.js, Express 5 |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, bcryptjs |
+| Media | Multer, Cloudinary |
+| Security/utility | Helmet, CORS, Morgan |
 
-## Getting Started
+## Doosre system par local setup
 
+### 1. Requirements
+
+- Git
+- Node.js `20.19+` (Node.js 22 LTS recommended)
+- npm
+- MongoDB Atlas account ya local MongoDB server
+- Cloudinary account (admin image upload ke liye)
+
+### 2. Project clone karein
+
+```bash
+git clone <repository-url>
+cd UNBAIQ
+```
+
+`<repository-url>` ko actual Git repository URL se replace karein.
+
+### 3. Backend configure karein
+
+```bash
+cd backend
+npm install
+```
+
+`backend` folder me `.env` file banayein:
+
+```env
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb_connection_string
+JWT_SECRET=replace_with_a_long_random_secret
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5173
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# Sirf first admin create karte waqt required:
+ADMIN_NAME=Admin Name
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=minimum_8_character_password
+
+# Optional: seed data me absolute image URLs ke liye
+PUBLIC_SERVER_URL=http://localhost:5000
+
+# Optional: custom DNS resolution ki zarurat ho tab, comma-separated
+# MONGODB_DNS_SERVERS=8.8.8.8,1.1.1.1
+```
+
+Secrets ko Git me commit na karein. `JWT_SECRET` ke liye long, unpredictable value use karein.
+
+Backend start karein:
+
+```bash
+npm run dev
+```
+
+API `http://localhost:5000` par chalegi. Check karne ke liye browser me `http://localhost:5000/api/health` open karein.
+
+### 4. First admin create karein
+
+Backend `.env` me `ADMIN_NAME`, `ADMIN_EMAIL` aur `ADMIN_PASSWORD` fill karne ke baad:
+
+```bash
+npm run create-admin
+```
+
+Command successful hone ke baad security ke liye `.env` se `ADMIN_PASSWORD` remove kiya ja sakta hai. Same email se command dobara chalane par duplicate admin create nahi hoga.
+
+### 5. Frontend configure karein
+
+Ek naya terminal project root par open karein:
+
+```bash
 cd frontend
 npm install
+```
 
-### Start the Development Server
+`frontend` folder me `.env` file banayein:
 
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Frontend start karein:
+
+```bash
 npm run dev
+```
 
-Open the local URL displayed by Vite in the terminal.
+Terminal me dikhaya gaya Vite URL open karein—normally `http://localhost:5173`.
 
-## File Tree
+Local development me dono terminals running rehne chahiye:
 
-UNBAIQ/
-├── README.md
-└── frontend/
-    ├── index.html
-    ├── package.json
-    ├── package-lock.json
-    ├── vite.config.js
-    ├── eslint.config.js
-    │
-    ├── public/
-    │   └── MainLogo.svg
-    │
-    └── src/
-        ├── App.jsx
-        ├── App.css
-        ├── index.css
-        ├── main.jsx
-        │
-        ├── assets/
-        │   ├── logo/
-        │   │   ├── logo.svg
-        │   │   └── logoWhite.svg
-        │   │
-        │   └── images/
-        │       ├── about/
-        │       ├── caseStudy/
-        │       │   ├── case-study-hero.svg
-        │       │   ├── dashboard-1.svg
-        │       │   ├── dashboard-2.svg
-        │       │   └── dashboard-3.svg
-        │       │
-        │       ├── home/
-        │       │   ├── blog/
-        │       │   ├── businessGrowth/
-        │       │   ├── hero/
-        │       │   ├── ourwork/
-        │       │   ├── partners/
-        │       │   ├── testimonials/
-        │       │   └── whychoose/
-        │       │
-        │       ├── letsTalk/
-        │       ├── ourApproch/
-        │       │   ├── strategicFocus/
-        │       │   └── whatMakesDifferent/
-        │       │
-        │       ├── ourServices/
-        │       ├── UnbaiqDubai/
-        │       │   ├── dubai.png
-        │       │   └── dubai.svg
-        │       │
-        │       └── whatWeDo/
-        │           ├── bringIdeas/
-        │           ├── ourWork/
-        │           └── rightSolutions/
-        │
-        ├── components/
-        │   ├── about/
-        │   │   └── AboutHero.jsx
-        │   ├── caseStudy/
-        │   │   └── SchoolSecurityCaseStudy.jsx
-        │   ├── common/
-        │   │   └── PageTitle.jsx
-        │   ├── home/
-        │   │   ├── BusinessGrowthSection.jsx
-        │   │   ├── FaqSection.jsx
-        │   │   ├── HeroSlider.jsx
-        │   │   ├── LatestBlog.jsx
-        │   │   ├── LogoMarquee.jsx
-        │   │   ├── OurWorkSection.jsx
-        │   │   ├── SolutionsSection.jsx
-        │   │   ├── Testimonials.jsx
-        │   │   └── WhyChooseUs.jsx
-        │   ├── layout/
-        │   │   ├── Footer.jsx
-        │   │   ├── Layout.jsx
-        │   │   └── Navbar.jsx
-        │   ├── letsTalk/
-        │   │   ├── ContactSection.jsx
-        │   │   └── LetsTalkHero.jsx
-        │   ├── OurApproch/
-        │   │   ├── StrategicFocus.jsx
-        │   │   └── WhatMakesUsDifferent.jsx
-        │   ├── ourServices/
-        │   │   └── OurServices.jsx
-        │   ├── UnbaiqDubai/
-        │   │   ├── DubaiHero.jsx
-        │   │   └── DubaiOffice.jsx
-        │   └── whatwedo/
-        │       ├── BringIdeas.jsx
-        │       ├── OurWorkShowcase.jsx
-        │       ├── RightSolutions.jsx
-        │       └── SolutionsShaped.jsx
-        │
-        ├── data/
-        │   ├── heroSlides.js
-        │   └── navigation.js
-        │
-        ├── pages/
-        │   ├── About.jsx
-        │   ├── BlogDetail.jsx
-        │   ├── CaseStudy.jsx
-        │   ├── Home.jsx
-        │   ├── LetsTalk.jsx
-        │   ├── NotFound.jsx
-        │   ├── OurApproach.jsx
-        │   ├── Services.jsx
-        │   ├── SuccessStories.jsx
-        │   ├── UnbaiqDubai.jsx
-        │   └── WhatWeDo.jsx
-        │
-        └── styles/
-            └── theme.js
+```text
+Terminal 1: backend  -> npm run dev -> http://localhost:5000
+Terminal 2: frontend -> npm run dev -> http://localhost:5173
+```
+
+## Optional seed data
+
+Backend folder se required starter content insert kiya ja sakta hai:
+
+```bash
+npm run seed:hero
+npm run seed:blogs
+npm run seed:success-stories
+npm run seed:faqs
+```
+
+Seed commands shared database ko modify karte hain. Existing/production database par chalane se pehle scripts aur target `MONGODB_URI` verify karein.
+
+## Useful commands
+
+### Frontend
+
+| Command | Kaam |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production bundle |
 
 
+### Backend
 
-backend/
-├── src/
-│   ├── config/
-│   │   └── database.js
-│   ├── controllers/
-│   ├── middlewares/
-│   │   ├── errorHandler.js
-│   │   └── notFound.js
-│   ├── models/
-│   ├── routes/
-│   │   └── health.routes.js
-│   ├── app.js
-│   └── server.js
-├── .env.example
-├── .gitignore
-└── package.json
+| Command | Kaam |
+| --- | --- |
+| `npm run dev` | Watch mode me API server |
+| `npm start` | Normal/production API server |
+| `npm run create-admin` | First admin account create karna |
 
-/admin
-   ↓ redirect
-/admin/login
 
-frontend/src/pages/admin/AdminLogin.jsx
-frontend/src/components/admin/AdminRoute.jsx
+## Main routes
+
+### Public
+
+`/`, `/what-we-do`, `/our-approach`, `/services`, `/about`, `/unbaiq-dubai`, `/lets-talk`, `/case-study`, `/blog/:slug`, `/success-stories`, `/success-stories/:slug`
+
+### Admin
+
+`/admin/login`, `/admin/dashboard`, `/admin/notifications`, `/admin/enquiries`, `/admin/contact-content`, `/admin/hero-section`, `/admin/blogs`, `/admin/success-stories`, `/admin/faqs`, `/admin/profile`
+
+
+## Common problems
+
+- **Backend start nahi ho raha:** `MONGODB_URI` missing/invalid ho sakta hai ya MongoDB Atlas IP access allow nahi hai.
+- **Frontend par API error:** `VITE_API_URL` me `/api` included hai ya nahi check karein; value change ke baad Vite restart/rebuild karein.
+- **CORS error:** backend ke `CLIENT_URL` ko exact frontend origin par set karein; end me extra slash avoid karein.
+- **Admin login fail:** pehle `npm run create-admin` chalayein aur `JWT_SECRET` configured rakhein.
+- **Image upload fail:** tino `CLOUDINARY_*` values check karein.
+- **Port already in use:** backend `PORT` change karein; corresponding frontend API URL bhi update karein.
+
+## Security notes
+
+- `.env`, database credentials, JWT secret aur Cloudinary secret kabhi commit/share na karein.
+- Production me strong admin password aur unique JWT secret use karein.
+- Database seeding/migration se pehle backup rakhein.
+- `uploads/` ka generated content Git me intentionally ignored hai.

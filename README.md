@@ -113,6 +113,15 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
+# Client enquiry acknowledgement emails
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=hello@unbaiq.com
+SMTP_PASS=your_smtp_or_app_password
+MAIL_FROM=UNBAIQ <hello@unbaiq.com>
+MAIL_REPLY_TO=hello@unbaiq.com
+
 # Sirf first admin create karte waqt required:
 ADMIN_NAME=Admin Name
 ADMIN_EMAIL=admin@example.com
@@ -225,6 +234,7 @@ Seed commands shared database ko modify karte hain. Existing/production database
 - **CORS error:** backend ke `CLIENT_URL` ko exact frontend origin par set karein; end me extra slash avoid karein.
 - **Admin login fail:** pehle `npm run create-admin` chalayein aur `JWT_SECRET` configured rakhein.
 - **Image upload fail:** tino `CLOUDINARY_*` values check karein.
+- **Thank-you email nahi aa raha:** backend logs aur `SMTP_*`, `MAIL_FROM`, `MAIL_REPLY_TO` values check karein. Gmail/Google Workspace ke saath normal password ke badle App Password use karein.
 - **Port already in use:** backend `PORT` change karein; corresponding frontend API URL bhi update karein.
 
 ## Security notes

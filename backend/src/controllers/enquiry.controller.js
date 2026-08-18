@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import Enquiry from "../models/Enquiry.js";
+import { sendEnquiryThankYouEmail } from "../utils/sendEmail.js";
 import { publishContentUpdate } from "../utils/liveEvents.js";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,7 +40,14 @@ export const createEnquiry = async (request, response, next) => {
       });
     }
 
-    await Enquiry.create(enquiryData);
+    const enquiry = await Enquiry.create(enquiryData);
+
+    // Preserve a valid enquiry even if the external email provider is unavailable.
+    try {
+      await sendEnquiryThankYouEmail(enquiry);
+    } catch (emailError) {
+      console.error(`Unable to send enquiry thank-you email: ${emailError.message}`);
+    }
 
     // Notify open admin panels immediately after a public enquiry is saved.
     publishContentUpdate("enquiries");
